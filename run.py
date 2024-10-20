@@ -140,7 +140,7 @@ class Guess:
         """
         while True:
 
-            guess = input("Enter your guess: \n")
+            guess = input("Enter your guess: \n").strip()
 
             # Check that guess is not empty
             if len(guess) == 0:
