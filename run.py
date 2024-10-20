@@ -26,9 +26,13 @@ class Game:
         code = "".join(code_array)
         return code
 
-    def game_won(self, score):
+    def game_won(self, score, attempts):
         if score[0] == self.code_length:
-            print("\nYOU WON!\n")
+            print(
+                "\nCongratulations, you cracked the secret code "
+                f"'{self.secret_code}' in {attempts} "
+                f"{'rounds' if attempts != 1 else 'round'}.\n"
+                )
             return True
         else:
             return False
@@ -80,7 +84,7 @@ class Game:
             board.show(attempts)
 
             # check break conditions
-            if self.game_won(latest_score):
+            if self.game_won(latest_score, attempts):
                 break
             if self.check_max_rounds(attempts):
                 break
