@@ -6,7 +6,7 @@ class Game:
     """
     Create instance of Game
     """
-    def __init__(self, colors = [f"{i}" for i in range(1, 7)], code_length = 4, max_rounds = 12):
+    def __init__(self, colors = [f"{i}" for i in range(1, 7)], code_length = 4, max_rounds = 4):
         self.colors = colors
         self.code_length = code_length
         self.max_rounds = max_rounds
@@ -22,18 +22,32 @@ class Game:
         return code
     
     def game_won(self, score):
-        return score[0] == self.code_length
+        if score[0] == self.code_length:
+            print("\nYOU WON!\n")
+            return True
+        else:
+            return False
+
+    def check_max_rounds(self, attempts):
+        if attempts == self.max_rounds:
+            print("\nYou have run out of attempts.\n")
+            return True
+        else:
+            return False 
     
-    def run_game(self):
-        """
-        Run game
-        """
-        attempts = 1
+    def welcome_message(self):
         print("\nMASTERMIND\n")
         print(f"Welcome to a game of Mastermind. ... Instructions ... You have {self.max_rounds} attempts.\n")
         # Give description of secret code, generalised to colors list consisting of numbers or alphabetic characters
         print(f"The secret code consists of {self.code_length} {'digits' if self.colors[0].isnumeric() else 'characters'}.\n")
         print(f"For testing: secret code: {self.secret_code}\n")
+
+    def run_game(self):
+        """
+        Run game
+        """
+        attempts = 1
+        self.welcome_message()
         # Create board
         board = Board(self.code_length)
         # game loop
@@ -48,11 +62,11 @@ class Game:
             # Show board
             board.append_guess(latest_guess)
             board.show()
+
+            # check break conditions
             if self.game_won(latest_score):
-                print("\n YOU WON!\n")
                 break
-            if attempts == self.max_rounds:
-                print("\nYou have run out of attempts.\n")
+            if self.check_max_rounds(attempts):
                 break
             else:
                 # increment attempts
