@@ -25,11 +25,15 @@ class Game:
         Run game
         """
         print("\nMASTERMIND\n")
-        print("Welcome to a game of Mastermind.\n")
+        print("Welcome to a game of Mastermind. ... Instructions ...\n")
+        # Give description of secret code, generalised to colors list consisting of numbers or alphabetic characters
+        print(f"The secret code consists of {self.code_length} {'digits' if self.colors[0].isnumeric() else 'characters'}.\n")
         print(self.secret_code + "\n")
         # Create new guess, pass secret code and colors list to be able to check guess against secret
         latest_guess = Guess(self.secret_code, self.colors)
         print(f"\nYou guessed: {latest_guess.guessed_code}\n")
+        # Check guess against secret
+        print(latest_guess.score)
 
 
 class Guess:
@@ -40,16 +44,16 @@ class Guess:
         self.secret = secret
         self.colors = colors
         self.guessed_code = self.take_guess()
+        self.score = self.check_guess()
 
     def take_guess(self):
         """
         Take a guess from the user and check for valid input
         if guess is of correct length and contains only valid characters return it
         """
-
         while True:
 
-            guess = input(f"Enter your guess as a {len(self.secret)}-digit number: \n")
+            guess = input(f"Enter your guess: \n")
 
             # Check that guess has correct length
             if len(guess) != len(self.secret):
@@ -72,9 +76,30 @@ class Guess:
     
     def check_guess(self):
         """
-        Check guess against the secret code
+        Check guess against the secret code and return number of hits and close
+        Hit means correct character and position in the code
+        Close means correct character but wrong position in the code
         """
-        return
+        hits = 0
+        close = 0
+        secret_checked = self.secret
+        guess_checked = self.guessed_code
+        # check for hits
+        for i, char in enumerate(self.guessed_code):
+            # When character is at correct position increment hits
+            if char == self.secret[i]:
+                hits += 1
+                # remove hits from guess so don't count twice
+                guess_checked = guess_checked.replace(char, "", 1)
+                # replace checked character in secret by . so don't count twice
+                secret_checked = secret_checked[:i] + "." + secret_checked[i + 1:]
+        # check for close
+        for char in guess_checked:
+            if char in secret_checked:
+                close += 1
+                # replace checked character in secret by . so don't count twice
+                secret_checked =  secret_checked.replace(char, ".", 1)
+        return [hits, close]
         
 
 
