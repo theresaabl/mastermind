@@ -10,9 +10,64 @@ class GameMenu:
     def __init__(self):
         pass
 
+    def show_menu(self):
+        print("\nMASTERMIND\n")
+        print("Menu\n")
+        print("1 - Play Game\n")
+        print("2 - Show Instructions\n")
+        print("3 - Exit\n")
+
+    def take_choice(self):
+        """
+        Take user input menu choice
+        and return it if valid
+        """
+        while True:
+
+            choice = input("Choose from options 1 - 3: \n").strip()
+
+            # Check that choice is not empty
+            if len(choice) == 0:
+                print("\nYour choice is empty.\n")
+                continue
+
+            # Check that choice is numeric and of length 1
+            if len(choice) != 1 or choice not in "123":
+                print(f"\nYour choice '{choice}' is not valid.\n")
+                continue
+
+            # If choice is valid, break
+            break
+
+        return choice
+
+    def show_instructions(self):
+        print("\nInstructions to write ...\n")
+        while True:
+            # doesn't work yet
+            if input("Press any key to continue\n"):
+                break
+
     def run_menu(self):
-        game = Game()
-        game.run_game()
+        """
+        to write
+        """
+        while True:
+            self.show_menu()
+            menu_choice = self.take_choice()
+
+            if menu_choice == "1":
+                game = Game()
+                game.run_game()
+                continue
+
+            if menu_choice == "2":
+                self.show_instructions()
+                continue
+
+            if menu_choice == "3":
+                print("\nGood bye!\n")
+                break
 
 
 class Game:
@@ -22,7 +77,7 @@ class Game:
     def __init__(
             self, colors=[f"{i}" for i in range(1, 7)],
             # max rounds 4 for quicker testing
-            code_length=4, max_rounds=4
+            code_length=4, max_rounds=12
             ):
         self.colors = colors
         self.code_length = code_length
