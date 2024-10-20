@@ -11,6 +11,9 @@ class GameMenu:
         pass
 
     def show_menu(self):
+        """
+        Print the menu choices
+        """
         print("\nMASTERMIND\n")
         print("Menu\n")
         print("1 - Play Game\n")
@@ -19,11 +22,10 @@ class GameMenu:
 
     def take_choice(self):
         """
-        Take user input menu choice
+        Take user input menu choice, validate it
         and return it if valid
         """
         while True:
-
             choice = input("Choose from options 1 - 3: \n").strip()
 
             # Check that choice is not empty
@@ -42,31 +44,49 @@ class GameMenu:
         return choice
 
     def show_instructions(self):
+        """
+        Show game instructions until user presses key
+        """
         print("\nInstructions to write ...\n")
         while True:
             # doesn't work yet
             if input("Press any key to continue\n"):
                 break
 
+    def handle_menu_choice(self, menu_choice):
+        """
+        Check which option user chose and call functions accordingly
+        """
+        if menu_choice == "1":
+            game = Game()
+            game.run_game()
+            # controls whether menu shows again or not
+            return True
+
+        if menu_choice == "2":
+            self.show_instructions()
+            # controls whether menu shows again or not
+            return True
+
+        else:
+            print("\nGood bye!\n")
+            # controls whether menu shows again or not
+            return False
+
     def run_menu(self):
         """
-        to write
+        Outer loop, displays menu, takes user choice and
+        controls what happens next: run game, show instructions
+        or exit the game
         """
         while True:
             self.show_menu()
             menu_choice = self.take_choice()
-
-            if menu_choice == "1":
-                game = Game()
-                game.run_game()
+            # handles menu choice, calls appropriate functions
+            # and controls whether menu shows again or not
+            if self.handle_menu_choice(menu_choice):
                 continue
-
-            if menu_choice == "2":
-                self.show_instructions()
-                continue
-
-            if menu_choice == "3":
-                print("\nGood bye!\n")
+            else:
                 break
 
 
