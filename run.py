@@ -6,10 +6,10 @@ class Game:
     """
     Create instance of Game
     """
-    def __init__(self, colors = [f"{i}" for i in range(1, 7)], code_length = 4, max_attempts = 12):
+    def __init__(self, colors = [f"{i}" for i in range(1, 7)], code_length = 4, max_rounds = 12):
         self.colors = colors
         self.code_length = code_length
-        self.max_attempts = max_attempts
+        self.max_rounds = max_rounds
         self.secret_code = self.create_code()
     
     def create_code(self):
@@ -21,27 +21,43 @@ class Game:
         code = "".join(code_array)
         return code
     
+    def game_won(self, score):
+        return score[0] == self.code_length
+    
     def run_game(self):
         """
         Run game
         """
+        attempts = 1
         print("\nMASTERMIND\n")
-        print("Welcome to a game of Mastermind. ... Instructions ...\n")
+        print(f"Welcome to a game of Mastermind. ... Instructions ... You have {self.max_rounds} attempts.\n")
         # Give description of secret code, generalised to colors list consisting of numbers or alphabetic characters
         print(f"The secret code consists of {self.code_length} {'digits' if self.colors[0].isnumeric() else 'characters'}.\n")
-        print(self.secret_code + "\n")
-        # Create new guess, pass secret code and colors list to be able to check guess against secret
-        latest_guess = Guess(self.secret_code, self.colors)
-        print(f"\nYou guessed: {latest_guess.guessed_code}\n")
-        # Check guess against secret and save score
-        [hits, close] = latest_guess.score
-        print(f"You have {hits} hits and {close} close.\n")
-        # Show the board
+        print(f"For testing: secret code: {self.secret_code}\n")
+        # Create board
         board = Board(self.code_length)
-        board.append_guess(latest_guess)
-        board.show()
+        # game loop
+        while True:
+            print(f"\nRound {attempts}:\n")
+            # Create new guess, pass secret code and colors list to be able to check guess against secret
+            latest_guess = Guess(self.secret_code, self.colors)
+            print(f"\nYou guessed: {latest_guess.guessed_code}\n")
+            # Check guess against secret and save score
+            latest_score = latest_guess.score
+            print(f"You have {latest_score[0]} hits and {latest_score[1]} close.\n")
+            # Show board
+            board.append_guess(latest_guess)
+            board.show()
+            if self.game_won(latest_score):
+                print("\n YOU WON!\n")
+                break
+            if attempts == self.max_rounds:
+                print("\nYou have run out of attempts.\n")
+                break
+            else:
+                # increment attempts
+                attempts += 1
         
-
 class Board:
     """
     Create instance of Board
@@ -122,6 +138,7 @@ class Guess:
                 # replace checked character in secret by . so don't count twice
                 secret_checked =  secret_checked.replace(char, ".", 1)
         return [hits, close]
+
         
 
 
