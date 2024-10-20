@@ -27,8 +27,8 @@ class Game:
         print("\nMASTERMIND\n")
         print("Welcome to a game of Mastermind.\n")
         print(self.secret_code + "\n")
-        # Create new guess
-        latest_guess = Guess(self.secret_code)
+        # Create new guess, pass secret code and colors list to be able to check guess against secret
+        latest_guess = Guess(self.secret_code, self.colors)
         print(f"\nYou guessed: {latest_guess.guessed_code}\n")
 
 
@@ -36,12 +36,46 @@ class Guess:
     """
     Create instance of Guess
     """
-    def __init__(self, secret):
+    def __init__(self, secret, colors):
         self.secret = secret
+        self.colors = colors
         self.guessed_code = self.take_guess()
 
     def take_guess(self):
-        return input("Enter your guess as a 4-digit number: \n")
+        """
+        Take a guess from the user and check for valid input
+        if guess is of correct length and contains only valid characters return it
+        """
+
+        while True:
+
+            guess = input(f"Enter your guess as a {len(self.secret)}-digit number: \n")
+
+            # Check that guess has correct length
+            if len(guess) != len(self.secret):
+                print(f"\nYour guess '{guess}' is not the right length.\n")
+                continue
+            
+            # Check that guess only contains valid characters according to colors list
+            characters_valid = True
+            for char in guess:
+                if char.lower() not in [color.lower() for color in self.colors]:
+                    # Compare lowercase strings so that it works for general colors list in Game class, which can contain letters   
+                    print(f"\nYour guess '{guess}' contains invalid characters.\n")
+                    characters_valid = False
+                    break
+            
+            if characters_valid == True:
+                break
+
+        return guess
+    
+    def check_guess(self):
+        """
+        Check guess against the secret code
+        """
+        return
+        
 
 
 # Run game
