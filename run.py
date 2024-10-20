@@ -48,10 +48,7 @@ class GameMenu:
         Show game instructions until user presses key
         """
         print("\nInstructions to write ...\n")
-        while True:
-            # doesn't work yet
-            if input("Press any key to continue\n"):
-                break
+        input("Press enter to continue\n")
 
     def handle_menu_choice(self, menu_choice):
         """
