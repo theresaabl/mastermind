@@ -9,6 +9,7 @@ class Game:
     """
     def __init__(
             self, colors=[f"{i}" for i in range(1, 7)],
+            # max rounds 4 for quicker testing
             code_length=4, max_rounds=4
             ):
         self.colors = colors
@@ -47,7 +48,8 @@ class Game:
         # consisting of numbers or alphabetic characters
         print(
             f"The secret code consists of {self.code_length} "
-            "{'digits' if self.colors[0].isnumeric() else 'characters'}.\n"
+            f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
+            f"out of {self.colors}\n"
             )
         print(f"For testing: secret code: {self.secret_code}\n")
 
@@ -93,13 +95,26 @@ class Board:
     def __init__(self, size):
         self.size = size
 
+    # Initialize list of guesses and include board headers
     guess_list = [["Guess:", "Hits:", "Close:"]]
 
     def append_guess(self, guess):
-        self.guess_list.append([guess.guessed_code, guess.score[0], guess.score[1]])
+        """
+        Append latest guess to the board
+        """
+        self.guess_list.append(
+            # Improve formatting of guess in board
+            [" ".join(list(guess.guessed_code)), \
+                guess.score[0], guess.score[1]]
+            )
 
     def show(self):
-        print(tabulate(self.guess_list, headers='firstrow', tablefmt='fancy_grid'))
+        """
+        Print the board with nice formatting
+        """
+        print(tabulate(
+            self.guess_list, headers='firstrow', tablefmt='fancy_grid'
+            ))
 
 
 class Guess:
