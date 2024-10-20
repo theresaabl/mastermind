@@ -57,10 +57,11 @@ class Game:
         """
         Run game
         """
-        attempts = 1
         self.welcome_message()
         # Create board
-        board = Board(self.code_length)
+        board = Board()
+        # Reset to first round (1st attempt)
+        attempts = 1
         # game loop
         while True:
             print(f"\nRound {attempts}:\n")
@@ -76,7 +77,7 @@ class Game:
                 )
             # Show board
             board.append_guess(latest_guess)
-            board.show()
+            board.show(attempts)
 
             # check break conditions
             if self.game_won(latest_score):
@@ -92,8 +93,8 @@ class Board:
     """
     Create instance of Board
     """
-    def __init__(self, size):
-        self.size = size
+    def __init__(self):
+        pass
 
     # Initialize list of guesses and include board headers
     guess_list = [["Guess:", "Hits:", "Close:"]]
@@ -108,12 +109,16 @@ class Board:
                 guess.score[0], guess.score[1]]
             )
 
-    def show(self):
+    def show(self, rounds):
         """
         Print the board with nice formatting
+        Code inspiration from:
+        https://learnpython.com/blog/print-table-in-python/
         """
+        rowIDs = [i for i in range(1, rounds + 1)]
         print(tabulate(
-            self.guess_list, headers='firstrow', tablefmt='fancy_grid'
+            self.guess_list, headers='firstrow',
+            tablefmt='rounded_outline', showindex=rowIDs
             ))
 
 
@@ -136,6 +141,11 @@ class Guess:
         while True:
 
             guess = input("Enter your guess: \n")
+
+            # Check that guess is not empty
+            if len(guess) == 0:
+                print("\nYour guess is empty.\n")
+                continue
 
             # Check that guess has correct length
             if len(guess) != len(self.secret):
