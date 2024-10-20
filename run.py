@@ -3,6 +3,18 @@ import random
 from tabulate import tabulate
 
 
+class GameMenu:
+    """
+    Create instance of GameMenu
+    """
+    def __init__(self):
+        pass
+
+    def run_menu(self):
+        game = Game()
+        game.run_game()
+
+
 class Game:
     """
     Create instance of Game
@@ -205,6 +217,6 @@ class Guess:
         return [hits, close]
 
 
-# Run game
-game = Game()
-game.run_game()
+# Create and run game menu
+menu = GameMenu()
+menu.run_menu()
