@@ -1,5 +1,6 @@
 #mock terminal of 80 characters wide and 24 rows high
 import random
+from pprint import pprint
 
 class Game:
     """
@@ -32,9 +33,30 @@ class Game:
         # Create new guess, pass secret code and colors list to be able to check guess against secret
         latest_guess = Guess(self.secret_code, self.colors)
         print(f"\nYou guessed: {latest_guess.guessed_code}\n")
-        # Check guess against secret
-        print(latest_guess.score)
+        # Check guess against secret and save score
+        [hits, close] = latest_guess.score
+        print(f"You have {hits} hits and {close} close.\n")
+        # Show the board
+        board = Board(self.code_length)
+        board.append_guess(latest_guess)
+        board.show()
+        
 
+class Board:
+    """
+    Create instance of Board
+    """
+    def __init__(self, size):
+        self.size = size        
+    
+    guess_list = []
+
+    def append_guess(self, guess):
+        self.guess_list.append([guess.guessed_code, guess.score])
+    
+    def show(self):
+        pprint(self.guess_list)
+    
 
 class Guess:
     """
