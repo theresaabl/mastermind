@@ -1,6 +1,6 @@
 # mock terminal of 80 characters wide and 24 rows high
 import random
-from pprint import pprint
+from tabulate import tabulate
 
 
 class Game:
@@ -70,7 +70,7 @@ class Game:
             latest_score = latest_guess.score
             print(
                 f"You have {latest_score[0]} hits and "
-                "{latest_score[1]} close.\n"
+                f"{latest_score[1]} close.\n"
                 )
             # Show board
             board.append_guess(latest_guess)
@@ -93,13 +93,13 @@ class Board:
     def __init__(self, size):
         self.size = size
 
-    guess_list = []
+    guess_list = [["Guess:", "Hits:", "Close:"]]
 
     def append_guess(self, guess):
-        self.guess_list.append([guess.guessed_code, guess.score])
+        self.guess_list.append([guess.guessed_code, guess.score[0], guess.score[1]])
 
     def show(self):
-        pprint(self.guess_list)
+        print(tabulate(self.guess_list, headers='firstrow', tablefmt='fancy_grid'))
 
 
 class Guess:
