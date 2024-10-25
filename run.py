@@ -204,7 +204,7 @@ class ChooseLevel():
         """
         self.screen.clear_screen()
         self.screen.print_logo(self.screen.plain_text)
-        print("\nChoose a level\n")
+        print("Level Menu\n")
         print("1 - Easy\n")
         print("2 - Classic\n")
         print("3 - Hard\n")
@@ -339,10 +339,19 @@ class Game:
         else:
             return False
 
-    def welcome_message(self):
+    def game_welcome_message(self):
         self.screen.clear_screen()
         self.screen.print_logo(self.screen.plain_text)
-        print("Welcome to a game of Mastermind. ... Instructions ...\n")
+        level_strings = ["Easy", "Classic", "Hard"]
+        print("Welcome to a game of Mastermind.\n")
+        time.sleep(.5)
+        print(f"Level {self.level} - {level_strings[int(self.level)]} - "
+              "selected\n")
+        time.sleep(.5)
+        self.code_description()
+        self.screen.press_enter()
+
+    def code_description(self):
         # Give description of secret code, generalised to colors list
         # consisting of numbers or alphabetic characters
         print(
@@ -361,7 +370,8 @@ class Game:
         """
         Run game
         """
-        self.welcome_message()
+        self.game_welcome_message()
+        self.code_description()
         # Reset to first round (1st attempt)
         attempts = 1
         # Create board
