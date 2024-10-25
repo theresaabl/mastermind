@@ -132,17 +132,17 @@ class ChooseLevel():
         """
         if level_choice == "1":
             print("\nLevel 1 selected\n")
-            game = Game()
+            game = Game("1")
             game.run_game()
 
         elif level_choice == "2":
             print("\nLevel 2 selected\n")
-            game = Game()
+            game = Game("2")
             game.run_game()
 
         else:
             print("\nLevel 3 selected\n")
-            game = Game()
+            game = Game("3")
             game.run_game()
 
     def run_choose_level(self):
@@ -153,7 +153,6 @@ class ChooseLevel():
         while True:
             self.show_level_menu()
             level_choice = self.take_level_choice()
-            print(f"\nLevel choice {level_choice} is made, break out of run_choose_level loop\n")
             break
 
         # handle level choice and start game
@@ -164,23 +163,46 @@ class Game:
     """
     Create instance of Game
     """
-    def __init__(
-            self, colors=[f"{i}" for i in range(1, 7)],
-            # max rounds 4 for quicker testing
-            code_length=4, max_rounds=12
-            ):
-        self.colors = colors
-        self.code_length = code_length
-        self.max_rounds = max_rounds
+    def __init__(self, level):
+        self.level = level
+        self.set_level()
         self.secret_code = self.create_code()
+
+    def set_level(self):
+        if self.level == "1":
+            self.colors = ["1", "2", "3", "4"]
+            self.code_length = 3
+            self.max_rounds = 12
+            self.repetitions = True
+
+        elif self.level == "2":
+            self.colors = ["1", "2", "3", "4", "5", "6"]
+            self.code_length = 4
+            self.max_rounds = 12
+            self.repetitions = True
+
+        else:
+            self.colors = ["1", "2", "3", "4", "5", "6", "7", "8"]
+            self.code_length = 5
+            self.max_rounds = 12
+            # no repetitions allowed
+            self.repetitions = False
 
     def create_code(self):
         """
         Randomly choose {self.code_length} items from the colors list
         Create secret code as a string
+        Account for repetitions allowed or not
         """
-        code_array = random.choices(self.colors, k=self.code_length)
-        code = "".join(code_array)
+        if self.repetitions:
+            # repetition allowed
+            code_array = random.choices(self.colors, k=self.code_length)
+            code = "".join(code_array)
+
+        else:
+            # no repetition
+            code_array = random.sample(self.colors, k=self.code_length)
+            code = "".join(code_array)
         return code
 
     def game_won(self, score, attempts):
@@ -211,6 +233,7 @@ class Game:
         print("\nMASTERMIND\n")
         print("Welcome to a game of Mastermind. ... Instructions ...")
         print(f"You have {self.max_rounds} attempts.\n")
+        print(f"Repetitions are {'' if self.repetitions else 'not'} allowed.")
         # Give description of secret code, generalised to colors list
         # consisting of numbers or alphabetic characters
         print(
