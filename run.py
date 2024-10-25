@@ -344,14 +344,14 @@ class Game:
         self.screen.print_logo(self.screen.plain_text)
         level_strings = ["Easy", "Classic", "Hard"]
         print("Welcome to a game of Mastermind.\n")
-        time.sleep(.5)
+        time.sleep(1)
         print(f"Level {self.level} - {level_strings[int(self.level)-1]} - "
               "selected\n")
-        time.sleep(.5)
-        self.code_description()
+        time.sleep(1)
+        self.secret_code_description()
         self.screen.press_enter()
 
-    def code_description(self):
+    def secret_code_description(self):
         # Give description of secret code, generalised to colors list
         # consisting of numbers or alphabetic characters
         print(
@@ -371,7 +371,6 @@ class Game:
         Run game
         """
         self.game_welcome_message()
-        self.code_description()
         # Reset to first round (1st attempt)
         attempts = 1
         # Create board
@@ -380,7 +379,7 @@ class Game:
         while True:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
-            self.code_description()
+            self.secret_code_description()
             print(f"\nRound {attempts}:\n")
             # Create new guess, pass secret code and colors list
             # to be able to check guess against secret
@@ -404,6 +403,8 @@ class Game:
             else:
                 # increment attempts
                 attempts += 1
+
+            self.screen.press_enter()
 
 
 class Board:
