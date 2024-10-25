@@ -1,18 +1,33 @@
 # mock terminal of 80 characters wide and 24 rows high
 import random
 from tabulate import tabulate
+import os
 
 
-class GameMenu:
+class Screen:
     """
-    Create instance of GameMenu
+    Creates an instance of Screen
     """
     def __init__(self):
-        pass
+        self.clear = self.clear_screen()
+        self.logo = self.print_logo()
 
-    def show_menu(self):
+    def clear_screen(self):
         """
-        Print the menu choices
+        Clear console
+        Code from https://www.geeksforgeeks.org/clear-screen-python/
+        """
+        # For Windows
+        if os.name == 'nt':
+            _ = os.system('cls')
+        # For macOS and Linux
+        else:
+            _ = os.system('clear')
+
+    def print_logo(self):
+        """
+        Print Ascii art of logo
+        or plain text for plain text mode
         """
         print("")
         print(r"    __  __         _                 _         _ ")
@@ -23,7 +38,27 @@ class GameMenu:
         # for plain text mode
         # print("\nMASTERMIND\n")
 
-        print("game Menu\n")
+    def print_instructions(self):
+        """
+        Show game instructions until user presses key
+        """
+        print("\nInstructions to write ...\n")
+        input("Press enter to continue\n")
+
+
+class GameMenu:
+    """
+    Create instance of GameMenu
+    """
+    def __init__(self):
+        self.screen = Screen()
+
+    def show_menu(self):
+        """
+        Print the menu choices
+        """
+        self.screen.logo
+        print("Game Menu\n")
         print("1 - Play Game\n")
         print("2 - Show Instructions\n")
         print("3 - Exit\n")
@@ -51,13 +86,6 @@ class GameMenu:
 
         return choice
 
-    def show_instructions(self):
-        """
-        Show game instructions until user presses key
-        """
-        print("\nInstructions to write ...\n")
-        input("Press enter to continue\n")
-
     def handle_menu_choice(self, menu_choice):
         """
         Check which option user chose and call functions accordingly
@@ -69,7 +97,7 @@ class GameMenu:
             return True
 
         elif menu_choice == "2":
-            self.show_instructions()
+            self.screen.print_instructions()
             # menu shows again
             return True
 
@@ -322,6 +350,7 @@ class Board:
         # for plain text mode:
         # for line in self.guess_list:
         #     print(line)
+
 
 class Guess:
     """
