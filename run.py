@@ -146,10 +146,10 @@ class Game:
         Run game
         """
         self.welcome_message()
-        # Create board
-        board = Board()
         # Reset to first round (1st attempt)
         attempts = 1
+        # Create board
+        board = Board()
         # game loop
         while True:
             print(f"\nRound {attempts}:\n")
@@ -182,10 +182,8 @@ class Board:
     Create instance of Board
     """
     def __init__(self):
-        pass
-
-    # Initialize list of guesses and include board headers
-    guess_list = [["Guess:", "Hits:", "Close:"]]
+        # Initialize list of guesses and include board headers
+        self.guess_list = [["Guess:", "Hits:", "Close:"]]
 
     def append_guess(self, guess):
         """
