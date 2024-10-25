@@ -380,6 +380,8 @@ class Game:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
             self.secret_code_description()
+            if attempts > 1:
+                board.show(attempts - 1)
             print(f"\nRound {attempts}:\n")
             # Create new guess, pass secret code and colors list
             # to be able to check guess against secret
