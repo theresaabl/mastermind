@@ -23,7 +23,7 @@ class Screen:
         # For macOS and Linux
         else:
             _ = os.system('clear')
-    
+
     def press_enter(self):
         """
         Continue when user presses enter
@@ -365,7 +365,7 @@ class Game:
         # Reset to first round (1st attempt)
         attempts = 1
         # Create board
-        board = Board()
+        board = Board(self.screen)
         # game loop
         while True:
             print(f"\nRound {attempts}:\n")
@@ -397,9 +397,11 @@ class Board:
     """
     Create instance of Board
     """
-    def __init__(self):
+    def __init__(self, screen):
         # Initialize list of guesses and include board headers
         self.guess_list = [["Guess:", "Hits:", "Close:"]]
+        # pass instance of Screen
+        self.screen = screen
 
     def append_guess(self, guess):
         """
@@ -413,18 +415,23 @@ class Board:
 
     def show(self, rounds):
         """
-        Print the board with nice formatting
+        Print the board with nice formatting or for plain text mode
         Code inspiration from:
         https://learnpython.com/blog/print-table-in-python/
         """
-        rowIDs = [i for i in range(1, rounds + 1)]
-        print(tabulate(
-            self.guess_list, headers='firstrow',
-            tablefmt='rounded_outline', showindex=rowIDs
-            ))
-        # for plain text mode:
-        # for line in self.guess_list:
-        #     print(line)
+        if self.screen.plain_text:
+            # printing for plain text mode
+            headings = self.guess_list[0]
+            for line in self.guess_list[1:]:
+                print(f"{headings[0]} {line[0]}, {headings[1]} {line[1]}, "
+                      f"{headings[2]} {line[2]}")
+        else:
+            # nicely formatted table
+            rowIDs = [i for i in range(1, rounds + 1)]
+            print(tabulate(
+                self.guess_list, headers='firstrow',
+                tablefmt='rounded_outline', showindex=rowIDs
+                ))
 
 
 class Guess:
