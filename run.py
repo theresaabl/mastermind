@@ -231,15 +231,18 @@ class Game:
 
     def welcome_message(self):
         print("\nMASTERMIND\n")
-        print("Welcome to a game of Mastermind. ... Instructions ...")
-        print(f"You have {self.max_rounds} attempts.\n")
-        print(f"Repetitions are {'' if self.repetitions else 'not'} allowed.")
+        print("Welcome to a game of Mastermind. ... Instructions ...\n")
         # Give description of secret code, generalised to colors list
         # consisting of numbers or alphabetic characters
         print(
             f"The secret code consists of {self.code_length} "
             f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
-            f"out of {self.colors}\n"
+            f"{f'between {self.colors[0]} and {self.colors[-1]}'
+                if self.colors[0].isnumeric()
+                else f'out of {self.colors}'}, "
+            "where repetitions are "
+            f"{'' if self.repetitions else 'not '}allowed."
+            f"\nYou have {self.max_rounds} attempts to crack the code.\n"
             )
         print(f"For testing: secret code: {self.secret_code}\n")
 
