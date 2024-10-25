@@ -345,7 +345,7 @@ class Game:
         level_strings = ["Easy", "Classic", "Hard"]
         print("Welcome to a game of Mastermind.\n")
         time.sleep(.5)
-        print(f"Level {self.level} - {level_strings[int(self.level)]} - "
+        print(f"Level {self.level} - {level_strings[int(self.level)-1]} - "
               "selected\n")
         time.sleep(.5)
         self.code_description()
@@ -362,7 +362,7 @@ class Game:
                 else f'out of {self.colors}'}, "
             "where repetitions are "
             f"{'' if self.repetitions else 'not '}allowed."
-            f"\nYou have {self.max_rounds} attempts to crack the code.\n"
+            f"\nYou have {self.max_rounds} rounds to crack the code.\n"
             )
         print(f"For testing: secret code: {self.secret_code}\n")
 
@@ -378,6 +378,9 @@ class Game:
         board = Board(self.screen)
         # game loop
         while True:
+            self.screen.clear_screen()
+            self.screen.print_logo(self.screen.plain_text)
+            self.code_description()
             print(f"\nRound {attempts}:\n")
             # Create new guess, pass secret code and colors list
             # to be able to check guess against secret
