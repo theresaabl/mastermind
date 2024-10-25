@@ -60,7 +60,7 @@ class GameMenu:
             # menu shows again
             return True
 
-        if menu_choice == "2":
+        elif menu_choice == "2":
             self.show_instructions()
             # menu shows again
             return True
@@ -131,14 +131,17 @@ class ChooseLevel():
         Check which option user chose and call functions accordingly
         """
         if level_choice == "1":
+            print("\nLevel 1 selected\n")
             game = Game()
             game.run_game()
 
-        if level_choice == "2":
+        elif level_choice == "2":
+            print("\nLevel 2 selected\n")
             game = Game()
             game.run_game()
 
         else:
+            print("\nLevel 3 selected\n")
             game = Game()
             game.run_game()
 
@@ -150,6 +153,7 @@ class ChooseLevel():
         while True:
             self.show_level_menu()
             level_choice = self.take_level_choice()
+            print(f"\nLevel choice {level_choice} is made, break out of run_choose_level loop\n")
             break
 
         # handle level choice and start game
