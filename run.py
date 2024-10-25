@@ -55,19 +55,19 @@ class GameMenu:
         Check which option user chose and call functions accordingly
         """
         if menu_choice == "1":
-            game = Game()
-            game.run_game()
-            # controls whether menu shows again or not
+            level = ChooseLevel()
+            level.run_choose_level()
+            # menu shows again
             return True
 
         if menu_choice == "2":
             self.show_instructions()
-            # controls whether menu shows again or not
+            # menu shows again
             return True
 
         else:
             print("\nGood bye!\n")
-            # controls whether menu shows again or not
+            # menu does not show again
             return False
 
     def run_menu(self):
@@ -85,6 +85,18 @@ class GameMenu:
                 continue
             else:
                 break
+
+
+class ChooseLevel():
+    """
+    Creates instance of ChooseLevel
+    """
+    def __init__(self):
+        pass
+
+    def run_choose_level(self):
+        game = Game()
+        game.run_game()
 
 
 class Game:
@@ -111,6 +123,9 @@ class Game:
         return code
 
     def game_won(self, score, attempts):
+        """
+        Check if game is won
+        """
         if score[0] == self.code_length:
             print(
                 "\nCongratulations, you cracked the secret code "
@@ -122,6 +137,9 @@ class Game:
             return False
 
     def check_max_rounds(self, attempts):
+        """
+        Check if has reached maximum attempts
+        """
         if attempts == self.max_rounds:
             print("\nYou have run out of attempts.\n")
             return True
