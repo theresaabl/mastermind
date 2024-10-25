@@ -2,6 +2,7 @@
 import random
 from tabulate import tabulate
 import os
+import time
 
 
 class Screen:
@@ -35,6 +36,7 @@ class Screen:
         print(r"   | |\/| / _` (_-<  _/ -_) '_| '  \| | ' \/ _` |")
         print(r"   |_|  |_\__,_/__/\__\___|_| |_|_|_|_|_||_\__,_|")
         print("")
+        time.sleep(1)
         # for plain text mode
         # print("\nMASTERMIND\n")
 
