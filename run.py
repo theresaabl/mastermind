@@ -10,8 +10,7 @@ class Screen:
     Creates an instance of Screen
     """
     def __init__(self):
-        self.clear = self.clear_screen()
-        self.logo = self.print_logo()
+        self.clear_screen()
 
     def clear_screen(self):
         """
@@ -25,27 +24,74 @@ class Screen:
         else:
             _ = os.system('clear')
 
-    def print_logo(self):
+    def print_logo(self, plain_text):
         """
         Print Ascii art of logo
         or plain text for plain text mode
         """
-        print("")
-        print(r"    __  __         _                 _         _ ")
-        print(r"   |  \/  |__ _ __| |_ ___ _ _ _ __ (_)_ _  __| |")
-        print(r"   | |\/| / _` (_-<  _/ -_) '_| '  \| | ' \/ _` |")
-        print(r"   |_|  |_\__,_/__/\__\___|_| |_|_|_|_|_||_\__,_|")
-        print("")
-        time.sleep(1)
-        # for plain text mode
-        # print("\nMASTERMIND\n")
+        if plain_text:
+            # plain text mode
+            print("\nMASTERMIND\n")
+        else:
+            print("")
+            print(r"    __  __         _                 _         _ ")
+            print(r"   |  \/  |__ _ __| |_ ___ _ _ _ __ (_)_ _  __| |")
+            print(r"   | |\/| / _` (_-<  _/ -_) '_| '  \| | ' \/ _` |")
+            print(r"   |_|  |_\__,_/__/\__\___|_| |_|_|_|_|_||_\__,_|")
+            print("")
 
     def print_instructions(self):
         """
         Show game instructions until user presses key
         """
         print("\nInstructions to write ...\n")
-        input("Press enter to continue\n")
+        input("Press ENTER to continue.\n")
+
+    def show_start_screen(self):
+        """
+        Show plain text start screen to ask user whether
+        they want plain text mode or not
+        For accessibility, to avoid ascii art,
+        formatted tables etc. for screen readers
+        """
+        print("\nWelcome to MASTERMIND\n")
+        time.sleep(1)
+        print("A Python console game\n")
+        time.sleep(1)
+        self.plain_text = self.plain_text_request()
+        if self.plain_text:
+            print("\nPlain text mode selected.\n")
+            input("Press ENTER to continue.\n")
+            return True
+        else:
+            self.clear_screen()
+            self.print_logo(False)
+            time.sleep(1)
+            return False
+
+    def plain_text_request(self):
+        """
+        Take user input on whether plain text mode is wanted or not
+        """
+        print("Would you like to access the game in plain text "
+              "mode, i.e. with all visual elements removed?\n")
+        while True:
+            plain_text = input("Enter y for yes or n for no.\n").strip()
+
+            # Check that choice is not empty
+            if len(plain_text) == 0:
+                print("\nYour choice is empty.\n")
+                continue
+
+            # Check that choice is y or n
+            if len(plain_text) != 1 or plain_text.lower() not in "yn":
+                print(f"\nYour choice '{plain_text}' is not valid.\n")
+                continue
+
+            # If choice is valid, break
+            break
+
+        return True if plain_text == "y" else False
 
 
 class GameMenu:
@@ -54,12 +100,15 @@ class GameMenu:
     """
     def __init__(self):
         self.screen = Screen()
+        # show start screen each time and save viewing mode
+        self.plain_text = self.screen.show_start_screen()
 
     def show_menu(self):
         """
         Print the menu choices
         """
-        self.screen.logo
+        self.screen.clear_screen()
+        self.screen.print_logo(self.plain_text)
         print("Game Menu\n")
         print("1 - Play Game\n")
         print("2 - Show Instructions\n")
