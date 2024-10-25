@@ -14,8 +14,16 @@ class GameMenu:
         """
         Print the menu choices
         """
-        print("\nMASTERMIND\n")
-        print("Menu\n")
+        print("")
+        print(r"    __  __         _                 _         _ ")
+        print(r"   |  \/  |__ _ __| |_ ___ _ _ _ __ (_)_ _  __| |")
+        print(r"   | |\/| / _` (_-<  _/ -_) '_| '  \| | ' \/ _` |")
+        print(r"   |_|  |_\__,_/__/\__\___|_| |_|_|_|_|_||_\__,_|")
+        print("")
+        # for plain text mode
+        # print("\nMASTERMIND\n")
+
+        print("game Menu\n")
         print("1 - Play Game\n")
         print("2 - Show Instructions\n")
         print("3 - Exit\n")
@@ -311,7 +319,9 @@ class Board:
             self.guess_list, headers='firstrow',
             tablefmt='rounded_outline', showindex=rowIDs
             ))
-
+        # for plain text mode:
+        # for line in self.guess_list:
+        #     print(line)
 
 class Guess:
     """
