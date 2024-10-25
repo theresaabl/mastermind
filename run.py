@@ -23,6 +23,12 @@ class Screen:
         # For macOS and Linux
         else:
             _ = os.system('clear')
+    
+    def press_enter(self):
+        """
+        Continue when user presses enter
+        """
+        input("Press ENTER to continue.\n")
 
     def print_logo(self, plain_text):
         """
@@ -50,7 +56,7 @@ class Screen:
         else:
             self.print_logo(self.plain_text)
         print("\nInstructions to write ...\n")
-        input("Press ENTER to continue.\n")
+        self.press_enter()
 
     def show_start_screen(self):
         """
@@ -66,7 +72,7 @@ class Screen:
         self.plain_text = self.plain_text_request()
         if self.plain_text:
             print("\nPlain text mode selected.\n")
-            input("Press ENTER to continue.\n")
+            self.press_enter()
             return True
         else:
             self.clear_screen()
@@ -148,7 +154,8 @@ class GameMenu:
         Check which option user chose and call functions accordingly
         """
         if menu_choice == "1":
-            level = ChooseLevel()
+            # pass Screen instance to ChooseLevel instance
+            level = ChooseLevel(self.screen)
             level.run_choose_level()
             # menu shows again
             return True
@@ -187,13 +194,16 @@ class ChooseLevel():
     """
     Creates instance of ChooseLevel
     """
-    def __init__(self):
-        pass
+    def __init__(self, screen):
+        # pass screen instance
+        self.screen = screen
 
     def show_level_menu(self):
         """
         Print the menu choices
         """
+        self.screen.clear_screen()
+        self.screen.print_logo(self.screen.plain_text)
         print("\nChoose a level\n")
         print("1 - Easy\n")
         print("2 - Classic\n")
@@ -228,17 +238,17 @@ class ChooseLevel():
         """
         if level_choice == "1":
             print("\nLevel 1 selected\n")
-            game = Game("1")
+            game = Game("1", self.screen)
             game.run_game()
 
         elif level_choice == "2":
             print("\nLevel 2 selected\n")
-            game = Game("2")
+            game = Game("2", self.screen)
             game.run_game()
 
         else:
             print("\nLevel 3 selected\n")
-            game = Game("3")
+            game = Game("3", self.screen)
             game.run_game()
 
     def run_choose_level(self):
@@ -259,10 +269,12 @@ class Game:
     """
     Create instance of Game
     """
-    def __init__(self, level):
+    def __init__(self, level, screen):
         self.level = level
         self.set_level()
         self.secret_code = self.create_code()
+        # pass instance of screen
+        self.screen = screen
 
     def set_level(self):
         if self.level == "1":
@@ -311,6 +323,7 @@ class Game:
                 f"'{self.secret_code}' in {attempts} "
                 f"{'rounds' if attempts != 1 else 'round'}.\n"
                 )
+            self.screen.press_enter()
             return True
         else:
             return False
@@ -321,12 +334,14 @@ class Game:
         """
         if attempts == self.max_rounds:
             print("\nYou have run out of attempts.\n")
+            self.screen.press_enter()
             return True
         else:
             return False
 
     def welcome_message(self):
-        print("\nMASTERMIND\n")
+        self.screen.clear_screen()
+        self.screen.print_logo(self.screen.plain_text)
         print("Welcome to a game of Mastermind. ... Instructions ...\n")
         # Give description of secret code, generalised to colors list
         # consisting of numbers or alphabetic characters
