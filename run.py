@@ -20,7 +20,7 @@ class GameMenu:
         print("2 - Show Instructions\n")
         print("3 - Exit\n")
 
-    def take_choice(self):
+    def take_menu_choice(self):
         """
         Take user input menu choice, validate it
         and return it if valid
@@ -78,7 +78,7 @@ class GameMenu:
         """
         while True:
             self.show_menu()
-            menu_choice = self.take_choice()
+            menu_choice = self.take_menu_choice()
             # handles menu choice, calls appropriate functions
             # and controls whether menu shows again or not
             if self.handle_menu_choice(menu_choice):
@@ -94,9 +94,66 @@ class ChooseLevel():
     def __init__(self):
         pass
 
+    def show_level_menu(self):
+        """
+        Print the menu choices
+        """
+        print("\nChoose a level\n")
+        print("1 - Easy\n")
+        print("2 - Classic\n")
+        print("3 - Hard\n")
+
+    def take_level_choice(self):
+        """
+        Take user input level choice, validate it
+        and return it if valid
+        """
+        while True:
+            choice = input("Choose from options 1 - 3: \n").strip()
+
+            # Check that choice is not empty
+            if len(choice) == 0:
+                print("\nYour choice is empty.\n")
+                continue
+
+            # Check that choice is numeric and of length 1
+            if len(choice) != 1 or choice not in "123":
+                print(f"\nYour choice '{choice}' is not valid.\n")
+                continue
+
+            # If choice is valid, break
+            break
+
+        return choice
+
+    def handle_level_choice(self, level_choice):
+        """
+        Check which option user chose and call functions accordingly
+        """
+        if level_choice == "1":
+            game = Game()
+            game.run_game()
+
+        if level_choice == "2":
+            game = Game()
+            game.run_game()
+
+        else:
+            game = Game()
+            game.run_game()
+
     def run_choose_level(self):
-        game = Game()
-        game.run_game()
+        """
+        Show level choice menu, take user input
+        and start game accordingly
+        """
+        while True:
+            self.show_level_menu()
+            level_choice = self.take_level_choice()
+            break
+
+        # handle level choice and start game
+        self.handle_level_choice(level_choice)
 
 
 class Game:
