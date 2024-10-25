@@ -44,6 +44,11 @@ class Screen:
         """
         Show game instructions until user presses key
         """
+        self.clear_screen()
+        if self.plain_text:
+            print("\nMASTERMIND\n")
+        else:
+            self.print_logo(self.plain_text)
         print("\nInstructions to write ...\n")
         input("Press ENTER to continue.\n")
 
@@ -99,6 +104,7 @@ class GameMenu:
     Create instance of GameMenu
     """
     def __init__(self):
+        # create instance of Screen when GameMenu is initialised
         self.screen = Screen()
         # show start screen each time and save viewing mode
         self.plain_text = self.screen.show_start_screen()
@@ -153,7 +159,10 @@ class GameMenu:
             return True
 
         else:
+            self.screen.clear_screen()
             print("\nGood bye!\n")
+            time.sleep(3)
+            self.screen.clear_screen()
             # menu does not show again
             return False
 
