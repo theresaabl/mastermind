@@ -36,10 +36,10 @@ class Screen:
             except KeyboardInterrupt:
                 # Checks whether user wants to exit
                 # If not, continue to take user input again
-                if not self.handle_exit():
+                if not self.handle_exit_request():
                     continue
 
-    def handle_exit(self):
+    def handle_exit_request(self):
         """
         Control what happens when user presses Crtl + C
         """
@@ -58,14 +58,23 @@ class Screen:
 
         if user_input == "y":
             print("\nExiting application ...")
-            time.sleep(2)
-            self.clear_screen()
-            exit()
+            time.sleep(1)
+            self.exit_application()
         else:
             print("\nContinuing application ...\n")
             time.sleep(1)
             # return False indicates that user does not want to quit
             return False
+
+    def exit_application(self):
+        """
+        Print good bye message and exit
+        """
+        self.clear_screen()
+        print("\nGood bye!\n")
+        time.sleep(2)
+        self.clear_screen()
+        exit()
 
     def validate_y_n(self, input):
         """
@@ -219,14 +228,8 @@ class GameMenu:
             # menu shows again
             return True
 
-        else:
-            # menu_choice == "3"
-            self.screen.clear_screen()
-            print("\nGood bye!\n")
-            time.sleep(3)
-            self.screen.clear_screen()
-            # menu does not show again
-            return False
+        elif menu_choice == "3":
+            self.screen.exit_application()
 
     def run_menu(self):
         """
@@ -238,11 +241,8 @@ class GameMenu:
             self.show_menu()
             menu_choice = self.take_menu_choice()
             # handles menu choice, calls appropriate functions
-            # and controls whether menu shows again or not
-            if self.handle_menu_choice(menu_choice):
-                continue
-            else:
-                break
+            # Show menu until user chooses exit
+            self.handle_menu_choice(menu_choice)
 
 
 class ChooseLevel():
