@@ -2,6 +2,11 @@
 import random
 from tabulate import tabulate
 import time
+# import colorama module to print color text
+import colorama
+from colorama import Fore, Style
+# initialize module
+colorama.init(autoreset=True)
 
 
 class Screen:
@@ -90,12 +95,12 @@ class Screen:
 
             # Check that choice is not empty
             if len(input) == 0:
-                print("\nYour choice is empty.\n")
+                print(Fore.RED + "\nYour choice is empty.\n")
                 return False
 
             # Check that choice is y or n
             if len(input) != 1 or input.lower() not in "yn":
-                print(f"\nYour choice '{input}' is not valid.\n")
+                print(Fore.RED + f"\nYour choice '{input}' is not valid.\n")
                 return False
 
             # If choice is valid, return True
@@ -108,12 +113,28 @@ class Screen:
         """
         if plain_text:
             # plain text mode
-            print("MASTERMIND\n")
+            print(Fore.BLUE + Style.BRIGHT + "MASTERMIND\n")
         else:
-            print(r"    __  __         _                 _         _ ")
-            print(r"   |  \/  |__ _ __| |_ ___ _ _ _ __ (_)_ _  __| |")
-            print(r"   | |\/| / _` (_-<  _/ -_) '_| '  \| | ' \/ _` |")
-            print(r"   |_|  |_\__,_/__/\__\___|_| |_|_|_|_|_||_\__,_|")
+            print(
+                Fore.BLUE
+                + Style.BRIGHT
+                + r"    __  __         _                 _         _ "
+                )
+            print(
+                Fore.BLUE
+                + Style.BRIGHT
+                + r"   |  \/  |__ _ __| |_ ___ _ _ _ __ (_)_ _  __| |"
+                )
+            print(
+                Fore.BLUE
+                + Style.BRIGHT
+                + r"   | |\/| / _` (_-<  _/ -_) '_| '  \| | ' \/ _` |"
+                )
+            print(
+                Fore.BLUE
+                + Style.BRIGHT
+                + r"   |_|  |_\__,_/__/\__\___|_| |_|_|_|_|_||_\__,_|"
+                )
             print("")
 
     def print_instructions(self):
