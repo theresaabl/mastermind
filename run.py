@@ -278,16 +278,25 @@ class Game:
         self.screen = screen
 
     def set_level(self):
+        """
+        Define the three difficulty levels
+        Specify code elements (colors), code length, the maximum amount of
+        rounds and whether repetitions are allowed in the code
+        """
         if self.level == "1":
-            # self.colors = ["1", "2", "3", "4"]
-            self.colors = ["A", "B", "C", "D"]
+            # Can use numbers or letters as code elements
+            # They represent the colors in the mastermind game
+            # Set up to use numeric code for better accessibility
+            self.colors = ["1", "2", "3", "4"]
+            # Can change to color-letters, e.g.
+            # B - blue, R - red, Y - yellow, P - purple
+            # self.colors = ["B", "R", "Y", "P"]
             self.code_length = 3
             self.max_rounds = 12
             self.repetitions = True
 
         elif self.level == "2":
-            # self.colors = ["1", "2", "3", "4", "5", "6"]
-            self.colors = ["A", "B", "C", "D", "E", "F"]
+            self.colors = ["1", "2", "3", "4", "5", "6"]
             self.code_length = 4
             self.max_rounds = 12
             self.repetitions = True
@@ -364,6 +373,7 @@ class Game:
             "where repetitions are "
             f"{'' if self.repetitions else 'not '}allowed.\n"
         )
+        time.sleep(1)
         self.screen.press_enter()
 
     def secret_code_description(self):
@@ -400,22 +410,23 @@ class Game:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
             self.secret_code_description()
+            print(f"Round {attempts}:\n")
             if attempts > 1:
                 board.show(attempts - 1)
-            print(f"\nRound {attempts}:\n")
             # Create new guess, pass secret code and colors list
             # to be able to check guess against secret
             latest_guess = Guess(self.secret_code, self.colors)
-            print(f"\nYou guessed: {latest_guess.guessed_code}\n")
             # Check guess against secret and save score
             latest_score = latest_guess.score
+            hits = latest_score[0]
+            close = latest_score[1]
             print(
-                f"You have {latest_score[0]} hits and "
-                f"{latest_score[1]} close.\n"
+                f"\nYour guess {latest_guess.guessed_code} has "
+                f"{hits} hit{'' if hits == 1 else 's'} "
+                f"and {close} close."
                 )
             # Show board
             board.append_guess(latest_guess)
-            board.show(attempts)
 
             # check break conditions
             if self.game_won(latest_score, attempts):
@@ -426,7 +437,7 @@ class Game:
                 # increment attempts
                 attempts += 1
 
-            self.screen.press_enter()
+            time.sleep(2)
 
 
 class Board:
@@ -445,8 +456,10 @@ class Board:
         """
         self.guess_list.append(
             # Improve formatting of guess in board
-            [" ".join(list(guess.guessed_code)), \
-                guess.score[0], guess.score[1]]
+            [
+                " ".join(list(guess.guessed_code)),
+                guess.score[0], guess.score[1]
+            ]
             )
 
     def show(self, rounds):
@@ -490,7 +503,7 @@ class Guess:
 
             # Take user input, strip of empty spaces in beginning and end
             # Convert it to uppercase string
-            guess = input("Enter your guess: \n").strip().upper()
+            guess = input("\nEnter your guess: \n").strip().upper()
 
             # Check that guess is not empty
             if len(guess) == 0:
