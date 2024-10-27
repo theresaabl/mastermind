@@ -24,6 +24,37 @@ class Screen:
         """
         input("Press ENTER to continue.\n")
 
+    def user_input(self, message):
+        """
+        Take user input and catch KeyboardInterrupt
+        """
+        while True:
+            try:
+                while True:
+                    user_input = input(message)
+                    return user_input
+            except KeyboardInterrupt:
+                # Checks whether user wants to exit
+                # If not, continue to take user input again
+                if not self.handle_exit():
+                    continue
+
+    def handle_exit(self):
+        """
+        Control what happens when user presses Crtl + C
+        """
+        print("\nDo you really want to exit the application?")
+        if self.user_input("y/n\n") == "y":
+            print("\nExit application ...")
+            time.sleep(2)
+            self.clear_screen()
+            exit()
+        else:
+            print("\nContinue application...\n")
+            time.sleep(2)
+            # return False indicates that user does not want to quit
+            return False
+
     def print_logo(self, plain_text):
         """
         Print Ascii art of logo
@@ -31,9 +62,8 @@ class Screen:
         """
         if plain_text:
             # plain text mode
-            print("\nMASTERMIND\n")
+            print("MASTERMIND\n")
         else:
-            print("")
             print(r"    __  __         _                 _         _ ")
             print(r"   |  \/  |__ _ __| |_ ___ _ _ _ __ (_)_ _  __| |")
             print(r"   | |\/| / _` (_-<  _/ -_) '_| '  \| | ' \/ _` |")
@@ -78,10 +108,12 @@ class Screen:
         """
         Take user input on whether plain text mode is wanted or not
         """
-        print("Would you like to access the game in plain text "
-              "mode, i.e. with all visual elements removed?\n")
         while True:
-            plain_text = input("Enter y for yes or n for no.\n").strip()
+            plain_text = self.user_input(
+                "Would you like to access the game in plain text "
+                "mode, i.e. with all visual elements removed?\n"
+                "Enter y for yes or n for no.\n"
+                ).strip()
 
             # Check that choice is not empty
             if len(plain_text) == 0:
