@@ -1,7 +1,6 @@
 # mock terminal of 80 characters wide and 24 rows high
 import random
 from tabulate import tabulate
-import os
 import time
 
 
@@ -15,14 +14,9 @@ class Screen:
     def clear_screen(self):
         """
         Clear console
-        Code from https://www.geeksforgeeks.org/clear-screen-python/
+        Code from https://stackoverflow.com/a/50921841
         """
-        # For Windows
-        if os.name == 'nt':
-            _ = os.system('cls')
-        # For macOS and Linux
-        else:
-            _ = os.system('clear')
+        print("\033c")
 
     def press_enter(self):
         """
