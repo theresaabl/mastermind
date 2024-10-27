@@ -43,17 +43,49 @@ class Screen:
         """
         Control what happens when user presses Crtl + C
         """
-        print("\nDo you really want to exit the application?")
-        if self.user_input("y/n\n") == "y":
-            print("\nExit application ...")
+        while True:
+            user_input = self.user_input(
+                "\nDo you really want to exit the application?\n"
+                "Enter y for yes or n for no.\n"
+                )
+
+            # Validate input for y and n
+            # If valid: break
+            if self.validate_y_n(user_input):
+                break
+            else:
+                continue
+
+        if user_input == "y":
+            print("\nExiting application ...")
             time.sleep(2)
             self.clear_screen()
             exit()
         else:
-            print("\nContinue application...\n")
+            print("\nContinuing application ...\n")
             time.sleep(2)
             # return False indicates that user does not want to quit
             return False
+
+    def validate_y_n(self, input):
+        """
+        Validates whether input is y or n, nothing else
+        Returns True if valid, False otherwise
+        """
+        while True:
+
+            # Check that choice is not empty
+            if len(input) == 0:
+                print("\nYour choice is empty.\n")
+                return False
+
+            # Check that choice is y or n
+            if len(input) != 1 or input.lower() not in "yn":
+                print(f"\nYour choice '{input}' is not valid.\n")
+                return False
+
+            # If choice is valid, return True
+            return True
 
     def print_logo(self, plain_text):
         """
@@ -115,18 +147,12 @@ class Screen:
                 "Enter y for yes or n for no.\n"
                 ).strip()
 
-            # Check that choice is not empty
-            if len(plain_text) == 0:
-                print("\nYour choice is empty.\n")
+            # Validate input for y and n
+            # If valid: break
+            if self.validate_y_n(plain_text):
+                break
+            else:
                 continue
-
-            # Check that choice is y or n
-            if len(plain_text) != 1 or plain_text.lower() not in "yn":
-                print(f"\nYour choice '{plain_text}' is not valid.\n")
-                continue
-
-            # If choice is valid, break
-            break
 
         return True if plain_text == "y" else False
 
