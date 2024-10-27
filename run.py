@@ -56,7 +56,8 @@ class Screen:
         while True:
             user_input = self.user_input(
                 "\nAre you sure you want to exit the application?\n"
-                "Enter y for yes or n for no.\n"
+                f"Enter {Fore.GREEN}y{Fore.RESET} for yes or "
+                f"{Fore.RED}n{Fore.RESET} for no.\n"
                 )
 
             # Validate input for y and n
@@ -220,9 +221,11 @@ Good luck, and have fun cracking the code!
         """
         while True:
             plain_text = self.user_input(
-                "Would you like to access the game in plain text "
-                "mode,\ni.e. with all visual elements removed?\n"
-                "Enter y for yes or n for no.\n"
+                "Would you like to access the game in "
+                f"{Fore.CYAN}plain text mode{Fore.RESET},\n"
+                "i.e. with all visual elements removed?\n"
+                f"Enter {Fore.GREEN}y{Fore.RESET} for yes or "
+                f"{Fore.RED}n{Fore.RESET} for no.\n"
                 ).strip()
 
             # Validate input for y and n
@@ -507,16 +510,16 @@ class Game:
         time.sleep(1)
         print(
             f"The goal is to crack a secret code within "
-            f"{Fore.BLUE}{self.max_rounds} rounds{Fore.RESET}.\nThe code "
-            f"consists of {Fore.BLUE}{self.code_length} "
+            f"{Fore.CYAN}{self.max_rounds} rounds{Fore.RESET}.\nThe code "
+            f"consists of {Fore.CYAN}{self.code_length} "
             f"{
                 'digits' if self.colors[0].isnumeric() else 'characters'
             }{Fore.RESET} "
-            f"{f'between {Fore.BLUE}{self.colors[0]} and {self.colors[-1]}'
+            f"{f'between {Fore.CYAN}{self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
-                else f'out of {Fore.BLUE}{", ".join(self.colors)}'},\n"
-            f"{Fore.RESET}where {Fore.BLUE}repetitions{Fore.RESET} are "
-            f"{Fore.BLUE}{'' if self.repetitions else 'not '}allowed.\n"
+                else f'out of {Fore.CYAN}{", ".join(self.colors)}'},\n"
+            f"{Fore.RESET}where {Fore.CYAN}repetitions{Fore.RESET} are "
+            f"{Fore.CYAN}{'' if self.repetitions else 'not '}allowed.\n"
         )
         time.sleep(1)
         self.screen.press_enter()
@@ -528,15 +531,16 @@ class Game:
         """
         print(
             f"Secret code:\n"
-            f"- {self.code_length} "
+            f"- {Fore.CYAN}{self.code_length} "
             f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
-            f"{
-                f'between {self.colors[0]} and {self.colors[-1]}'
+            f"{Fore.RESET}{
+                f'between {Fore.CYAN}{self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
-                else f'out of {", ".join(self.colors)}'
-            },\n"
-            f"- repetitions {'' if self.repetitions else 'not '}allowed\n"
-            f"- {self.max_rounds} rounds\n"
+                else f'out of {Fore.CYAN}{", ".join(self.colors)}'
+            }{Fore.RESET},\n"
+            f"- repetitions {'' if self.repetitions else '{Fore.CYAN}not '}"
+            f"{Fore.RESET}allowed\n"
+            f"- {Fore.CYAN}{self.max_rounds} rounds\n"
         )
         # Remove after testing ###############################################
         print(f"For testing: secret code: {self.secret_code}\n")
@@ -555,7 +559,7 @@ class Game:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
             self.secret_code_description()
-            print(f"Round {attempts}:\n")
+            print(f"{Fore.CYAN}Round {attempts}:\n")
             if attempts > 1:
                 board.show(attempts - 1)
             # Create new guess, pass secret code, colors list and screen
@@ -655,12 +659,15 @@ class Guess:
 
             # Check that guess is not empty
             if len(guess) == 0:
-                print("Your guess is empty.\n")
+                print(f"{Fore.RED}Your guess is empty.\n")
                 continue
 
             # Check that guess has correct length
             if len(guess) != len(self.secret):
-                print(f"\nYour guess '{guess}' is not the right length.\n")
+                print(
+                    f"{Fore.RED}\nYour guess '{guess}' is "
+                    "not the right length.\n"
+                )
                 continue
 
             # Check that guess only contains valid characters
@@ -669,7 +676,7 @@ class Guess:
             for char in guess:
                 if char not in [color for color in self.colors]:
                     print(
-                        f"\nYour guess '{guess}' contains "
+                        f"{Fore.RED}\nYour guess '{guess}' contains "
                         "invalid characters.\n"
                         )
                     characters_valid = False
