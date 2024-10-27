@@ -279,13 +279,15 @@ class Game:
 
     def set_level(self):
         if self.level == "1":
-            self.colors = ["1", "2", "3", "4"]
+            # self.colors = ["1", "2", "3", "4"]
+            self.colors = ["A", "B", "C", "D"]
             self.code_length = 3
             self.max_rounds = 12
             self.repetitions = True
 
         elif self.level == "2":
-            self.colors = ["1", "2", "3", "4", "5", "6"]
+            # self.colors = ["1", "2", "3", "4", "5", "6"]
+            self.colors = ["A", "B", "C", "D", "E", "F"]
             self.code_length = 4
             self.max_rounds = 12
             self.repetitions = True
@@ -358,7 +360,7 @@ class Game:
             f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
             f"{f'between {self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
-                else f'out of {self.colors}'}, "
+                else f'out of {", ".join(self.colors)}'}, "
             "where repetitions are "
             f"{'' if self.repetitions else 'not '}allowed.\n"
         )
@@ -376,7 +378,7 @@ class Game:
             f"{
                 f'between {self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
-                else f'out of {self.colors}'
+                else f'out of {", ".join(self.colors)}'
             },\n"
             f"* repetitions {'' if self.repetitions else 'not '}allowed\n"
             f"* {self.max_rounds} rounds\n"
@@ -486,11 +488,13 @@ class Guess:
         """
         while True:
 
-            guess = input("Enter your guess: \n").strip()
+            # Take user input, strip of empty spaces in beginning and end
+            # Convert it to uppercase string
+            guess = input("Enter your guess: \n").strip().upper()
 
             # Check that guess is not empty
             if len(guess) == 0:
-                print("\nYour guess is empty.\n")
+                print("Your guess is empty.\n")
                 continue
 
             # Check that guess has correct length
@@ -502,10 +506,7 @@ class Guess:
             # according to colors list
             characters_valid = True
             for char in guess:
-                if char.lower() not in \
-                        [color.lower() for color in self.colors]:
-                    # Compare lowercase strings so that it works for general
-                    # colors list inGame class, which can contain letters
+                if char not in [color for color in self.colors]:
                     print(
                         f"\nYour guess '{guess}' contains "
                         "invalid characters.\n"
