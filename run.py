@@ -329,9 +329,9 @@ class ChooseLevel():
         self.screen.clear_screen()
         self.screen.print_logo(self.screen.plain_text)
         print("Level Menu\n")
-        print("1 - Easy\n")
-        print("2 - Classic\n")
-        print("3 - Hard\n")
+        print(f"1 - {Fore.GREEN}Easy\n")
+        print(f"2 - {Fore.YELLOW}Classic\n")
+        print(f"3 - {Fore.RED}Hard\n")
 
     def take_level_choice(self):
         """
@@ -363,17 +363,20 @@ class ChooseLevel():
         Check which option user chose and call functions accordingly
         """
         if level_choice == "1":
-            print("\nLevel 1 selected\n")
+            print(f"\nLevel 1 - {Fore.GREEN}Easy{Fore.RESET} - selected\n")
+            time.sleep(2)
             game = Game("1", self.screen)
             game.run_game()
 
         elif level_choice == "2":
-            print("\nLevel 2 selected\n")
+            print(f"\nLevel 2 - {Fore.YELLOW}Classic{Fore.RESET} - selected\n")
+            time.sleep(2)
             game = Game("2", self.screen)
             game.run_game()
 
         else:
-            print("\nLevel 3 selected\n")
+            print(f"\nLevel 3 - {Fore.RED}Hard{Fore.RESET} - selected\n")
+            time.sleep(2)
             game = Game("3", self.screen)
             game.run_game()
 
@@ -492,8 +495,15 @@ class Game:
         level_strings = ["Easy", "Classic", "Hard"]
         print(f"Welcome to a game of {Fore.BLUE}{Style.BRIGHT}Mastermind.\n")
         time.sleep(1)
-        print(f"Level {self.level} - {level_strings[int(self.level)-1]} - "
-              "selected\n")
+        level_name = level_strings[int(self.level)-1]
+        # Set up color printing for level names
+        if level_name == "Easy":
+            level_name_color = Fore.GREEN
+        elif level_name == "Classic":
+            level_name_color = Fore.YELLOW
+        elif level_name == "Hard":
+            level_name_color = Fore.RED
+        print(f"Level {self.level} - {level_name_color}{level_name}\n")
         time.sleep(1)
         print(
             f"The goal is to crack a secret code within {self.max_rounds} "
