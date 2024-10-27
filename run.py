@@ -506,14 +506,17 @@ class Game:
         print(f"Level {self.level} - {level_name_color}{level_name}\n")
         time.sleep(1)
         print(
-            f"The goal is to crack a secret code within {self.max_rounds} "
-            f"rounds.\nThe code consists of {self.code_length} "
-            f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
-            f"{f'between {self.colors[0]} and {self.colors[-1]}'
+            f"The goal is to crack a secret code within "
+            f"{Fore.BLUE}{self.max_rounds} rounds{Fore.RESET}.\nThe code "
+            f"consists of {Fore.BLUE}{self.code_length} "
+            f"{
+                'digits' if self.colors[0].isnumeric() else 'characters'
+            }{Fore.RESET} "
+            f"{f'between {Fore.BLUE}{self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
-                else f'out of {", ".join(self.colors)}'},\n"
-            "where repetitions are "
-            f"{'' if self.repetitions else 'not '}allowed.\n"
+                else f'out of {Fore.BLUE}{", ".join(self.colors)}'},\n"
+            f"{Fore.RESET}where {Fore.BLUE}repetitions{Fore.RESET} are "
+            f"{Fore.BLUE}{'' if self.repetitions else 'not '}allowed.\n"
         )
         time.sleep(1)
         self.screen.press_enter()
