@@ -22,7 +22,7 @@ class Screen:
         """
         Continue when user presses enter
         """
-        input("Press ENTER to continue.\n")
+        self.user_input("Press ENTER to continue.\n")
 
     def user_input(self, message):
         """
@@ -45,7 +45,7 @@ class Screen:
         """
         while True:
             user_input = self.user_input(
-                "\nDo you really want to exit the application?\n"
+                "Do you really want to exit the application?\n"
                 "Enter y for yes or n for no.\n"
                 )
 
@@ -63,7 +63,7 @@ class Screen:
             exit()
         else:
             print("\nContinuing application ...\n")
-            time.sleep(2)
+            time.sleep(1)
             # return False indicates that user does not want to quit
             return False
 
@@ -184,7 +184,9 @@ class GameMenu:
         and return it if valid
         """
         while True:
-            choice = input("Choose from options 1 - 3: \n").strip()
+            choice = self.screen.user_input(
+                "Choose from options 1 - 3: \n"
+                ).strip()
 
             # Check that choice is not empty
             if len(choice) == 0:
@@ -268,7 +270,9 @@ class ChooseLevel():
         and return it if valid
         """
         while True:
-            choice = input("Choose from options 1 - 3: \n").strip()
+            choice = self.screen.user_input(
+                "Choose from options 1 - 3: \n"
+                ).strip()
 
             # Check that choice is not empty
             if len(choice) == 0:
@@ -472,9 +476,9 @@ class Game:
             print(f"Round {attempts}:\n")
             if attempts > 1:
                 board.show(attempts - 1)
-            # Create new guess, pass secret code and colors list
-            # to be able to check guess against secret
-            latest_guess = Guess(self.secret_code, self.colors)
+            # Create new guess, pass secret code, colors list and screen
+            # to be able to check guess against secret and take user_input()
+            latest_guess = Guess(self.secret_code, self.colors, self.screen)
             # Check guess against secret and save score
             latest_score = latest_guess.score
             hits = latest_score[0]
@@ -546,13 +550,13 @@ class Guess:
     """
     Create instance of Guess
     """
-    def __init__(self, secret, colors):
+    def __init__(self, secret, colors, screen):
         self.secret = secret
         self.colors = colors
-        self.guessed_code = self.take_guess()
+        self.guessed_code = self.take_guess(screen)
         self.score = self.check_guess()
 
-    def take_guess(self):
+    def take_guess(self, screen):
         """
         Take a guess from the user and check for valid input
         if guess is of correct length and
@@ -562,7 +566,7 @@ class Guess:
 
             # Take user input, strip of empty spaces in beginning and end
             # Convert it to uppercase string
-            guess = input("\nEnter your guess: \n").strip().upper()
+            guess = screen.user_input("\nEnter your guess: \n").strip().upper()
 
             # Check that guess is not empty
             if len(guess) == 0:
