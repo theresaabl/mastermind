@@ -125,7 +125,50 @@ class Screen:
             print("\nMASTERMIND\n")
         else:
             self.print_logo(self.plain_text)
-        print("\nInstructions to write ...\n")
+        print(
+            # Important: Change numbers to letters if letters are used
+            # for secret code elements in colors list
+            # Adapt rules to the difficulty levels available
+            """
+Welcome to Mastermind!
+
+Objective:
+- Your goal is to guess a secret code within a limited number of rounds.
+- The code consists of a sequence of colors, represented by numbers.
+
+Rules:
+1. The code is made up of 3 - 5 color slots, depending on the level of
+   difficulty chosen. Each slot contains one of 4 - 8 possible colors.
+2. Colors may (or may not) repeat, depending on the level chosen.
+3. For each guess, you will receive feedback to help you get closer
+   to the correct code.
+
+Levels:
+There are three distinct levels to choose from:
+  1 - Easy
+  2 - Classic
+  3 - Hard
+
+Feedback:
+- "Hits": The number of colors in your guess that are correct in both
+          color and position.
+- "Close": The number of colors in your guess that are correct in color
+           but placed in the wrong slot.
+
+Winning:
+If you match all colors in the correct positions before finishing the
+final round, you win!
+
+Tips:
+- Use the feedback to adjust your guesses strategically.
+- With each try, aim to get more colors in the correct position.
+
+Exitting the Game:
+You can exit the game at any point by entering EXIT in an input field.
+
+Good luck, and have fun cracking the code!
+    """
+        )
         self.press_enter()
 
     def show_start_screen(self):
@@ -157,7 +200,7 @@ class Screen:
         while True:
             plain_text = self.user_input(
                 "Would you like to access the game in plain text "
-                "mode, i.e. with all visual elements removed?\n"
+                "mode,\ni.e. with all visual elements removed?\n"
                 "Enter y for yes or n for no.\n"
                 ).strip()
 
@@ -437,7 +480,7 @@ class Game:
             f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
             f"{f'between {self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
-                else f'out of {", ".join(self.colors)}'}, "
+                else f'out of {", ".join(self.colors)}'},\n"
             "where repetitions are "
             f"{'' if self.repetitions else 'not '}allowed.\n"
         )
@@ -451,15 +494,15 @@ class Game:
         """
         print(
             f"Secret code:\n"
-            f"* {self.code_length} "
+            f"- {self.code_length} "
             f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
             f"{
                 f'between {self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
                 else f'out of {", ".join(self.colors)}'
             },\n"
-            f"* repetitions {'' if self.repetitions else 'not '}allowed\n"
-            f"* {self.max_rounds} rounds\n"
+            f"- repetitions {'' if self.repetitions else 'not '}allowed\n"
+            f"- {self.max_rounds} rounds\n"
         )
         # Remove after testing ###############################################
         print(f"For testing: secret code: {self.secret_code}\n")
