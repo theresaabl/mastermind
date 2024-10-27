@@ -27,12 +27,17 @@ class Screen:
     def user_input(self, message):
         """
         Take user input and catch KeyboardInterrupt
+        if user inputs exit, call exit_application
         """
         while True:
             try:
                 while True:
                     user_input = input(message)
-                    return user_input
+                    # If user types exit at any point, call exit_application
+                    if user_input.lower().strip() == "exit":
+                        self.exit_application()
+                    else:
+                        return user_input
             except KeyboardInterrupt:
                 # Checks whether user wants to exit
                 # If not, continue to take user input again
@@ -45,7 +50,7 @@ class Screen:
         """
         while True:
             user_input = self.user_input(
-                "Do you really want to exit the application?\n"
+                "\nDo you really want to exit the application?\n"
                 "Enter y for yes or n for no.\n"
                 )
 
