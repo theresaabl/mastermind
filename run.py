@@ -604,8 +604,11 @@ class Board:
             # printing for plain text mode
             headings = self.guess_list[0]
             for line in self.guess_list[1:]:
-                print(f"{headings[0]} {line[0]}, {headings[1]} {line[1]}, "
-                      f"{headings[2]} {line[2]}")
+                print(
+                    f"{headings[0]} {line[0]}, "
+                    f"{Fore.RED}{headings[1]} {line[1]}, {Fore.RESET}"
+                    f"{headings[2]} {line[2]}"
+                )
         else:
             # nicely formatted table
             rowIDs = [i for i in range(1, rounds + 1)]
