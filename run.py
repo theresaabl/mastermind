@@ -55,7 +55,7 @@ class Screen:
         """
         while True:
             user_input = self.user_input(
-                "\nDo you really want to exit the application?\n"
+                "\nAre you sure you want to exit the application?\n"
                 "Enter y for yes or n for no.\n"
                 )
 
@@ -95,12 +95,12 @@ class Screen:
 
             # Check that choice is not empty
             if len(input) == 0:
-                print(Fore.RED + "\nYour choice is empty.\n")
+                print(f"{Fore.RED}\nYour choice is empty.\n")
                 return False
 
             # Check that choice is y or n
             if len(input) != 1 or input.lower() not in "yn":
-                print(Fore.RED + f"\nYour choice '{input}' is not valid.\n")
+                print(f"{Fore.RED}\nYour choice '{input}' is not valid.\n")
                 return False
 
             # If choice is valid, return True
@@ -113,7 +113,7 @@ class Screen:
         """
         if plain_text:
             # plain text mode
-            print(Fore.BLUE + Style.BRIGHT + "MASTERMIND\n")
+            print(f"{Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
         else:
             print(
                 Fore.BLUE
@@ -150,8 +150,8 @@ class Screen:
             # Important: Change numbers to letters if letters are used
             # for secret code elements in colors list
             # Adapt rules to the difficulty levels available
-            """
-Welcome to Mastermind!
+            f"""
+Welcome to {Fore.BLUE}{Style.BRIGHT}Mastermind{Style.RESET_ALL}!
 
 Objective:
 - Your goal is to guess a secret code within a limited number of rounds.
@@ -184,7 +184,7 @@ Tips:
 - Use the feedback to adjust your guesses strategically.
 - With each try, aim to get more colors in the correct position.
 
-Exitting the Game:
+Exiting the Game:
 You can exit the game at any point by entering EXIT in an input field.
 
 Good luck, and have fun cracking the code!
@@ -199,7 +199,7 @@ Good luck, and have fun cracking the code!
         For accessibility, to avoid ascii art,
         formatted tables etc. for screen readers
         """
-        print("\nWelcome to MASTERMIND\n")
+        print(f"\nWelcome to {Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
         time.sleep(1)
         print("A Python console game\n")
         time.sleep(1)
@@ -268,12 +268,12 @@ class GameMenu:
 
             # Check that choice is not empty
             if len(choice) == 0:
-                print("\nYour choice is empty.\n")
+                print(f"{Fore.RED}\nYour choice is empty.\n")
                 continue
 
             # Check that choice is numeric and of length 1
             if len(choice) != 1 or choice not in "123":
-                print(f"\nYour choice '{choice}' is not valid.\n")
+                print(f"{Fore.RED}\nYour choice '{choice}' is not valid.\n")
                 continue
 
             # If choice is valid, break
@@ -345,12 +345,12 @@ class ChooseLevel():
 
             # Check that choice is not empty
             if len(choice) == 0:
-                print("\nYour choice is empty.\n")
+                print(f"{Fore.RED}\nYour choice is empty.\n")
                 continue
 
             # Check that choice is numeric and of length 1
             if len(choice) != 1 or choice not in "123":
-                print(f"\nYour choice '{choice}' is not valid.\n")
+                print(f"{Fore.RED}\nYour choice '{choice}' is not valid.\n")
                 continue
 
             # If choice is valid, break
@@ -458,9 +458,9 @@ class Game:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
             print(
-                "\nCongratulations, you WON!\n"
-                "\nYou cracked the secret code "
-                f"'{self.secret_code}' in {attempts} "
+                f"\nCongratulations, you {Fore.YELLOW}{Style.BRIGHT}WON!\n"
+                f"{Style.RESET_ALL}\nYou cracked the secret code "
+                f"{Fore.YELLOW}{self.secret_code}{Fore.RESET} in {attempts} "
                 f"{'rounds' if attempts != 1 else 'round'}.\n"
                 )
             board.show(attempts)
@@ -476,7 +476,7 @@ class Game:
         Check if has reached maximum attempts
         """
         if attempts == self.max_rounds:
-            print("\nYou have run out of attempts.\n")
+            print(f"{Fore.RED}\nYou have run out of attempts.\n")
             time.sleep(1)
             self.screen.press_enter()
             return True
@@ -490,7 +490,7 @@ class Game:
         self.screen.clear_screen()
         self.screen.print_logo(self.screen.plain_text)
         level_strings = ["Easy", "Classic", "Hard"]
-        print("Welcome to a game of Mastermind.\n")
+        print(f"Welcome to a game of {Fore.BLUE}{Style.BRIGHT}Mastermind.\n")
         time.sleep(1)
         print(f"Level {self.level} - {level_strings[int(self.level)-1]} - "
               "selected\n")
