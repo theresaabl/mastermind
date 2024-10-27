@@ -166,6 +166,7 @@ class GameMenu:
             return True
 
         else:
+            # menu_choice == "3"
             self.screen.clear_screen()
             print("\nGood bye!\n")
             time.sleep(3)
@@ -340,6 +341,9 @@ class Game:
             return False
 
     def game_welcome_message(self):
+        """
+        Print welcome message when game starts
+        """
         self.screen.clear_screen()
         self.screen.print_logo(self.screen.plain_text)
         level_strings = ["Easy", "Classic", "Hard"]
@@ -348,22 +352,36 @@ class Game:
         print(f"Level {self.level} - {level_strings[int(self.level)-1]} - "
               "selected\n")
         time.sleep(1)
-        self.secret_code_description()
-        self.screen.press_enter()
-
-    def secret_code_description(self):
-        # Give description of secret code, generalised to colors list
-        # consisting of numbers or alphabetic characters
         print(
-            f"The secret code consists of {self.code_length} "
+            f"The goal is to crack a secret code within {self.max_rounds} "
+            f"rounds.\nThe code consists of {self.code_length} "
             f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
             f"{f'between {self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
                 else f'out of {self.colors}'}, "
             "where repetitions are "
-            f"{'' if self.repetitions else 'not '}allowed."
-            f"\nYou have {self.max_rounds} rounds to crack the code.\n"
-            )
+            f"{'' if self.repetitions else 'not '}allowed.\n"
+        )
+        self.screen.press_enter()
+
+    def secret_code_description(self):
+        """
+        Give description of secret code, generalised to colors list
+        consisting of numbers or alphabetic characters
+        """
+        print(
+            f"Secret code:\n"
+            f"* {self.code_length} "
+            f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
+            f"{
+                f'between {self.colors[0]} and {self.colors[-1]}'
+                if self.colors[0].isnumeric()
+                else f'out of {self.colors}'
+            },\n"
+            f"* repetitions {'' if self.repetitions else 'not '}allowed\n"
+            f"* {self.max_rounds} rounds\n"
+        )
+        # Remove after testing ###############################################
         print(f"For testing: secret code: {self.secret_code}\n")
 
     def run_game(self):
