@@ -325,16 +325,22 @@ class Game:
             code = "".join(code_array)
         return code
 
-    def game_won(self, score, attempts):
+    def game_won(self, score, attempts, board):
         """
         Check if game is won
         """
         if score[0] == self.code_length:
+            self.screen.clear_screen()
+            self.screen.print_logo(self.screen.plain_text)
             print(
-                "\nCongratulations, you cracked the secret code "
+                "\nCongratulations, you WON!\n"
+                "\nYou cracked the secret code "
                 f"'{self.secret_code}' in {attempts} "
                 f"{'rounds' if attempts != 1 else 'round'}.\n"
                 )
+            board.show(attempts)
+            time.sleep(1)
+            print("")
             self.screen.press_enter()
             return True
         else:
@@ -346,6 +352,7 @@ class Game:
         """
         if attempts == self.max_rounds:
             print("\nYou have run out of attempts.\n")
+            time.sleep(1)
             self.screen.press_enter()
             return True
         else:
@@ -429,7 +436,7 @@ class Game:
             board.append_guess(latest_guess)
 
             # check break conditions
-            if self.game_won(latest_score, attempts):
+            if self.game_won(latest_score, attempts, board):
                 break
             if self.check_max_rounds(attempts):
                 break
