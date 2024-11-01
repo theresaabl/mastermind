@@ -633,8 +633,14 @@ class Board:
         else:
             # nicely formatted table
             rowIDs = [i for i in range(1, rounds + 1)]
+            # copy guess list to add color
+            color_guess_list = self.guess_list.copy()
+            # loop through rows and add color to hits and close
+            for row in color_guess_list:
+                row[1] = f"{Fore.GREEN}{row[1]}{Fore.RESET}"
+                row[2] = f"{Fore.YELLOW}{row[2]}{Fore.RESET}"
             print(tabulate(
-                self.guess_list, headers='firstrow',
+                color_guess_list, headers='firstrow',
                 tablefmt='rounded_outline', showindex=rowIDs
                 ))
 
