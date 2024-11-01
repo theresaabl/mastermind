@@ -565,7 +565,7 @@ class Game:
                 if self.colors[0].isnumeric()
                 else f'out of {Fore.CYAN}{", ".join(self.colors)}'
             }{Fore.RESET}\n"
-            f"- repetitions {'' if self.repetitions else '{Fore.CYAN}not '}"
+            f"- repetitions {'' if self.repetitions else f'{Fore.CYAN}not '}"
             f"{Fore.RESET}allowed\n"
             f"- {Fore.CYAN}{self.max_rounds} rounds\n"
         )
