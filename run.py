@@ -464,9 +464,9 @@ class Game:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
             print(
-                f"\nCongratulations, you {Fore.YELLOW}{Style.BRIGHT}WON!\n"
+                f"\nCongratulations, you {Fore.CYAN}{Style.BRIGHT}WON!\n"
                 f"{Style.RESET_ALL}\nYou cracked the secret code "
-                f"{Fore.YELLOW}{self.secret_code}{Fore.RESET} in {attempts} "
+                f"{Fore.CYAN}{self.secret_code}{Fore.RESET} in {attempts} "
                 f"{'rounds' if attempts != 1 else 'round'}.\n"
                 )
             board.show(attempts)
@@ -548,7 +548,7 @@ class Game:
     def hits_close_message(self, guess, hits, close):
         print(
              f"\nYour guess {guess.guessed_code} has "
-             f"{Fore.RED}{hits} hit{'' if hits == 1 else 's'}{Fore.RESET} "
+             f"{Fore.GREEN}{hits} hit{'' if hits == 1 else 's'}{Fore.RESET} "
              f"and {Fore.YELLOW}{close} close{Fore.RESET}."
         )
 
@@ -627,8 +627,8 @@ class Board:
             for line in self.guess_list[1:]:
                 print(
                     f"{headings[0]} {line[0]}, "
-                    f"{Fore.RED}{headings[1]} {line[1]}, {Fore.RESET}"
-                    f"{headings[2]} {line[2]}"
+                    f"{Fore.GREEN}{headings[1]} {line[1]}{Fore.RESET}, "
+                    f"{Fore.YELLOW}{headings[2]} {line[2]}"
                 )
         else:
             # nicely formatted table
