@@ -237,6 +237,33 @@ Good luck, and have fun cracking the code!
 
         return True if plain_text == "y" else False
 
+    def color_secret_code(self, code):
+        """
+        Adds colorama colors for each digit in numeric secret code
+        For alphabetic secret code would need to set up depending on
+        characters chosen
+        """
+        color_code = ""
+        for char in code:
+            if char == "1" or char == "7":
+                color_char = Fore.BLUE
+            elif char == "2" or char == "8":
+                color_char = Fore.GREEN
+            elif char == "3" or char == "9":
+                color_char = Fore.YELLOW
+            elif char == "4":
+                color_char = Fore.MAGENTA
+            elif char == "5":
+                color_char = Fore.RED
+            elif char == "6":
+                color_char = Fore.CYAN
+
+            char = f"{color_char}{char}"
+            color_code += char
+
+        color_code += f"{Fore.RESET}"
+        return (color_code)
+
 
 class GameMenu:
     """
@@ -254,6 +281,7 @@ class GameMenu:
         """
         self.screen.clear_screen()
         self.screen.print_logo(self.plain_text)
+        print(f"TEST color code: {self.screen.color_secret_code("123456789")}")
         print("Game Menu\n")
         print("1 - Play Game\n")
         print("2 - Show Instructions\n")
@@ -466,8 +494,8 @@ class Game:
             print(
                 f"\nCongratulations, you {Fore.CYAN}{Style.BRIGHT}WON!\n"
                 f"{Style.RESET_ALL}\nYou cracked the secret code "
-                f"{Fore.CYAN}{self.secret_code}{Fore.RESET} in {attempts} "
-                f"{'rounds' if attempts != 1 else 'round'}.\n"
+                f"{self.screen.color_secret_code(self.secret_code)} in "
+                f"{attempts} {'rounds' if attempts != 1 else 'round'}.\n"
                 )
             board.show(attempts)
             time.sleep(1)
