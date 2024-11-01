@@ -250,17 +250,17 @@ Good luck, and have fun cracking the code!
         color_code = ""
         for char in code:
             if char == "1" or char == "7":
-                color_char = Fore.BLUE
+                color_char = Fore.MAGENTA
             elif char == "2" or char == "8":
-                color_char = Fore.GREEN
+                color_char = Fore.RED
             elif char == "3" or char == "9":
                 color_char = Fore.YELLOW
             elif char == "4":
-                color_char = Fore.MAGENTA
-            elif char == "5":
-                color_char = Fore.RED
-            elif char == "6":
                 color_char = Fore.CYAN
+            elif char == "5":
+                color_char = Fore.GREEN
+            elif char == "6":
+                color_char = Fore.BLUE
 
             char = f"{color_char}{char}"
             color_code += char
