@@ -281,7 +281,6 @@ class GameMenu:
         """
         self.screen.clear_screen()
         self.screen.print_logo(self.plain_text)
-        print(f"TEST color code: {self.screen.color_secret_code("123456789")}")
         print("Game Menu\n")
         print("1 - Play Game\n")
         print("2 - Show Instructions\n")
@@ -570,13 +569,13 @@ class Game:
             f"{Fore.RESET}allowed\n"
             f"- {Fore.CYAN}{self.max_rounds} rounds\n"
         )
-######### Remove after testing ############################################################################################  # noqa
+        # Remove after testing ############################################################################################
         print(f"For testing: secret code: {self.secret_code}\n")
 
     def hits_close_message(self, guess, hits, close):
         print(
-             f"\nYour guess {guess.guessed_code} has "
-             f"{Fore.GREEN}{hits} hit{'' if hits == 1 else 's'}{Fore.RESET} "
+             f"\nYour guess {self.screen.color_secret_code(guess.guessed_code)} "  # noqa
+             f"has {Fore.GREEN}{hits} hit{'' if hits == 1 else 's'}{Fore.RESET} "  # noqa
              f"and {Fore.YELLOW}{close} close{Fore.RESET}."
         )
 
@@ -639,7 +638,8 @@ class Board:
             # Improve formatting of guess in board
             [
                 " ".join(list(guess.guessed_code)),
-                guess.score[0], guess.score[1]
+                guess.score[0],
+                guess.score[1]
             ]
             )
 
@@ -654,17 +654,18 @@ class Board:
             headings = self.guess_list[0]
             for line in self.guess_list[1:]:
                 print(
-                    f"{headings[0]} {line[0]}, "
+                    f"{headings[0]} {self.screen.color_secret_code(line[0])}, "
                     f"{Fore.GREEN}{headings[1]} {line[1]}{Fore.RESET}, "
                     f"{Fore.YELLOW}{headings[2]} {line[2]}"
                 )
         else:
             # nicely formatted table
             rowIDs = [i for i in range(1, rounds + 1)]
-            # copy guess list to add color
+            # copy guess list to add color for score
             color_guess_list = self.guess_list.copy()
             # loop through rows and add color to hits and close
             for row in color_guess_list:
+                row[0] = self.screen.color_secret_code(row[0])
                 row[1] = f"{Fore.GREEN}{row[1]}{Fore.RESET}"
                 row[2] = f"{Fore.YELLOW}{row[2]}{Fore.RESET}"
             print(tabulate(
