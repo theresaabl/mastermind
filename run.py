@@ -114,14 +114,14 @@ class Screen:
             # If choice is valid, return True
             return True
 
-    def take_menu_choice(self):
+    def take_menu_choice(self, options):
         """
-        Take user input menu choice (for options 1 - 3), validate it
+        Take user input menu choice out of {options} options, validate it
         and return it if valid
         """
         while True:
             choice = self.user_input(
-                " Choose from options 1 - 3: \n"
+                f" Choose from options 1 - {options}: \n"
                 ).strip()
 
             # Check that choice is not empty
@@ -129,8 +129,13 @@ class Screen:
                 print(f"{Fore.RED}\n Your choice is empty.\n")
                 continue
 
-            # Check that choice is numeric and of length 1
-            if len(choice) != 1 or choice not in "123":
+            # Check that choice is single digit between 1 and {options}
+            # Create string containing all menu options
+            options_string = ""
+            for digit in range(1, options + 1):
+                options_string += str(digit)
+
+            if len(choice) != 1 or choice not in options_string:
                 print(f"{Fore.RED}\n Your choice '{choice}' is not valid.\n")
                 continue
 
@@ -307,31 +312,6 @@ class GameMenu:
         print(" 2 - Show Instructions\n")
         print(" 3 - Exit\n")
 
-    # def take_menu_choice(self):
-    #     """
-    #     Take user input menu choice, validate it
-    #     and return it if valid
-    #     """
-    #     while True:
-    #         choice = self.screen.user_input(
-    #             " Choose from options 1 - 3: \n"
-    #             ).strip()
-
-    #         # Check that choice is not empty
-    #         if len(choice) == 0:
-    #             print(f"{Fore.RED}\n Your choice is empty.\n")
-    #             continue
-
-    #         # Check that choice is numeric and of length 1
-    #         if len(choice) != 1 or choice not in "123":
-    #             print(f"{Fore.RED}\n Your choice '{choice}' is not valid.\n")
-    #             continue
-
-    #         # If choice is valid, break
-    #         break
-
-    #     return choice
-
     def handle_menu_choice(self, menu_choice):
         """
         Check which option user chose and call functions accordingly
@@ -360,7 +340,8 @@ class GameMenu:
         while True:
             # while loop broken from inside functions
             self.show_menu()
-            menu_choice = self.screen.take_menu_choice()
+            # pass number of menu options
+            menu_choice = self.screen.take_menu_choice(3)
             # handles menu choice, calls appropriate functions
             # Show menu until user chooses exit
             self.handle_menu_choice(menu_choice)
@@ -416,7 +397,8 @@ class ChooseLevel():
         """
         while True:
             self.show_level_menu()
-            level_choice = self.screen.take_menu_choice()
+            # pass number of menu options
+            level_choice = self.screen.take_menu_choice(3)
             break
 
         # handle level choice and start game
