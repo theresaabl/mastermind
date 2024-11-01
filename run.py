@@ -583,8 +583,8 @@ class Game:
     def hits_close_message(self, guess, hits, close):
         print(
              f"\nYour guess {self.screen.color_secret_code(guess.guessed_code)} "  # noqa
-             f"has {Fore.GREEN}{hits} hit{'' if hits == 1 else 's'}{Fore.RESET} "  # noqa
-             f"and {Fore.YELLOW}{close} close{Fore.RESET}."
+             f"has {Fore.GREEN}{hits}{Fore.RESET} hit{'' if hits == 1 else 's'} "  # noqa
+             f"and {Fore.YELLOW}{close}{Fore.RESET} close."
         )
 
     def run_game(self):
@@ -661,8 +661,8 @@ class Board:
             for line in self.guess_list[1:]:
                 print(
                     f"{headings[0]} {line[0]}, "
-                    f"{Fore.GREEN}{headings[1]} {line[1]}{Fore.RESET}, "
-                    f"{Fore.YELLOW}{headings[2]} {line[2]}"
+                    f"{headings[1]} {Fore.GREEN}{line[1]}{Fore.RESET}, "
+                    f"{headings[2]} {Fore.YELLOW}{line[2]}"
                 )
         else:
             # nicely formatted table
@@ -670,7 +670,8 @@ class Board:
             # copy guess list to add color for score
             color_guess_list = self.guess_list.copy()
             # loop through rows and add color to hits and close
-            for row in color_guess_list:
+            for row in color_guess_list[1:]:
+                # skip the headings
                 row[1] = f"{Fore.GREEN}{row[1]}{Fore.RESET}"
                 row[2] = f"{Fore.YELLOW}{row[2]}{Fore.RESET}"
             print(tabulate(
