@@ -509,12 +509,20 @@ class Game:
         Check if has reached maximum attempts
         """
         if attempts == self.max_rounds:
-            print(f"{Fore.RED}\nYou have run out of attempts.\n")
-            time.sleep(1)
-            self.screen.press_enter()
+            self.lose_message()
             return True
         else:
             return False
+
+    def lose_message(self):
+        print(f"{Fore.RED}\nYou have run out of attempts.\n")
+        time.sleep(1)
+        print(
+            "The secret code was "
+            f"{self.screen.color_secret_code(self.secret_code)}.\n"
+            )
+        time.sleep(1)
+        self.screen.press_enter()
 
     def game_welcome_message(self):
         """
