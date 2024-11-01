@@ -537,13 +537,20 @@ class Game:
                 f'between {Fore.CYAN}{self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
                 else f'out of {Fore.CYAN}{", ".join(self.colors)}'
-            }{Fore.RESET},\n"
+            }{Fore.RESET}\n"
             f"- repetitions {'' if self.repetitions else '{Fore.CYAN}not '}"
             f"{Fore.RESET}allowed\n"
             f"- {Fore.CYAN}{self.max_rounds} rounds\n"
         )
-        # Remove after testing ###############################################
+######### Remove after testing ############################################################################################  # noqa
         print(f"For testing: secret code: {self.secret_code}\n")
+
+    def hits_close_message(self, guess, hits, close):
+        print(
+             f"\nYour guess {guess.guessed_code} has "
+             f"{Fore.RED}{hits} hit{'' if hits == 1 else 's'}{Fore.RESET} "
+             f"and {Fore.YELLOW}{close} close{Fore.RESET}."
+        )
 
     def run_game(self):
         """
@@ -569,11 +576,8 @@ class Game:
             latest_score = latest_guess.score
             hits = latest_score[0]
             close = latest_score[1]
-            print(
-                f"\nYour guess {latest_guess.guessed_code} has "
-                f"{hits} hit{'' if hits == 1 else 's'} "
-                f"and {close} close."
-                )
+            # print hits and close score
+            self.hits_close_message(latest_guess, hits, close)
             # Show board
             board.append_guess(latest_guess)
 
@@ -586,7 +590,7 @@ class Game:
                 # increment attempts
                 attempts += 1
 
-            time.sleep(2)
+            time.sleep(3)
 
 
 class Board:
