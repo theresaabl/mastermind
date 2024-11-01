@@ -2,6 +2,8 @@
 import random
 from tabulate import tabulate
 import time
+# import pyfiglet for ascii art logo
+import pyfiglet
 # import colorama module to print color text
 import colorama
 from colorama import Fore, Style
@@ -119,27 +121,8 @@ class Screen:
             # plain text mode
             print(f"{Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
         else:
-            print(
-                Fore.BLUE
-                + Style.BRIGHT
-                + r"    __  __         _                 _         _ "
-                )
-            print(
-                Fore.BLUE
-                + Style.BRIGHT
-                + r"   |  \/  |__ _ __| |_ ___ _ _ _ __ (_)_ _  __| |"
-                )
-            print(
-                Fore.BLUE
-                + Style.BRIGHT
-                + r"   | |\/| / _` (_-<  _/ -_) '_| '  \| | ' \/ _` |"
-                )
-            print(
-                Fore.BLUE
-                + Style.BRIGHT
-                + r"   |_|  |_\__,_/__/\__\___|_| |_|_|_|_|_||_\__,_|"
-                )
-            print("")
+            logo = pyfiglet.figlet_format("   Mastermind", font="small")
+            print(f"{Fore.BLUE}{Style.BRIGHT}{logo}")
 
     def print_instructions(self):
         """
@@ -209,7 +192,7 @@ You can exit the game at any point by entering {Fore.CYAN}EXIT{Fore.RESET}.
         For accessibility, to avoid ascii art,
         formatted tables etc. for screen readers
         """
-        print(f"\nWelcome to {Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
+        print(f"Welcome to {Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
         time.sleep(1)
         print("A Python console game\n")
         time.sleep(1)
