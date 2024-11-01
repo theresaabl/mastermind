@@ -146,54 +146,51 @@ class Screen:
         Show game instructions until user presses key
         """
         self.clear_screen()
-        if self.plain_text:
-            print("\nMASTERMIND\n")
-        else:
-            self.print_logo(self.plain_text)
-        print(
-            # Important: Change numbers to letters if letters are used
-            # for secret code elements in colors list
-            # Adapt rules to the difficulty levels available
-            f"""
+        self.print_logo(self.plain_text)
+
+        # Important: Change numbers to letters if letters are used
+        # for secret code elements in colors list
+        # Important: Adapt rules to the difficulty levels available (if change)
+        instructions = f"""
 Welcome to {Fore.BLUE}{Style.BRIGHT}Mastermind{Style.RESET_ALL}!
 
-Objective:
-- Your goal is to guess a secret code within a limited number of rounds.
-- The code consists of a sequence of colors, represented by numbers.
+{Fore.MAGENTA}Objective{Fore.RESET}:
+- Your goal is to {Fore.CYAN}guess a secret code{Fore.RESET} within a limited number of rounds.
+- The code consists of a {Fore.CYAN}sequence of colors{Fore.RESET}, represented by numbers.
 
-Rules:
-1. The code is made up of 3 - 5 color slots, depending on the level of
-   difficulty chosen. Each slot contains one of 4 - 8 possible colors.
-2. Colors may (or may not) repeat, depending on the level chosen.
-3. For each guess, you will receive feedback to help you get closer
-   to the correct code.
+{Fore.MAGENTA}Rules{Fore.RESET}:
+1. The code is made up of {Fore.CYAN}3 - 5 color slots{Fore.RESET}, depending on the level of
+   difficulty chosen. Each slot contains one of {Fore.CYAN}4 - 8 possible colors{Fore.RESET}.
+2. Colors {Fore.CYAN}may (or may not) repeat{Fore.RESET}, depending on the level chosen.
+3. For each guess, you will receive {Fore.CYAN}feedback{Fore.RESET} to help you get closer to
+   the correct code.
 
-Levels:
+{Fore.MAGENTA}Levels{Fore.RESET}:
 There are three distinct levels to choose from:
-  1 - Easy
-  2 - Classic
-  3 - Hard
+  1 - {Fore.GREEN}Easy{Fore.RESET}
+  2 - {Fore.YELLOW}Classic{Fore.RESET}
+  3 - {Fore.RED}Hard{Fore.RESET}
 
-Feedback:
-- "Hits": The number of colors in your guess that are correct in both
-          color and position.
-- "Close": The number of colors in your guess that are correct in color
-           but placed in the wrong slot.
+{Fore.MAGENTA}Feedback{Fore.RESET}:
+- {Fore.GREEN}"Hits"{Fore.RESET}: The number of colors in your guess that are correct in
+          both {Fore.CYAN}color and position{Fore.RESET}.
+- {Fore.YELLOW}"Close"{Fore.RESET}: The number of colors in your guess that are correct in
+           {Fore.CYAN}color{Fore.RESET} but wrong in postition.
 
-Winning:
-If you match all colors in the correct positions before finishing the
+{Fore.MAGENTA}Winning{Fore.RESET}:
+If you {Fore.CYAN}match all colors{Fore.RESET} in the correct positions before finishing the
 final round, you win!
 
-Tips:
-- Use the feedback to adjust your guesses strategically.
+{Fore.MAGENTA}Tips{Fore.RESET}:
+- Use the {Fore.CYAN}feedback{Fore.RESET} to adjust your guesses strategically.
 - With each try, aim to get more colors in the correct position.
 
-Exiting the Game:
-You can exit the game at any point by entering EXIT in an input field.
+{Fore.MAGENTA}Exiting the Game{Fore.RESET}:
+You can exit the game at any point by entering {Fore.CYAN}EXIT{Fore.RESET}.
 
-Good luck, and have fun cracking the code!
+{Fore.MAGENTA}Good luck, and have fun cracking the code!
     """
-        )
+        print(instructions)
         self.press_enter()
 
     def show_start_screen(self):
