@@ -53,9 +53,9 @@ class Screen:
         """
         Control what happens when user presses Crtl + C
         """
+        print("\nAre you sure you want to exit the application?")
         while True:
             user_input = self.user_input(
-                "\nAre you sure you want to exit the application?\n"
                 f"Enter {Fore.GREEN}y{Fore.RESET} for yes or "
                 f"{Fore.RED}n{Fore.RESET} for no.\n"
                 )
@@ -101,7 +101,10 @@ class Screen:
 
             # Check that choice is y or n
             if len(input) != 1 or input.lower() not in "yn":
-                print(f"{Fore.RED}\nYour choice '{input}' is not valid.\n")
+                print(
+                    f"{Fore.RED}\nYour choice '{input}' contains "
+                    "invalid characters.\n"
+                )
                 return False
 
             # If choice is valid, return True
@@ -219,11 +222,12 @@ Good luck, and have fun cracking the code!
         """
         Take user input on whether plain text mode is wanted or not
         """
+        print(
+            f"Would you like to access the game in {Fore.CYAN}plain text mode"
+            f"{Fore.RESET},\ni.e. with all visual elements removed?"
+        )
         while True:
             plain_text = self.user_input(
-                "Would you like to access the game in "
-                f"{Fore.CYAN}plain text mode{Fore.RESET},\n"
-                "i.e. with all visual elements removed?\n"
                 f"Enter {Fore.GREEN}y{Fore.RESET} for yes or "
                 f"{Fore.RED}n{Fore.RESET} for no.\n"
                 ).strip()
