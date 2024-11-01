@@ -634,14 +634,12 @@ class Board:
         """
         Append latest guess to the board
         """
-        self.guess_list.append(
-            # Improve formatting of guess in board
-            [
-                " ".join(list(guess.guessed_code)),
-                guess.score[0],
-                guess.score[1]
-            ]
+        # Format guess for display on board and add color
+        format_code = self.screen.color_secret_code(
+            " ".join(list(guess.guessed_code))
             )
+        # Append formatted guess to guess_list
+        self.guess_list.append([format_code, guess.score[0], guess.score[1]])
 
     def show(self, rounds):
         """
@@ -654,7 +652,7 @@ class Board:
             headings = self.guess_list[0]
             for line in self.guess_list[1:]:
                 print(
-                    f"{headings[0]} {self.screen.color_secret_code(line[0])}, "
+                    f"{headings[0]} {line[0]}, "
                     f"{Fore.GREEN}{headings[1]} {line[1]}{Fore.RESET}, "
                     f"{Fore.YELLOW}{headings[2]} {line[2]}"
                 )
@@ -665,7 +663,6 @@ class Board:
             color_guess_list = self.guess_list.copy()
             # loop through rows and add color to hits and close
             for row in color_guess_list:
-                row[0] = self.screen.color_secret_code(row[0])
                 row[1] = f"{Fore.GREEN}{row[1]}{Fore.RESET}"
                 row[2] = f"{Fore.YELLOW}{row[2]}{Fore.RESET}"
             print(tabulate(
