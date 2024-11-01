@@ -29,7 +29,7 @@ class Screen:
         """
         Continue when user presses enter
         """
-        self.user_input("Press ENTER to continue.\n")
+        self.user_input(" Press ENTER to continue.\n")
 
     def user_input(self, message):
         """
@@ -39,7 +39,9 @@ class Screen:
         while True:
             try:
                 while True:
-                    user_input = input(message)
+                    # Add an empty space to input message for format
+                    # of deployed site
+                    user_input = input(message + " ")
                     # If user types exit at any point, call exit_application
                     if user_input.lower().strip() == "exit":
                         self.handle_exit_request()
@@ -55,10 +57,10 @@ class Screen:
         """
         Control what happens when user presses Crtl + C
         """
-        print("\nAre you sure you want to exit the application?")
+        print("\n Are you sure you want to exit the application?")
         while True:
             user_input = self.user_input(
-                f"Enter {Fore.GREEN}y{Fore.RESET} for yes or "
+                f" Enter {Fore.GREEN}y{Fore.RESET} for yes or "
                 f"{Fore.RED}n{Fore.RESET} for no.\n"
                 )
 
@@ -72,7 +74,7 @@ class Screen:
         if user_input == "y":
             self.exit_application()
         else:
-            print("\nContinuing application ...\n")
+            print("\n Continuing application ...\n")
             time.sleep(1)
             # return False indicates that user does not want to quit
             return False
@@ -81,10 +83,10 @@ class Screen:
         """
         Print good bye message and exit
         """
-        print("\nExiting application ...")
+        print("\n Exiting application ...")
         time.sleep(1)
         self.clear_screen()
-        print("\nGood bye!\n")
+        print("\n Good bye!\n")
         time.sleep(2)
         self.clear_screen()
         exit()
@@ -98,13 +100,13 @@ class Screen:
 
             # Check that choice is not empty
             if len(input) == 0:
-                print(f"{Fore.RED}\nYour choice is empty.\n")
+                print(f"{Fore.RED}\n Your choice is empty.\n")
                 return False
 
             # Check that choice is y or n
             if len(input) != 1 or input.lower() not in "yn":
                 print(
-                    f"{Fore.RED}\nYour choice '{input}' contains "
+                    f"{Fore.RED}\n Your choice '{input}' contains "
                     "invalid characters.\n"
                 )
                 return False
@@ -119,9 +121,9 @@ class Screen:
         """
         if plain_text:
             # plain text mode
-            print(f"{Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
+            print(f"{Fore.BLUE}{Style.BRIGHT} MASTERMIND\n")
         else:
-            logo = pyfiglet.figlet_format("   Mastermind", font="small")
+            logo = pyfiglet.figlet_format("    Mastermind", font="small")
             print(f"{Fore.BLUE}{Style.BRIGHT}{logo}")
 
     def print_instructions(self):
@@ -135,52 +137,52 @@ class Screen:
         # for secret code elements in colors list
         # Important: Adapt rules to the difficulty levels available (if change)
         instructions = f"""
-Welcome to {Fore.BLUE}{Style.BRIGHT}Mastermind{Style.RESET_ALL}!
+ Welcome to {Fore.BLUE}{Style.BRIGHT}Mastermind{Style.RESET_ALL}!
 
-{Fore.MAGENTA}{Style.BRIGHT}Objective{Style.RESET_ALL}:
-- Your goal is to {Fore.CYAN}guess a secret code{Fore.RESET} within a \
+ {Fore.MAGENTA}{Style.BRIGHT}Objective{Style.RESET_ALL}:
+ - Your goal is to {Fore.CYAN}guess a secret code{Fore.RESET} within a \
 limited number of rounds.
-- The code consists of a {Fore.CYAN}sequence of colors{Fore.RESET}, \
+ - The code consists of a {Fore.CYAN}sequence of colors{Fore.RESET}, \
 represented by numbers.
 
-{Fore.MAGENTA}{Style.BRIGHT}Rules{Style.RESET_ALL}:
-1. The code is made up of {Fore.CYAN}3 - 5 color slots{Fore.RESET}, depending \
-on the level of
-   difficulty chosen. Each slot contains one of {Fore.CYAN}4 - 8 possible \
+ {Fore.MAGENTA}{Style.BRIGHT}Rules{Style.RESET_ALL}:
+ 1. The code is made up of {Fore.CYAN}3 - 5 color slots{Fore.RESET}, \
+depending on the level of
+    difficulty chosen. Each slot contains one of {Fore.CYAN}4 - 8 possible \
 colors{Fore.RESET}.
-2. Colors {Fore.CYAN}may (or may not) repeat{Fore.RESET}, depending on the \
+ 2. Colors {Fore.CYAN}may (or may not) repeat{Fore.RESET}, depending on the \
 level chosen.
-3. For each guess, you will receive {Fore.CYAN}feedback{Fore.RESET} to help \
+ 3. For each guess, you will receive {Fore.CYAN}feedback{Fore.RESET} to help \
 you get closer to
-   the correct code.
+    the correct code.
 
-{Fore.MAGENTA}{Style.BRIGHT}Levels{Style.RESET_ALL}:
-There are three distinct levels to choose from:
-  1 - {Fore.GREEN}Easy{Fore.RESET}
-  2 - {Fore.YELLOW}Classic{Fore.RESET}
-  3 - {Fore.RED}Hard{Fore.RESET}
+ {Fore.MAGENTA}{Style.BRIGHT}Levels{Style.RESET_ALL}:
+ There are three distinct levels to choose from:
+   1 - {Fore.GREEN}Easy{Fore.RESET}
+   2 - {Fore.YELLOW}Classic{Fore.RESET}
+   3 - {Fore.RED}Hard{Fore.RESET}
 
-{Fore.MAGENTA}{Style.BRIGHT}Feedback{Style.RESET_ALL}:
-- {Fore.GREEN}"Hits"{Fore.RESET}: The number of colors in your guess that are \
-correct in
-          both {Fore.CYAN}color and position{Fore.RESET}.
-- {Fore.YELLOW}"Close"{Fore.RESET}: The number of colors in your guess that \
+ {Fore.MAGENTA}{Style.BRIGHT}Feedback{Style.RESET_ALL}:
+ - {Fore.GREEN}"Hits"{Fore.RESET}:  The number of colors in your guess that \
 are correct in
-           {Fore.CYAN}color{Fore.RESET} but wrong in postition.
+            both {Fore.CYAN}color and position{Fore.RESET}.
+ - {Fore.YELLOW}"Close"{Fore.RESET}: The number of colors in your guess that \
+are correct in
+            {Fore.CYAN}color{Fore.RESET} but wrong in postition.
 
-{Fore.MAGENTA}{Style.BRIGHT}Winning{Style.RESET_ALL}:
-If you {Fore.CYAN}match all colors{Fore.RESET} in the correct positions \
-before finishing the
-final round, you win!
+ {Fore.MAGENTA}{Style.BRIGHT}Winning{Style.RESET_ALL}:
+ If you {Fore.CYAN}match all colors{Fore.RESET} in the correct positions \
+ before finishing the
+ final round, you win!
 
-{Fore.MAGENTA}{Style.BRIGHT}Tips{Style.RESET_ALL}:
-- Use the {Fore.CYAN}feedback{Fore.RESET} to adjust your guesses strategically.
-- With each try, aim to get more colors in the correct position.
+ {Fore.MAGENTA}{Style.BRIGHT}Tips{Style.RESET_ALL}:
+ - Use the {Fore.CYAN}feedback{Fore.RESET} to adjust your guesses strategically.
+ - With each try, aim to get more colors in the correct position.
 
-{Fore.MAGENTA}{Style.BRIGHT}Exiting the Game{Style.RESET_ALL}:
-You can exit the game at any point by entering {Fore.CYAN}EXIT{Fore.RESET}.
+ {Fore.MAGENTA}{Style.BRIGHT}Exiting the Game{Style.RESET_ALL}:
+ You can exit the game at any point by entering {Fore.CYAN}EXIT{Fore.RESET}.
 
-{Fore.MAGENTA}{Style.BRIGHT}Good luck, and have fun cracking the code!
+ {Fore.MAGENTA}{Style.BRIGHT}Good luck, and have fun cracking the code!
     """
         print(instructions)
         self.press_enter()
@@ -192,13 +194,13 @@ You can exit the game at any point by entering {Fore.CYAN}EXIT{Fore.RESET}.
         For accessibility, to avoid ascii art,
         formatted tables etc. for screen readers
         """
-        print(f"Welcome to {Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
+        print(f" Welcome to {Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
         time.sleep(1)
-        print("A Python console game\n")
+        print(" A Python console game\n")
         time.sleep(1)
         self.plain_text = self.plain_text_request()
         if self.plain_text:
-            print("\nPlain text mode selected.\n")
+            print("\n Plain text mode selected.\n")
             self.press_enter()
             return True
         else:
@@ -212,12 +214,12 @@ You can exit the game at any point by entering {Fore.CYAN}EXIT{Fore.RESET}.
         Take user input on whether plain text mode is wanted or not
         """
         print(
-            f"Would you like to access the game in {Fore.CYAN}plain text mode"
-            f"{Fore.RESET},\ni.e. with all visual elements removed?"
+            f" Would you like to access the game in {Fore.CYAN}plain text mode"
+            f"{Fore.RESET},\n i.e. with all visual elements removed?"
         )
         while True:
             plain_text = self.user_input(
-                f"Enter {Fore.GREEN}y{Fore.RESET} for yes or "
+                f" Enter {Fore.GREEN}y{Fore.RESET} for yes or "
                 f"{Fore.RED}n{Fore.RESET} for no.\n"
                 ).strip()
 
@@ -274,10 +276,10 @@ class GameMenu:
         """
         self.screen.clear_screen()
         self.screen.print_logo(self.plain_text)
-        print("Game Menu\n")
-        print("1 - Play Game\n")
-        print("2 - Show Instructions\n")
-        print("3 - Exit\n")
+        print(" Game Menu\n")
+        print(" 1 - Play Game\n")
+        print(" 2 - Show Instructions\n")
+        print(" 3 - Exit\n")
 
     def take_menu_choice(self):
         """
@@ -286,17 +288,17 @@ class GameMenu:
         """
         while True:
             choice = self.screen.user_input(
-                "Choose from options 1 - 3: \n"
+                " Choose from options 1 - 3: \n"
                 ).strip()
 
             # Check that choice is not empty
             if len(choice) == 0:
-                print(f"{Fore.RED}\nYour choice is empty.\n")
+                print(f"{Fore.RED}\n Your choice is empty.\n")
                 continue
 
             # Check that choice is numeric and of length 1
             if len(choice) != 1 or choice not in "123":
-                print(f"{Fore.RED}\nYour choice '{choice}' is not valid.\n")
+                print(f"{Fore.RED}\n Your choice '{choice}' is not valid.\n")
                 continue
 
             # If choice is valid, break
@@ -351,10 +353,10 @@ class ChooseLevel():
         """
         self.screen.clear_screen()
         self.screen.print_logo(self.screen.plain_text)
-        print("Level Menu\n")
-        print(f"1 - {Fore.GREEN}Easy\n")
-        print(f"2 - {Fore.YELLOW}Classic\n")
-        print(f"3 - {Fore.RED}Hard\n")
+        print(" Level Menu\n")
+        print(f" 1 - {Fore.GREEN}Easy\n")
+        print(f" 2 - {Fore.YELLOW}Classic\n")
+        print(f" 3 - {Fore.RED}Hard\n")
 
     def take_level_choice(self):
         """
@@ -363,17 +365,17 @@ class ChooseLevel():
         """
         while True:
             choice = self.screen.user_input(
-                "Choose from options 1 - 3: \n"
+                " Choose from options 1 - 3: \n"
                 ).strip()
 
             # Check that choice is not empty
             if len(choice) == 0:
-                print(f"{Fore.RED}\nYour choice is empty.\n")
+                print(f"{Fore.RED}\n Your choice is empty.\n")
                 continue
 
             # Check that choice is numeric and of length 1
             if len(choice) != 1 or choice not in "123":
-                print(f"{Fore.RED}\nYour choice '{choice}' is not valid.\n")
+                print(f"{Fore.RED}\n Your choice '{choice}' is not valid.\n")
                 continue
 
             # If choice is valid, break
@@ -386,19 +388,19 @@ class ChooseLevel():
         Check which option user chose and call functions accordingly
         """
         if level_choice == "1":
-            print(f"\nLevel 1 - {Fore.GREEN}Easy{Fore.RESET} - selected\n")
+            print(f"\n Level 1 - {Fore.GREEN}Easy{Fore.RESET} - selected\n")
             time.sleep(2)
             game = Game("1", self.screen)
             game.run_game()
 
         elif level_choice == "2":
-            print(f"\nLevel 2 - {Fore.YELLOW}Classic{Fore.RESET} - selected\n")
+            print(f"\n Level 2 - {Fore.YELLOW}Classic{Fore.RESET} - selected\n")
             time.sleep(2)
             game = Game("2", self.screen)
             game.run_game()
 
         else:
-            print(f"\nLevel 3 - {Fore.RED}Hard{Fore.RESET} - selected\n")
+            print(f"\n Level 3 - {Fore.RED}Hard{Fore.RESET} - selected\n")
             time.sleep(2)
             game = Game("3", self.screen)
             game.run_game()
@@ -484,8 +486,8 @@ class Game:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
             print(
-                f"\nCongratulations, you {Fore.CYAN}{Style.BRIGHT}WON!\n"
-                f"{Style.RESET_ALL}\nYou cracked the secret code "
+                f"\n Congratulations, you {Fore.CYAN}{Style.BRIGHT}WON!\n"
+                f"{Style.RESET_ALL}\n You cracked the secret code "
                 f"{self.screen.color_secret_code(self.secret_code)} in "
                 f"{attempts} {'rounds' if attempts != 1 else 'round'}.\n"
                 )
@@ -508,10 +510,10 @@ class Game:
             return False
 
     def lose_message(self):
-        print(f"{Fore.RED}\nYou have run out of attempts.\n")
+        print(f"{Fore.RED}\n You have run out of attempts.\n")
         time.sleep(1)
         print(
-            "The secret code was "
+            " The secret code was "
             f"{self.screen.color_secret_code(self.secret_code)}.\n"
             )
         time.sleep(1)
@@ -524,7 +526,7 @@ class Game:
         self.screen.clear_screen()
         self.screen.print_logo(self.screen.plain_text)
         level_strings = ["Easy", "Classic", "Hard"]
-        print(f"Welcome to a game of {Fore.BLUE}{Style.BRIGHT}Mastermind.\n")
+        print(f" Welcome to a game of {Fore.BLUE}{Style.BRIGHT}Mastermind.\n")
         time.sleep(1)
         level_name = level_strings[int(self.level)-1]
         # Set up color printing for level names
@@ -534,11 +536,11 @@ class Game:
             level_name_color = Fore.YELLOW
         elif level_name == "Hard":
             level_name_color = Fore.RED
-        print(f"Level {self.level} - {level_name_color}{level_name}\n")
+        print(f" Level {self.level} - {level_name_color}{level_name}\n")
         time.sleep(1)
         print(
-            f"The goal is to crack a secret code within "
-            f"{Fore.CYAN}{self.max_rounds} rounds{Fore.RESET}.\nThe code "
+            f" The goal is to crack a secret code within "
+            f"{Fore.CYAN}{self.max_rounds} rounds{Fore.RESET}.\n The code "
             f"consists of {Fore.CYAN}{self.code_length} "
             f"{
                 'digits' if self.colors[0].isnumeric() else 'characters'
@@ -546,7 +548,7 @@ class Game:
             f"{f'between {Fore.CYAN}{self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
                 else f'out of {Fore.CYAN}{", ".join(self.colors)}'},\n"
-            f"{Fore.RESET}where {Fore.CYAN}repetitions{Fore.RESET} are "
+            f" {Fore.RESET}where {Fore.CYAN}repetitions{Fore.RESET} are "
             f"{Fore.CYAN}{'' if self.repetitions else 'not '}allowed.\n"
         )
         time.sleep(1)
@@ -558,27 +560,27 @@ class Game:
         consisting of numbers or alphabetic characters
         """
         print(
-            f"Secret code:\n"
-            f"- {Fore.CYAN}{self.code_length} "
+            f" Secret code:\n"
+            f" - {Fore.CYAN}{self.code_length} "
             f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
             f"{Fore.RESET}{
                 f'between {Fore.CYAN}{self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
                 else f'out of {Fore.CYAN}{", ".join(self.colors)}'
             }{Fore.RESET}\n"
-            f"- repetitions {'' if self.repetitions else f'{Fore.CYAN}not '}"
+            f" - repetitions {'' if self.repetitions else f'{Fore.CYAN}not '}"
             f"{Fore.RESET}allowed\n"
-            f"- {Fore.CYAN}{self.max_rounds} rounds\n"
+            f" - {Fore.CYAN}{self.max_rounds} rounds\n"
         )
         # Remove after testing ############################################################################################
-        print(f"For testing: secret code: {self.secret_code}\n")
+        print(f" For testing: secret code: {self.secret_code}\n")
 
     def hits_close_message(self, guess, hits, close):
         """
         Prints the number of hits and close after each valid guess.
         """
         print(
-             f"\nYour guess {self.screen.color_secret_code(guess.guessed_code)} "  # noqa
+             f"\n Your guess {self.screen.color_secret_code(guess.guessed_code)} "  # noqa
              f"has {Fore.GREEN}{hits}{Fore.RESET} hit{'' if hits == 1 else 's'} "  # noqa
              f"and {Fore.YELLOW}{close}{Fore.RESET} close."
         )
@@ -597,7 +599,7 @@ class Game:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
             self.secret_code_description()
-            print(f"{Fore.CYAN}Round {attempts}:\n")
+            print(f" {Fore.CYAN}Round {attempts}:\n")
             if attempts > 1:
                 board.show(attempts - 1)
             # Create new guess, pass secret code, colors list, screen and
@@ -661,7 +663,7 @@ class Board:
             headings = self.guess_list[0]
             for line in self.guess_list[1:]:
                 print(
-                    f"{headings[0]} {line[0]}, "
+                    f" {headings[0]} {line[0]}, "
                     f"{headings[1]} {Fore.GREEN}{line[1]}{Fore.RESET}, "
                     f"{headings[2]} {Fore.YELLOW}{line[2]}"
                 )
@@ -702,13 +704,13 @@ class Guess:
         while True:
             # Take user input, strip of empty spaces in beginning and end
             # Convert it to uppercase string
-            guess = screen.user_input("\nEnter your guess: \n").strip().upper()
+            guess = screen.user_input("\n Enter your guess: \n").strip().upper()
 
             # Check that guess is not empty
             if len(guess) == 0:
                 print(
-                    f"{Fore.RED}Your guess is empty.\n"
-                    f"Please enter {code_length} "
+                    f" {Fore.RED}Your guess is empty.\n"
+                    f" Please enter {code_length} "
                     f"{'digits' if self.colors[0].isnumeric() else 'characters'} "  # noqa
                     f"{
                         f'between {self.colors[0]} and {self.colors[-1]}'
@@ -722,8 +724,8 @@ class Guess:
             if len(guess) != code_length:
                 short_long = "short" if len(guess) < code_length else "long"
                 print(
-                    f"{Fore.RED}\nYour guess '{guess}' is too {short_long}.\n"
-                    f"Please enter a code of length {code_length}."
+                    f"{Fore.RED}\n Your guess '{guess}' is too {short_long}.\n"
+                    f" Please enter a code of length {code_length}."
                 )
                 continue
 
@@ -733,8 +735,8 @@ class Guess:
             for char in guess:
                 if char not in [color for color in self.colors]:
                     print(
-                        f"{Fore.RED}\nYour guess '{guess}' contains "
-                        f"invalid characters.\nPlease enter "
+                        f"{Fore.RED}\n Your guess '{guess}' contains "
+                        f"invalid characters.\n Please enter "
                         f"{'digits' if self.colors[0].isnumeric() else 'characters'} "  # noqa
                         f"{
                             f'between {self.colors[0]} and {self.colors[-1]}'
@@ -766,8 +768,8 @@ class Guess:
                         break
                 if repeat is True:
                     print(
-                        f"\n{Fore.RED}Your guess '{guess}' contains "
-                        "repeating colors.\nPlease enter a code without "
+                        f"\n {Fore.RED}Your guess '{guess}' contains "
+                        "repeating colors.\n Please enter a code without "
                         "repetitions."
                     )
                     continue
