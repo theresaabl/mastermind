@@ -591,6 +591,9 @@ class Game:
         print(f"For testing: secret code: {self.secret_code}\n")
 
     def hits_close_message(self, guess, hits, close):
+        """
+        Prints the number of hits and close after each valid guess.
+        """
         print(
              f"\nYour guess {self.screen.color_secret_code(guess.guessed_code)} "  # noqa
              f"has {Fore.GREEN}{hits}{Fore.RESET} hit{'' if hits == 1 else 's'} "  # noqa
@@ -614,9 +617,14 @@ class Game:
             print(f"{Fore.CYAN}Round {attempts}:\n")
             if attempts > 1:
                 board.show(attempts - 1)
-            # Create new guess, pass secret code, colors list and screen
-            # to be able to check guess against secret and take user_input()
-            latest_guess = Guess(self.secret_code, self.colors, self.screen)
+            # Create new guess, pass secret code, colors list, screen and
+            # repetitions to check guess against secret and take user_input()
+            latest_guess = Guess(
+                self.secret_code,
+                self.colors,
+                self.screen,
+                self.repetitions
+            )
             # Check guess against secret and save score
             latest_score = latest_guess.score
             hits = latest_score[0]
@@ -694,34 +702,21 @@ class Guess:
     """
     Create instance of Guess
     """
-    def __init__(self, secret, colors, screen):
+    def __init__(self, secret, colors, screen, repetitions):
         self.secret = secret
         self.colors = colors
-        self.guessed_code = self.take_guess(screen)
+        # self.repetitions = repetitions
+        self.guessed_code = self.take_guess(screen, repetitions)
         self.score = self.check_guess()
 
-    def take_guess(self, screen):
+    def take_guess(self, screen, repetitions):
         """
         Take a guess from the user and check for valid input
         if guess is of correct length and
         contains only valid characters return it
         """
         code_length = len(self.secret)
-        #         print(
-        #     f"Secret code:\n"
-        #     f"- {Fore.CYAN}{self.code_length} "
-        #     f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
-        #     f"{Fore.RESET}{
-        #         f'between {Fore.CYAN}{self.colors[0]} and {self.colors[-1]}'
-        #         if self.colors[0].isnumeric()
-        #         else f'out of {Fore.CYAN}{", ".join(self.colors)}'
-        #     }{Fore.RESET}\n"
-        #     f"- repetitions {'' if self.repetitions else f'{Fore.CYAN}not '}"
-        #     f"{Fore.RESET}allowed\n"
-        #     f"- {Fore.CYAN}{self.max_rounds} rounds\n"
-        # )
         while True:
-
             # Take user input, strip of empty spaces in beginning and end
             # Convert it to uppercase string
             guess = screen.user_input("\nEnter your guess: \n").strip().upper()
@@ -767,8 +762,34 @@ class Guess:
                     characters_valid = False
                     break
 
-            if characters_valid is True:
+            if characters_valid is False:
+                continue
+
+            # If repetitions are allowed: validation is completed and
+            # break out of loop
+            if repetitions is True:
                 break
+            else:
+                # For levels where no repetitions allowed: validate for that
+                # initialise variable repeat
+                repeat = False
+                guess_check_repeat = guess
+                for char in guess:
+                    guess_check_repeat = guess_check_repeat.replace(char, ".", 1)  # noqa
+                    if char in guess_check_repeat:
+                        # If a character repeats itself, set repeat to True
+                        # and break out of loop
+                        repeat = True
+                        break
+                if repeat is True:
+                    print(
+                        f"\n{Fore.RED}Your guess '{guess}' contains "
+                        "repeating colors.\nPlease enter a code without "
+                        "repetitions."
+                    )
+                    continue
+                else:
+                    break
 
         return guess
 
