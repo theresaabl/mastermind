@@ -696,6 +696,20 @@ class Guess:
         if guess is of correct length and
         contains only valid characters return it
         """
+        code_length = len(self.secret)
+        #         print(
+        #     f"Secret code:\n"
+        #     f"- {Fore.CYAN}{self.code_length} "
+        #     f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
+        #     f"{Fore.RESET}{
+        #         f'between {Fore.CYAN}{self.colors[0]} and {self.colors[-1]}'
+        #         if self.colors[0].isnumeric()
+        #         else f'out of {Fore.CYAN}{", ".join(self.colors)}'
+        #     }{Fore.RESET}\n"
+        #     f"- repetitions {'' if self.repetitions else f'{Fore.CYAN}not '}"
+        #     f"{Fore.RESET}allowed\n"
+        #     f"- {Fore.CYAN}{self.max_rounds} rounds\n"
+        # )
         while True:
 
             # Take user input, strip of empty spaces in beginning and end
@@ -704,14 +718,24 @@ class Guess:
 
             # Check that guess is not empty
             if len(guess) == 0:
-                print(f"{Fore.RED}Your guess is empty.\n")
+                print(
+                    f"{Fore.RED}Your guess is empty.\n"
+                    f"Please enter {code_length} "
+                    f"{'digits' if self.colors[0].isnumeric() else 'characters'} "  # noqa
+                    f"{
+                        f'between {self.colors[0]} and {self.colors[-1]}'
+                        if self.colors[0].isnumeric()
+                        else f'out of {", ".join(self.colors)}'
+                    }."
+                )
                 continue
 
             # Check that guess has correct length
-            if len(guess) != len(self.secret):
+            if len(guess) != code_length:
+                short_long = "short" if len(guess) < code_length else "long"
                 print(
-                    f"{Fore.RED}\nYour guess '{guess}' is "
-                    "not the right length.\n"
+                    f"{Fore.RED}\nYour guess '{guess}' is too {short_long}.\n"
+                    f"Please enter a code of length {code_length}."
                 )
                 continue
 
@@ -722,7 +746,13 @@ class Guess:
                 if char not in [color for color in self.colors]:
                     print(
                         f"{Fore.RED}\nYour guess '{guess}' contains "
-                        "invalid characters.\n"
+                        f"invalid characters.\nPlease enter "
+                        f"{'digits' if self.colors[0].isnumeric() else 'characters'} "  # noqa
+                        f"{
+                            f'between {self.colors[0]} and {self.colors[-1]}'
+                            if self.colors[0].isnumeric()
+                            else f'out of {", ".join(self.colors)}'
+                        }."
                         )
                     characters_valid = False
                     break
