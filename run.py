@@ -68,8 +68,6 @@ class Screen:
                 continue
 
         if user_input == "y":
-            print("\nExiting application ...")
-            time.sleep(1)
             self.exit_application()
         else:
             print("\nContinuing application ...\n")
@@ -81,6 +79,8 @@ class Screen:
         """
         Print good bye message and exit
         """
+        print("\nExiting application ...")
+        time.sleep(1)
         self.clear_screen()
         print("\nGood bye!\n")
         time.sleep(2)
