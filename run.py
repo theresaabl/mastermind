@@ -40,7 +40,7 @@ class Screen:
                     user_input = input(message)
                     # If user types exit at any point, call exit_application
                     if user_input.lower().strip() == "exit":
-                        self.exit_application()
+                        self.handle_exit_request()
                     else:
                         return user_input
             except KeyboardInterrupt:
