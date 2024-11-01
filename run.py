@@ -155,14 +155,20 @@ class Screen:
 Welcome to {Fore.BLUE}{Style.BRIGHT}Mastermind{Style.RESET_ALL}!
 
 {Fore.MAGENTA}Objective{Fore.RESET}:
-- Your goal is to {Fore.CYAN}guess a secret code{Fore.RESET} within a limited number of rounds.
-- The code consists of a {Fore.CYAN}sequence of colors{Fore.RESET}, represented by numbers.
+- Your goal is to {Fore.CYAN}guess a secret code{Fore.RESET} within a \
+limited number of rounds.
+- The code consists of a {Fore.CYAN}sequence of colors{Fore.RESET}, \
+represented by numbers.
 
 {Fore.MAGENTA}Rules{Fore.RESET}:
-1. The code is made up of {Fore.CYAN}3 - 5 color slots{Fore.RESET}, depending on the level of
-   difficulty chosen. Each slot contains one of {Fore.CYAN}4 - 8 possible colors{Fore.RESET}.
-2. Colors {Fore.CYAN}may (or may not) repeat{Fore.RESET}, depending on the level chosen.
-3. For each guess, you will receive {Fore.CYAN}feedback{Fore.RESET} to help you get closer to
+1. The code is made up of {Fore.CYAN}3 - 5 color slots{Fore.RESET}, depending \
+on the level of
+   difficulty chosen. Each slot contains one of {Fore.CYAN}4 - 8 possible \
+colors{Fore.RESET}.
+2. Colors {Fore.CYAN}may (or may not) repeat{Fore.RESET}, depending on the \
+level chosen.
+3. For each guess, you will receive {Fore.CYAN}feedback{Fore.RESET} to help \
+you get closer to
    the correct code.
 
 {Fore.MAGENTA}Levels{Fore.RESET}:
@@ -172,13 +178,16 @@ There are three distinct levels to choose from:
   3 - {Fore.RED}Hard{Fore.RESET}
 
 {Fore.MAGENTA}Feedback{Fore.RESET}:
-- {Fore.GREEN}"Hits"{Fore.RESET}: The number of colors in your guess that are correct in
+- {Fore.GREEN}"Hits"{Fore.RESET}: The number of colors in your guess that are \
+correct in
           both {Fore.CYAN}color and position{Fore.RESET}.
-- {Fore.YELLOW}"Close"{Fore.RESET}: The number of colors in your guess that are correct in
+- {Fore.YELLOW}"Close"{Fore.RESET}: The number of colors in your guess that \
+are correct in
            {Fore.CYAN}color{Fore.RESET} but wrong in postition.
 
 {Fore.MAGENTA}Winning{Fore.RESET}:
-If you {Fore.CYAN}match all colors{Fore.RESET} in the correct positions before finishing the
+If you {Fore.CYAN}match all colors{Fore.RESET} in the correct positions \
+before finishing the
 final round, you win!
 
 {Fore.MAGENTA}Tips{Fore.RESET}:
