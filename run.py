@@ -137,13 +137,13 @@ class Screen:
         instructions = f"""
 Welcome to {Fore.BLUE}{Style.BRIGHT}Mastermind{Style.RESET_ALL}!
 
-{Fore.MAGENTA}Objective{Fore.RESET}:
+{Fore.MAGENTA}{Style.BRIGHT}Objective{Style.RESET_ALL}:
 - Your goal is to {Fore.CYAN}guess a secret code{Fore.RESET} within a \
 limited number of rounds.
 - The code consists of a {Fore.CYAN}sequence of colors{Fore.RESET}, \
 represented by numbers.
 
-{Fore.MAGENTA}Rules{Fore.RESET}:
+{Fore.MAGENTA}{Style.BRIGHT}Rules{Style.RESET_ALL}:
 1. The code is made up of {Fore.CYAN}3 - 5 color slots{Fore.RESET}, depending \
 on the level of
    difficulty chosen. Each slot contains one of {Fore.CYAN}4 - 8 possible \
@@ -154,13 +154,13 @@ level chosen.
 you get closer to
    the correct code.
 
-{Fore.MAGENTA}Levels{Fore.RESET}:
+{Fore.MAGENTA}{Style.BRIGHT}Levels{Style.RESET_ALL}:
 There are three distinct levels to choose from:
   1 - {Fore.GREEN}Easy{Fore.RESET}
   2 - {Fore.YELLOW}Classic{Fore.RESET}
   3 - {Fore.RED}Hard{Fore.RESET}
 
-{Fore.MAGENTA}Feedback{Fore.RESET}:
+{Fore.MAGENTA}{Style.BRIGHT}Feedback{Style.RESET_ALL}:
 - {Fore.GREEN}"Hits"{Fore.RESET}: The number of colors in your guess that are \
 correct in
           both {Fore.CYAN}color and position{Fore.RESET}.
@@ -168,19 +168,19 @@ correct in
 are correct in
            {Fore.CYAN}color{Fore.RESET} but wrong in postition.
 
-{Fore.MAGENTA}Winning{Fore.RESET}:
+{Fore.MAGENTA}{Style.BRIGHT}Winning{Style.RESET_ALL}:
 If you {Fore.CYAN}match all colors{Fore.RESET} in the correct positions \
 before finishing the
 final round, you win!
 
-{Fore.MAGENTA}Tips{Fore.RESET}:
+{Fore.MAGENTA}{Style.BRIGHT}Tips{Style.RESET_ALL}:
 - Use the {Fore.CYAN}feedback{Fore.RESET} to adjust your guesses strategically.
 - With each try, aim to get more colors in the correct position.
 
-{Fore.MAGENTA}Exiting the Game{Fore.RESET}:
+{Fore.MAGENTA}{Style.BRIGHT}Exiting the Game{Style.RESET_ALL}:
 You can exit the game at any point by entering {Fore.CYAN}EXIT{Fore.RESET}.
 
-{Fore.MAGENTA}Good luck, and have fun cracking the code!
+{Fore.MAGENTA}{Style.BRIGHT}Good luck, and have fun cracking the code!
     """
         print(instructions)
         self.press_enter()
@@ -251,10 +251,10 @@ You can exit the game at any point by entering {Fore.CYAN}EXIT{Fore.RESET}.
             elif char == "6":
                 color_char = Fore.BLUE
 
-            char = f"{color_char}{char}"
+            char = f"{color_char}{Style.BRIGHT}{char}"
             color_code += char
 
-        color_code += f"{Fore.RESET}"
+        color_code += f"{Style.RESET_ALL}"
         return (color_code)
 
 
