@@ -114,6 +114,31 @@ class Screen:
             # If choice is valid, return True
             return True
 
+    def take_menu_choice(self):
+        """
+        Take user input menu choice (for options 1 - 3), validate it
+        and return it if valid
+        """
+        while True:
+            choice = self.user_input(
+                " Choose from options 1 - 3: \n"
+                ).strip()
+
+            # Check that choice is not empty
+            if len(choice) == 0:
+                print(f"{Fore.RED}\n Your choice is empty.\n")
+                continue
+
+            # Check that choice is numeric and of length 1
+            if len(choice) != 1 or choice not in "123":
+                print(f"{Fore.RED}\n Your choice '{choice}' is not valid.\n")
+                continue
+
+            # If choice is valid, break
+            break
+
+        return choice
+
     def print_logo(self, plain_text):
         """
         Print Ascii art of logo
@@ -176,7 +201,8 @@ are correct in
  final round, you win!
 
  {Fore.MAGENTA}{Style.BRIGHT}Tips{Style.RESET_ALL}:
- - Use the {Fore.CYAN}feedback{Fore.RESET} to adjust your guesses strategically.
+ - Use the {Fore.CYAN}feedback{Fore.RESET} to adjust your guesses \
+strategically.
  - With each try, aim to get more colors in the correct position.
 
  {Fore.MAGENTA}{Style.BRIGHT}Exiting the Game{Style.RESET_ALL}:
@@ -281,30 +307,30 @@ class GameMenu:
         print(" 2 - Show Instructions\n")
         print(" 3 - Exit\n")
 
-    def take_menu_choice(self):
-        """
-        Take user input menu choice, validate it
-        and return it if valid
-        """
-        while True:
-            choice = self.screen.user_input(
-                " Choose from options 1 - 3: \n"
-                ).strip()
+    # def take_menu_choice(self):
+    #     """
+    #     Take user input menu choice, validate it
+    #     and return it if valid
+    #     """
+    #     while True:
+    #         choice = self.screen.user_input(
+    #             " Choose from options 1 - 3: \n"
+    #             ).strip()
 
-            # Check that choice is not empty
-            if len(choice) == 0:
-                print(f"{Fore.RED}\n Your choice is empty.\n")
-                continue
+    #         # Check that choice is not empty
+    #         if len(choice) == 0:
+    #             print(f"{Fore.RED}\n Your choice is empty.\n")
+    #             continue
 
-            # Check that choice is numeric and of length 1
-            if len(choice) != 1 or choice not in "123":
-                print(f"{Fore.RED}\n Your choice '{choice}' is not valid.\n")
-                continue
+    #         # Check that choice is numeric and of length 1
+    #         if len(choice) != 1 or choice not in "123":
+    #             print(f"{Fore.RED}\n Your choice '{choice}' is not valid.\n")
+    #             continue
 
-            # If choice is valid, break
-            break
+    #         # If choice is valid, break
+    #         break
 
-        return choice
+    #     return choice
 
     def handle_menu_choice(self, menu_choice):
         """
@@ -332,8 +358,9 @@ class GameMenu:
         or exit the game
         """
         while True:
+            # while loop broken from inside functions
             self.show_menu()
-            menu_choice = self.take_menu_choice()
+            menu_choice = self.screen.take_menu_choice()
             # handles menu choice, calls appropriate functions
             # Show menu until user chooses exit
             self.handle_menu_choice(menu_choice)
@@ -358,31 +385,6 @@ class ChooseLevel():
         print(f" 2 - {Fore.YELLOW}Classic\n")
         print(f" 3 - {Fore.RED}Hard\n")
 
-    def take_level_choice(self):
-        """
-        Take user input level choice, validate it
-        and return it if valid
-        """
-        while True:
-            choice = self.screen.user_input(
-                " Choose from options 1 - 3: \n"
-                ).strip()
-
-            # Check that choice is not empty
-            if len(choice) == 0:
-                print(f"{Fore.RED}\n Your choice is empty.\n")
-                continue
-
-            # Check that choice is numeric and of length 1
-            if len(choice) != 1 or choice not in "123":
-                print(f"{Fore.RED}\n Your choice '{choice}' is not valid.\n")
-                continue
-
-            # If choice is valid, break
-            break
-
-        return choice
-
     def handle_level_choice(self, level_choice):
         """
         Check which option user chose and call functions accordingly
@@ -394,7 +396,9 @@ class ChooseLevel():
             game.run_game()
 
         elif level_choice == "2":
-            print(f"\n Level 2 - {Fore.YELLOW}Classic{Fore.RESET} - selected\n")
+            print(
+                f"\n Level 2 - {Fore.YELLOW}Classic{Fore.RESET} - selected\n"
+            )
             time.sleep(2)
             game = Game("2", self.screen)
             game.run_game()
@@ -412,7 +416,7 @@ class ChooseLevel():
         """
         while True:
             self.show_level_menu()
-            level_choice = self.take_level_choice()
+            level_choice = self.screen.take_menu_choice()
             break
 
         # handle level choice and start game
@@ -704,7 +708,7 @@ class Guess:
         while True:
             # Take user input, strip of empty spaces in beginning and end
             # Convert it to uppercase string
-            guess = screen.user_input("\n Enter your guess: \n").strip().upper()
+            guess = screen.user_input("\n Enter your guess: \n").strip().upper()  # noqa
 
             # Check that guess is not empty
             if len(guess) == 0:
@@ -796,8 +800,7 @@ class Guess:
                 # remove hits from guess so don't count twice
                 guess_checked = guess_checked.replace(char, "", 1)
                 # replace checked character in secret by . so don't count twice
-                secret_checked = secret_checked[:i] + "." \
-                    + secret_checked[i + 1:]
+                secret_checked = secret_checked[:i] + "." + secret_checked[i + 1:]  # noqa
         # check for close
         for char in guess_checked:
             if char in secret_checked:
