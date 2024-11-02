@@ -494,8 +494,8 @@ class Game:
             }{Fore.RESET} "
             f"{f'between {Fore.CYAN}{self.colors[0]} and {self.colors[-1]}'
                 if self.colors[0].isnumeric()
-                else f'out of {Fore.CYAN}{", ".join(self.colors)}'},\n"
-            f" {Fore.RESET}where {Fore.CYAN}repetitions{Fore.RESET} are "
+                else f'out of {Fore.CYAN}{", ".join(self.colors)}'}, \n"
+            f"{Fore.RESET}where {Fore.CYAN}repetitions{Fore.RESET} are "
             f"{Fore.CYAN}{'' if self.repetitions else 'not '}allowed.\n"
         )
         time.sleep(1)
