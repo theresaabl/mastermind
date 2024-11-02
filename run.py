@@ -1,7 +1,7 @@
-# mock terminal of 80 characters wide and 24 rows high
 import random
-from tabulate import tabulate
 import time
+# import tabulate to format table
+from tabulate import tabulate
 # import pyfiglet for ascii art logo
 import pyfiglet
 # import colorama module to print color text
@@ -33,8 +33,7 @@ class Screen:
 
     def user_input(self, message):
         """
-        Take user input and catch KeyboardInterrupt
-        if user inputs exit, call exit_application
+        Take user input and catch KeyboardInterrupt or user input 'exit'
         """
         while True:
             try:
@@ -42,7 +41,7 @@ class Screen:
                     # Add an empty space to input message for format
                     # of deployed site
                     user_input = input(message + " ")
-                    # If user types exit at any point, call exit_application
+                    # If user types exit at any point, call handle_exit_request
                     if user_input.lower().strip() == "exit":
                         self.handle_exit_request()
                     else:
@@ -114,6 +113,64 @@ class Screen:
             # If choice is valid, return True
             return True
 
+    def show_start_screen(self):
+        """
+        Show plain text start screen to ask user whether they want plain text
+        mode or not. This is for better accessibility, especially to avoid
+        ascii art, formatted tables etc. for screen readers.
+        Inspiration from:
+        https://dev.to/baspin94/two-ways-to-make-your-command-line-interfaces-more-accessible-541k
+        """
+        print(f" Welcome to {Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
+        time.sleep(1)
+        print(" A Python console game\n")
+        time.sleep(1)
+        self.plain_text = self.plain_text_request()
+        if self.plain_text:
+            print("\n Plain text mode selected.\n")
+            self.press_enter()
+            return True
+        else:
+            self.clear_screen()
+            self.print_logo(False)
+            time.sleep(1)
+            return False
+
+    def plain_text_request(self):
+        """
+        Take user input on whether plain text mode is wanted or not
+        """
+        print(
+            f" Would you like to access the game in {Fore.CYAN}plain text mode"
+            f"{Fore.RESET},\n i.e. with all visual elements removed?"
+        )
+        while True:
+            plain_text = self.user_input(
+                f" Enter {Fore.GREEN}y{Fore.RESET} for yes or "
+                f"{Fore.RED}n{Fore.RESET} for no.\n"
+                ).strip()
+
+            # Validate input for y and n
+            # If valid: break
+            if self.validate_y_n(plain_text):
+                break
+            else:
+                continue
+
+        return True if plain_text == "y" else False
+
+    def print_logo(self, plain_text):
+        """
+        Print Ascii art of logo
+        or plain text for plain text mode
+        """
+        if plain_text:
+            # plain text mode
+            print(f"{Fore.BLUE}{Style.BRIGHT} MASTERMIND\n")
+        else:
+            logo = pyfiglet.figlet_format("    Mastermind", font="small")
+            print(f"{Fore.BLUE}{Style.BRIGHT}{logo}")
+
     def take_menu_choice(self, options):
         """
         Take user input menu choice out of {options} options, validate it
@@ -144,17 +201,32 @@ class Screen:
 
         return choice
 
-    def print_logo(self, plain_text):
+    def color_secret_code(self, code):
         """
-        Print Ascii art of logo
-        or plain text for plain text mode
+        Adds colorama colors for each digit in numeric secret code
+        For alphabetic secret code would need to set up depending on
+        characters chosen
         """
-        if plain_text:
-            # plain text mode
-            print(f"{Fore.BLUE}{Style.BRIGHT} MASTERMIND\n")
-        else:
-            logo = pyfiglet.figlet_format("    Mastermind", font="small")
-            print(f"{Fore.BLUE}{Style.BRIGHT}{logo}")
+        color_code = ""
+        for char in code:
+            if char == "1" or char == "7":
+                color_char = Fore.MAGENTA
+            elif char == "2" or char == "8":
+                color_char = Fore.RED
+            elif char == "3" or char == "9":
+                color_char = Fore.YELLOW
+            elif char == "4":
+                color_char = Fore.CYAN
+            elif char == "5":
+                color_char = Fore.GREEN
+            elif char == "6":
+                color_char = Fore.BLUE
+
+            char = f"{color_char}{Style.BRIGHT}{char}"
+            color_code += char
+
+        color_code += f"{Style.RESET_ALL}"
+        return (color_code)
 
     def print_instructions(self):
         """
@@ -217,78 +289,6 @@ strategically.
     """
         print(instructions)
         self.press_enter()
-
-    def show_start_screen(self):
-        """
-        Show plain text start screen to ask user whether
-        they want plain text mode or not
-        For accessibility, to avoid ascii art,
-        formatted tables etc. for screen readers
-        """
-        print(f" Welcome to {Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
-        time.sleep(1)
-        print(" A Python console game\n")
-        time.sleep(1)
-        self.plain_text = self.plain_text_request()
-        if self.plain_text:
-            print("\n Plain text mode selected.\n")
-            self.press_enter()
-            return True
-        else:
-            self.clear_screen()
-            self.print_logo(False)
-            time.sleep(1)
-            return False
-
-    def plain_text_request(self):
-        """
-        Take user input on whether plain text mode is wanted or not
-        """
-        print(
-            f" Would you like to access the game in {Fore.CYAN}plain text mode"
-            f"{Fore.RESET},\n i.e. with all visual elements removed?"
-        )
-        while True:
-            plain_text = self.user_input(
-                f" Enter {Fore.GREEN}y{Fore.RESET} for yes or "
-                f"{Fore.RED}n{Fore.RESET} for no.\n"
-                ).strip()
-
-            # Validate input for y and n
-            # If valid: break
-            if self.validate_y_n(plain_text):
-                break
-            else:
-                continue
-
-        return True if plain_text == "y" else False
-
-    def color_secret_code(self, code):
-        """
-        Adds colorama colors for each digit in numeric secret code
-        For alphabetic secret code would need to set up depending on
-        characters chosen
-        """
-        color_code = ""
-        for char in code:
-            if char == "1" or char == "7":
-                color_char = Fore.MAGENTA
-            elif char == "2" or char == "8":
-                color_char = Fore.RED
-            elif char == "3" or char == "9":
-                color_char = Fore.YELLOW
-            elif char == "4":
-                color_char = Fore.CYAN
-            elif char == "5":
-                color_char = Fore.GREEN
-            elif char == "6":
-                color_char = Fore.BLUE
-
-            char = f"{color_char}{Style.BRIGHT}{char}"
-            color_code += char
-
-        color_code += f"{Style.RESET_ALL}"
-        return (color_code)
 
 
 class GameMenu:
@@ -447,67 +447,6 @@ class Game:
             # no repetitions allowed
             self.repetitions = False
 
-    def create_code(self):
-        """
-        Randomly choose {self.code_length} items from the colors list
-        Create secret code as a string
-        Account for repetitions allowed or not
-        """
-        if self.repetitions:
-            # repetition allowed
-            code_array = random.choices(self.colors, k=self.code_length)
-            code = "".join(code_array)
-
-        else:
-            # no repetition
-            code_array = random.sample(self.colors, k=self.code_length)
-            code = "".join(code_array)
-        return code
-
-    def game_won(self, score, attempts, board):
-        """
-        Check if game is won
-        """
-        if score[0] == self.code_length:
-            self.win_message(score, attempts, board)
-            return True
-        else:
-            return False
-
-    def win_message(self, score, attempts, board):
-        self.screen.clear_screen()
-        self.screen.print_logo(self.screen.plain_text)
-        board.show(attempts)
-        print(
-            f"\n {Fore.CYAN}{Style.BRIGHT}Congratulations, you WON!\n"
-            f"{Style.RESET_ALL}\n You cracked the secret code "
-            f"{self.screen.color_secret_code(self.secret_code)} in "
-            f"{attempts} {'rounds' if attempts != 1 else 'round'}.\n"
-        )
-        time.sleep(1)
-        # print("")
-        self.screen.press_enter()
-
-    def check_max_rounds(self, attempts):
-        """
-        Check if has reached maximum attempts
-        """
-        if attempts == self.max_rounds:
-            self.lose_message()
-            return True
-        else:
-            return False
-
-    def lose_message(self):
-        print(f"{Fore.RED}\n You have run out of attempts.\n")
-        time.sleep(1)
-        print(
-            " The secret code was "
-            f"{self.screen.color_secret_code(self.secret_code)}.\n"
-            )
-        time.sleep(1)
-        self.screen.press_enter()
-
     def game_welcome_message(self):
         """
         Print welcome message when game starts
@@ -564,15 +503,69 @@ class Game:
         # Remove after testing ############################################################################################
         print(f" For testing: secret code: {self.secret_code}\n")
 
-    def hits_close_message(self, guess, hits, close):
+    def create_code(self):
         """
-        Prints the number of hits and close after each valid guess.
+        Randomly choose {self.code_length} items from the colors list
+        Create secret code as a string
+        Account for repetitions allowed or not
         """
+        if self.repetitions:
+            # repetition allowed
+            code_array = random.choices(self.colors, k=self.code_length)
+            code = "".join(code_array)
+
+        else:
+            # no repetition
+            code_array = random.sample(self.colors, k=self.code_length)
+            code = "".join(code_array)
+        return code
+
+    def game_won(self, score, attempts, board):
+        """
+        Check if game is won
+        """
+        if score[0] == self.code_length:
+            self.win_message(score, attempts, board)
+            return True
+        else:
+            return False
+
+    def win_message(self, score, attempts, board):
+        """
+        Print win message
+        """
+        self.screen.clear_screen()
+        self.screen.print_logo(self.screen.plain_text)
+        board.show(attempts)
         print(
-             f"\n Your guess {self.screen.color_secret_code(guess.guessed_code)} "  # noqa
-             f"has {Fore.GREEN}{hits}{Fore.RESET} hit{'' if hits == 1 else 's'} "  # noqa
-             f"and {Fore.YELLOW}{close}{Fore.RESET} close."
+            f"\n {Fore.CYAN}{Style.BRIGHT}Congratulations, you WON!\n"
+            f"{Style.RESET_ALL}\n You cracked the secret code "
+            f"{self.screen.color_secret_code(self.secret_code)} in "
+            f"{attempts} {'rounds' if attempts != 1 else 'round'}.\n"
         )
+        time.sleep(1)
+        print("")
+        self.screen.press_enter()
+
+    def check_max_rounds(self, attempts):
+        """
+        Check if has reached maximum attempts
+        """
+        if attempts == self.max_rounds:
+            self.lose_message()
+            return True
+        else:
+            return False
+
+    def lose_message(self):
+        print(f"{Fore.RED}\n You have run out of attempts.\n")
+        time.sleep(1)
+        print(
+            " The secret code was "
+            f"{self.screen.color_secret_code(self.secret_code)}.\n"
+            )
+        time.sleep(1)
+        self.screen.press_enter()
 
     def run_game(self):
         """
@@ -589,6 +582,7 @@ class Game:
             self.screen.print_logo(self.screen.plain_text)
             self.secret_code_description()
             print(f" {Fore.CYAN}Round {attempts}:\n")
+            # Show board
             if attempts > 1:
                 board.show(attempts - 1)
             # Create new guess, pass secret code, colors list, screen and
@@ -601,11 +595,7 @@ class Game:
             )
             # Check guess against secret and save score
             latest_score = latest_guess.score
-            # hits = latest_score[0]
-            # close = latest_score[1]
-            # # print hits and close score
-            # self.hits_close_message(latest_guess, hits, close)
-            # Show board
+            # Add latest  guess to board
             board.append_guess(latest_guess)
 
             # check break conditions
@@ -616,8 +606,6 @@ class Game:
             else:
                 # increment attempts
                 attempts += 1
-
-            # time.sleep(1)
 
 
 class Board:
@@ -685,58 +673,24 @@ class Guess:
 
     def take_guess(self, screen, repetitions):
         """
-        Take a guess from the user and check for valid input
-        if guess is of correct length and
-        contains only valid characters return it
+        Take a guess from the user and validate for correct length, only valid
+        characters and repetitions allowed or not
         """
-        code_length = len(self.secret)
         while True:
             # Take user input, strip of empty spaces in beginning and end
             # Convert it to uppercase string
             guess = screen.user_input("\n Enter your guess: \n").strip().upper()  # noqa
 
             # Check that guess is not empty
-            if len(guess) == 0:
-                print(
-                    f" {Fore.RED}Your guess is empty.\n"
-                    f" Please enter {code_length} "
-                    f"{'digits' if self.colors[0].isnumeric() else 'characters'} "  # noqa
-                    f"{
-                        f'between {self.colors[0]} and {self.colors[-1]}'
-                        if self.colors[0].isnumeric()
-                        else f'out of {", ".join(self.colors)}'
-                    }."
-                )
+            if not self.validate_guess_empty(guess):
                 continue
 
             # Check that guess has correct length
-            if len(guess) != code_length:
-                short_long = "short" if len(guess) < code_length else "long"
-                print(
-                    f"{Fore.RED}\n Your guess '{guess}' is too {short_long}.\n"
-                    f" Please enter a code of length {code_length}."
-                )
+            if not self.validate_guess_length(guess):
                 continue
 
             # Check that guess only contains valid characters
-            # according to colors list
-            characters_valid = True
-            for char in guess:
-                if char not in [color for color in self.colors]:
-                    print(
-                        f"{Fore.RED}\n Your guess '{guess}' contains "
-                        f"invalid characters.\n Please enter "
-                        f"{'digits' if self.colors[0].isnumeric() else 'characters'} "  # noqa
-                        f"{
-                            f'between {self.colors[0]} and {self.colors[-1]}'
-                            if self.colors[0].isnumeric()
-                            else f'out of {", ".join(self.colors)}'
-                        }."
-                        )
-                    characters_valid = False
-                    break
-
-            if characters_valid is False:
+            if not self.validate_guess_char(guess):
                 continue
 
             # If repetitions are allowed: validation is completed and
@@ -745,27 +699,97 @@ class Guess:
                 break
             else:
                 # For levels where no repetitions allowed: validate for that
-                # initialise variable repeat
-                repeat = False
-                guess_check_repeat = guess
-                for char in guess:
-                    guess_check_repeat = guess_check_repeat.replace(char, ".", 1)  # noqa
-                    if char in guess_check_repeat:
-                        # If a character repeats itself, set repeat to True
-                        # and break out of loop
-                        repeat = True
-                        break
-                if repeat is True:
-                    print(
-                        f"\n {Fore.RED}Your guess '{guess}' contains "
-                        "repeating colors.\n Please enter a code without "
-                        "repetitions."
-                    )
+                if not self.validate_guess_repeat(guess):
                     continue
                 else:
                     break
 
         return guess
+
+    def validate_guess_empty(self, guess):
+        """
+        Checks if guess is empty and prints error message
+        Returns false if empty and true otherwise
+        """
+        if len(guess) == 0:
+            print(
+                f" {Fore.RED}Your guess is empty.\n"
+                f" Please enter {len(self.secret)} "
+                f"{'digits' if self.colors[0].isnumeric() else 'characters'} "
+                f"{
+                    f'between {self.colors[0]} and {self.colors[-1]}'
+                    if self.colors[0].isnumeric()
+                    else f'out of {", ".join(self.colors)}'
+                }."
+            )
+            return False
+        else:
+            return True
+
+    def validate_guess_length(self, guess):
+        """
+        Checks if guess has correct length and prints error message if not
+        Returns true if correct length and false otherwise
+        """
+        if len(guess) != len(self.secret):
+            short_long = "short" if len(guess) < len(self.secret) else "long"
+            print(
+                f"{Fore.RED}\n Your guess '{guess}' is too {short_long}.\n"
+                f" Please enter a code of length {len(self.secret)}."
+            )
+            return False
+        else:
+            return True
+
+    def validate_guess_char(self, guess):
+        """
+        Checks if guess only contains valid characters according to colors list
+        Prints error message if it contains invalid characters
+        Returns true if all valid characters and false otherwise
+        """
+        characters_valid = True
+        for char in guess:
+            if char not in [color for color in self.colors]:
+                print(
+                    f"{Fore.RED}\n Your guess '{guess}' contains "
+                    f"invalid characters.\n Please enter "
+                    f"{'digits' if self.colors[0].isnumeric() else 'characters'} "  # noqa
+                    f"{
+                        f'between {self.colors[0]} and {self.colors[-1]}'
+                        if self.colors[0].isnumeric()
+                        else f'out of {", ".join(self.colors)}'
+                    }."
+                )
+                characters_valid = False
+                break
+
+        return characters_valid
+
+    def validate_guess_repeat(self, guess):
+        """
+        Checks whether guess contains repeat colors for levels where
+        repetitions are not allowed
+        Returns true if no repetitions and false otherwise
+        """
+        # initialise variable repeat
+        repeat = False
+        guess_check_repeat = guess
+        for char in guess:
+            guess_check_repeat = guess_check_repeat.replace(char, ".", 1)  # noqa
+            if char in guess_check_repeat:
+                # If a character repeats itself, set repeat to True
+                # and break out of loop
+                repeat = True
+                break
+        if repeat is True:
+            print(
+                f"\n {Fore.RED}Your guess '{guess}' contains "
+                "repeating colors.\n Please enter a code without "
+                "repetitions."
+            )
+            return False
+        else:
+            return True
 
     def check_guess(self):
         """
