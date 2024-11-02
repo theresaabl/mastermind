@@ -828,8 +828,9 @@ class Board:
         if self.screen.plain_text:
             # Printing for plain text mode
             headings = self.guess_list[0]
-            for line in self.guess_list[1:]:
+            for i, line in enumerate(self.guess_list[1:]):
                 print(
+                    f" Round {i + 1}:"
                     f" {headings[0]} {line[0]}, "
                     f"{headings[1]} {Fore.GREEN}{line[1]}{Fore.RESET}, "
                     f"{headings[2]} {Fore.YELLOW}{line[2]}"
