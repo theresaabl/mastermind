@@ -19,80 +19,61 @@ source: [amiresponsive](https://ui.dev/amiresponsive?url=https://mastermind-pyth
 
 ### Target Audience
 
-
+This game is designed for anyone who wishes to play a single player game that requires some analytical thinking and problem solving skills. Due to the different difficulty levels the game is suitable to beginners as well as advanced mastermind players. Because it is a console game, most likely it will appeal more to people who are more used to working on computers. Also the site is not well suited for mobile devices and users will most likely acces it from a laptop or desktop.
 
 ### User Stories
 
-- As a user, I would like to ____________, so that I can ____________.
-- As a user, I would like to ____________, so that I can ____________.
-- As a user, I would like to ____________, so that I can ____________.
-- As a user, I would like to ____________, so that I can ____________.
-- As a user, I would like to ____________, so that I can ____________.
+- As a user, I would like to play a game of mastermind that is functional and easy to control.
+- As a user, I would like to choose a difficulty level.
+- As a user, I would like to get clear information on the secret code specifications.
+- As a user, I would like to receive clear feedback in case a guess is not valid.
+- As a user, I would like to receive clear feedback on how close my guess is to the secret code.
+- As a user, I would like to clearly see when I have lost a game.
+- As a user, I would like to clearly see when I won a game.
+- As a user, I would like to be able to exit the game when I want to.
+- As a user, I would like to avoid to accidentally quit the game.
+- As a user, I would like to be able to access game instructions.
+
+- As a user with visual impairments, I would like to be able to select a plain text mode to bypass any visual elements.
 
 ### Colour Scheme
 
+I used the [colorama](https://pypi.org/project/colorama/) module to add font color to the application. I used the following colors:
+
+- Blue for the logo and to highlight the word Mastermind
+- Cyan to highlight important information
+- Red for error messages, the last round warning and the lose message
+- Green, Yellow and Red to indicate the levels Easy, Classic and Hard respectively
+- Magenta for subheadings in the instructions page
+- Green for hits and yellow for close on the board
+- Blue, cyan, red, green, yellow, magenta for the code guesses and secret code
+
+
 ## Features
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-
-In this section, you should go over the different parts of your project,
-and describe each in a sentence or so.
-
-You will need to explain what value each of the features provides for the user,
-focusing on who this website is for, what it is that they want to achieve,
-and how your project is the best way to help them achieve these things.
-
-For some/all of your features, you may choose to reference the specific project files that implement them.
-
-IMPORTANT: Remember to always include a screenshot of each individual feature!
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
 
 ### Existing Features
 
-- **YOUR-TITLE-FOR-FEATURE-#1**
-
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
-
-![screenshot](documentation/features/feature01.png)
-
-- **YOUR-TITLE-FOR-FEATURE-#2**
-
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
-
-![screenshot](documentation/features/feature02.png)
-
-- **YOUR-TITLE-FOR-FEATURE-#3**
-
-    - Details about this particular feature, including the value to the site, and benefit for the user. Be as detailed as possible!
-
-![screenshot](documentation/features/feature03.png)
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-
-Repeat as necessary for as many features as your site contains.
-
-Hint: the more, the merrier!
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
+| Feature | Description | Screenshot |
+| --- | --- | --- |
+| **Start Screen** | Upon page load a start screen with only plain text is displayed. The user has the option to select whether to start the application in plain text mode or not. Plain text mode means that all visual elements, like Ascii art or formatted tables are avoided. This is most important for screen readers.  | ![screenshot](documentation/features/feature-start-screen.png) |
+| **Plain Text Mode** | When plain text mode is selected, all visual elements will be avoided throughout the application. A confirmation that this mode was selected is displayed on the screen and the user can press ENTER to continue to the game. | ![screenshot](documentation/features/feature-plain-text-mode-selected.png) |
+| **Logo** | The logo appears on top of the terminal and uses an Ascii art font from the [pyfiglet](https://pypi.org/project/pyfiglet/) module. The goal is to prominently display the game name. It has a clean and futuristic look which fits with the game of this logic terminal game.  | ![screenshot](documentation/features/feature-logo.png) |
+| **Plain Text Logo** | In plain text mode the logo is just 'MASTERMIND' in bright blue font.  | ![screenshot](documentation/features/feature-logo-plain.png) |
+| **Game Menu** | After the viewing mode is selected a game menu is displayed, where the user can choose between three options, 'Play Game', 'Show Instructions' or 'Exit'.  | ![screenshot](documentation/features/feature-game-menu.png) |
+| **Instructions** | When the user selects option 2 in the game menu game instructions are displayed and can be closed again by pressing ENTER. If the user presses ENTER the game menu will be displayed again. The instructions describe the game and give details about the objective, rules, levels, feedback, winning, tips and how to exit the game.  | ![screenshot](documentation/features/feature-instructions-1.png)![screenshot](documentation/features/feature-instructions-2.png) |
+| **Exit** | When the user selects option 3 in the game menu an exit confirmation is displayed before the console is cleared and a good bye message is shown. The application is terminated. | ![screenshot](documentation/features/feature-menu-exit-message.png)![screenshot](documentation/features/feature-good-bye-message.png)  |
+| **Level Menu** | When the user selects option 1 in the game menu another menu, the level menu is displayed. There are three distinct difficulty level options to choose from. Level 1 or Easy, level 2 or Classic and level 3 or Hard. Once the user chooses a level, a confirmation is shown before the respective game starts.  | ![screenshot](documentation/features/feature-level-menu.png)![screenshot](documentation/features/feature-level-menu-choice-confirmation.png) |
+| **Level Introduction** | When the user selects a level in the level menu, a page with details about the selected level is displayed. The user can continue to the game by pressing ENTER. | ![screenshot](documentation/features/feature-level-intro-easy.png)![screenshot](documentation/features/feature-level-intro-classic.png)![screenshot](documentation/features/feature-level-intro-hard.png) |
+| **Main Game Page** | Add description | ![screenshot](documentation/features/feature-main-game-page.png) |
+| **Plain Text Main Game Page** | Add description  | ![screenshot](documentation/features/feature-main-game-page-plain.png) |
+| **Secret Code description** | Now the main game starts. On top of the page, just below the logo, a description of the secret code is provided. This is for the users convenience so they do not have to memorize the specifications of the code for their chosen level. The secret code consists of a number of colors, which are here represented by numbers. The description states how many digits are in the code and what the minimum and maximum values allowed are. It also states whether color repetitions are allowed or not and how many rounds one has to crack the code. | ![screenshot](documentation/features/feature-code-description-easy.png)![screenshot](documentation/features/feature-code-description-classic.png)![screenshot](documentation/features/feature-code-description-hard.png) |
+| **Round Display** | Below the code description the current round is displayed. | ![screenshot](documentation/features/feature-round-display.png) |
+| **Guess Input** | add description | ![screenshot](documentation/features/feature-guess-input.png) |
 
 ### Future Features
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 START OF NOTES (to be deleted)
-
-Do you have additional ideas that you'd like to include on your project in the future?
-Fantastic! List them here!
-It's always great to have plans for future improvements!
-Consider adding any helpful links or notes to help remind you in the future, if you revisit the project in a couple years.
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
-
-- YOUR-TITLE-FOR-FUTURE-FEATURE-#1
-    - Any additional notes about this feature.
-- YOUR-TITLE-FOR-FUTURE-FEATURE-#2
-    - Any additional notes about this feature.
-- YOUR-TITLE-FOR-FUTURE-FEATURE-#3
-    - Any additional notes about this feature.
+- A useful future feature would be for the user to be able to quit a game without having to quit the entire application. They could open the menu, choose another level for example and start another game.
+- It would also be interesting to add the option to show and hide instructions throughout playing without quitting the game.
 
 ## Tools & Technologies Used
 
