@@ -612,6 +612,9 @@ class Game:
             # Show board
             if attempts > 1:
                 board.show(attempts - 1)
+            # If last round: show warning
+            if attempts == self.max_rounds:
+                print(f"\n {Fore.RED}Warning: This is your last chance!")
             # Create new guess, pass secret code, colors list, screen and
             # repetitions, take user_input() and check guess against secret
             latest_guess = Guess(
