@@ -59,11 +59,6 @@ You are not required to validate external libraries/frameworks, such as imported
 
 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
 
-### JavaScript
-
-I have used the recommended [JShint Validator](https://jshint.com) to validate all of my JS files.
-
-
 ### Python
 
 I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
@@ -97,6 +92,8 @@ Some of these are paid services, but some are free.
 If you use these, you must provide a link to the source used for attribution, and multiple screenshots of the results.
 
 Sample browser testing documentation:
+
+Safari won't work well here.
 
 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
 

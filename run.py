@@ -758,7 +758,7 @@ class Guess:
         for char in guess:
             # Replace character to check by "." and check whether the
             # character is still contained in the string
-            guess_check_repeat = guess_check_repeat.replace(char, ".", 1)  # noqa
+            guess_check_repeat = guess_check_repeat.replace(char, ".", 1)
             if char in guess_check_repeat:
                 # If a character repeats itself, set repeat to True
                 # and break out of loop
@@ -766,9 +766,9 @@ class Guess:
                 break
         if repeat is True:
             print(
-                f"\n {Fore.RED}Your guess '{guess}' contains "
-                "repeating colors.\n Please enter a code without "
-                "repetitions."
+                f"\n {Fore.RED}Your guess '{guess}' contains repeating colors"
+                f"/{'digits' if self.colors[0].isnumeric() else 'characters'}"  # noqa
+                ".\n Please enter a code without repetitions."
             )
             return False
         else:
