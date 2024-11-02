@@ -34,6 +34,8 @@ class Screen:
     def user_input(self, message):
         """
         Take user input and catch KeyboardInterrupt or user input 'exit'
+        Code inspiration to catch KeybaordInterrupt from:
+        https://stackoverflow.com/questions/37887624/python-3-keyboardinterrupt-error
         """
         while True:
             try:
@@ -177,7 +179,7 @@ class Screen:
         or plain text for plain text mode
         """
         if plain_text:
-            # plain text mode
+            # Plain text mode
             print(f"{Fore.BLUE}{Style.BRIGHT} MASTERMIND\n")
         else:
             logo = pyfiglet.figlet_format("    Mastermind", font="small")
@@ -446,7 +448,7 @@ class Game:
             self.colors = ["1", "2", "3", "4"]
             # Can change to color-letters, e.g.
             # B - blue, R - red, Y - yellow, P - purple
-            # self.colors = ["B", "R", "Y", "P"]
+            # Option: self.colors = ["B", "R", "Y", "P"]
             self.code_length = 3
             self.max_rounds = 12
             self.repetitions = True
@@ -461,7 +463,7 @@ class Game:
             self.colors = ["1", "2", "3", "4", "5", "6", "7", "8"]
             self.code_length = 5
             self.max_rounds = 12
-            # no repetitions allowed
+            # No repetitions allowed
             self.repetitions = False
 
     def game_welcome_message(self):
@@ -528,12 +530,12 @@ class Game:
         Return secret code string
         """
         if self.repetitions:
-            # repetition allowed
+            # Repetition allowed
             code_array = random.choices(self.colors, k=self.code_length)
             code = "".join(code_array)
 
         else:
-            # no repetition
+            # No repetition
             code_array = random.sample(self.colors, k=self.code_length)
             code = "".join(code_array)
 
@@ -793,7 +795,7 @@ class Guess:
                 hits += 1
                 # Remove hits from guess so do not count twice
                 guess_checked = guess_checked.replace(char, "", 1)
-                # replace checked character in secret by . so do not count
+                # Replace checked character in secret by . so do not count
                 # twice and positions of other characters stay the same
                 secret_checked = secret_checked[:i] + "." + secret_checked[i + 1:]  # noqa
         # Check for close
@@ -834,7 +836,7 @@ class Board:
         https://learnpython.com/blog/print-table-in-python/
         """
         if self.screen.plain_text:
-            # Printing for plain text mode
+            # Print board for plain text mode
             headings = self.guess_list[0]
             for i, line in enumerate(self.guess_list[1:]):
                 print(
