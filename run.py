@@ -469,21 +469,24 @@ class Game:
         Check if game is won
         """
         if score[0] == self.code_length:
-            self.screen.clear_screen()
-            self.screen.print_logo(self.screen.plain_text)
-            print(
-                f"\n Congratulations, you {Fore.CYAN}{Style.BRIGHT}WON!\n"
-                f"{Style.RESET_ALL}\n You cracked the secret code "
-                f"{self.screen.color_secret_code(self.secret_code)} in "
-                f"{attempts} {'rounds' if attempts != 1 else 'round'}.\n"
-                )
-            board.show(attempts)
-            time.sleep(1)
-            print("")
-            self.screen.press_enter()
+            self.win_message(score, attempts, board)
             return True
         else:
             return False
+
+    def win_message(self, score, attempts, board):
+        self.screen.clear_screen()
+        self.screen.print_logo(self.screen.plain_text)
+        board.show(attempts)
+        print(
+            f"\n {Fore.CYAN}{Style.BRIGHT}Congratulations, you WON!\n"
+            f"{Style.RESET_ALL}\n You cracked the secret code "
+            f"{self.screen.color_secret_code(self.secret_code)} in "
+            f"{attempts} {'rounds' if attempts != 1 else 'round'}.\n"
+        )
+        time.sleep(1)
+        # print("")
+        self.screen.press_enter()
 
     def check_max_rounds(self, attempts):
         """
@@ -598,10 +601,10 @@ class Game:
             )
             # Check guess against secret and save score
             latest_score = latest_guess.score
-            hits = latest_score[0]
-            close = latest_score[1]
-            # print hits and close score
-            self.hits_close_message(latest_guess, hits, close)
+            # hits = latest_score[0]
+            # close = latest_score[1]
+            # # print hits and close score
+            # self.hits_close_message(latest_guess, hits, close)
             # Show board
             board.append_guess(latest_guess)
 
@@ -614,7 +617,7 @@ class Game:
                 # increment attempts
                 attempts += 1
 
-            time.sleep(3)
+            # time.sleep(1)
 
 
 class Board:
