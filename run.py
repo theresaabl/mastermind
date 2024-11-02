@@ -568,18 +568,21 @@ class Game:
         print("")
         self.screen.press_enter()
 
-    def check_max_rounds(self, attempts):
+    def check_max_rounds(self, attempts, board):
         """
         Check if has reached maximum attempts and call lose_message if yes
         Return True if lost and False if not
         """
         if attempts == self.max_rounds:
-            self.lose_message()
+            self.lose_message(attempts, board)
             return True
         else:
             return False
 
-    def lose_message(self):
+    def lose_message(self, attempts, board):
+        self.screen.clear_screen()
+        self.screen.print_logo(self.screen.plain_text)
+        board.show(attempts)
         print(f"{Fore.RED}\n You have run out of attempts.\n")
         time.sleep(1)
         print(
@@ -587,6 +590,7 @@ class Game:
             f"{self.screen.color_secret_code(self.secret_code)}.\n"
             )
         time.sleep(1)
+        print("")
         self.screen.press_enter()
 
     def run_game(self):
@@ -603,6 +607,7 @@ class Game:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
             self.secret_code_description()
+            # Print round number
             print(f" {Fore.CYAN}Round {attempts}:\n")
             # Show board
             if attempts > 1:
@@ -623,7 +628,7 @@ class Game:
             # Check break conditions
             if self.game_won(latest_score, attempts, board):
                 break
-            if self.check_max_rounds(attempts):
+            if self.check_max_rounds(attempts, board):
                 break
             else:
                 # Increment attempts
