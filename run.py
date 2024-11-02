@@ -519,8 +519,6 @@ class Game:
             f"{Fore.RESET}allowed\n"
             f" - {Fore.CYAN}{self.max_rounds} rounds\n"
         )
-        # Remove after testing ############################################################################################
-        print(f" For testing: secret code: {self.secret_code}\n")
 
     def create_code(self):
         """
