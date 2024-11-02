@@ -1,19 +1,19 @@
 import random
 import time
-# import tabulate to format table
+# Import tabulate to format table
 from tabulate import tabulate
-# import pyfiglet for ascii art logo
+# Import pyfiglet for ascii art logo
 import pyfiglet
-# import colorama module to print color text
+# Import colorama module to print color text
 import colorama
 from colorama import Fore, Style
-# initialize module
+# Initialize module
 colorama.init(autoreset=True)
 
 
 class Screen:
     """
-    Creates an instance of Screen
+    Create an instance of Screen
     """
     def __init__(self):
         self.clear_screen()
@@ -47,7 +47,7 @@ class Screen:
                     else:
                         return user_input
             except KeyboardInterrupt:
-                # Checks whether user wants to exit
+                # Check whether user wants to exit
                 # If not, continue to take user input again
                 if not self.handle_exit_request():
                     continue
@@ -55,6 +55,8 @@ class Screen:
     def handle_exit_request(self):
         """
         Control what happens when user presses Crtl + C
+        Take user input y or n, validate input
+        Call exit_application if y, return False if n
         """
         print("\n Are you sure you want to exit the application?")
         while True:
@@ -75,7 +77,7 @@ class Screen:
         else:
             print("\n Continuing application ...\n")
             time.sleep(1)
-            # return False indicates that user does not want to quit
+            # Return False indicates that user does not want to quit
             return False
 
     def exit_application(self):
@@ -88,12 +90,13 @@ class Screen:
         print("\n Good bye!\n")
         time.sleep(2)
         self.clear_screen()
+        # Exit application
         exit()
 
     def validate_y_n(self, input):
         """
-        Validates whether input is y or n, nothing else
-        Returns True if valid, False otherwise
+        Validate whether input is y or n and nothing else
+        Return True if valid, False otherwise
         """
         while True:
 
@@ -118,19 +121,26 @@ class Screen:
         Show plain text start screen to ask user whether they want plain text
         mode or not. This is for better accessibility, especially to avoid
         ascii art, formatted tables etc. for screen readers.
-        Inspiration from:
+        Inspiration taken from:
         https://dev.to/baspin94/two-ways-to-make-your-command-line-interfaces-more-accessible-541k
+        Return True if plain text mode selected and False otherwise
         """
         print(f" Welcome to {Fore.BLUE}{Style.BRIGHT}MASTERMIND\n")
         time.sleep(1)
         print(" A Python console game\n")
         time.sleep(1)
+        # Call plain_text_request to take user input
         self.plain_text = self.plain_text_request()
         if self.plain_text:
             print("\n Plain text mode selected.\n")
             self.press_enter()
+            # Show plain text mode logo for 1 second before continues
+            self.clear_screen()
+            self.print_logo(True)
+            time.sleep(1)
             return True
         else:
+            # Show logo for 1 second before continues
             self.clear_screen()
             self.print_logo(False)
             time.sleep(1)
@@ -139,6 +149,8 @@ class Screen:
     def plain_text_request(self):
         """
         Take user input on whether plain text mode is wanted or not
+        Validate for y or n
+        Return True if plain text mode selected or False if not
         """
         print(
             f" Would you like to access the game in {Fore.CYAN}plain text mode"
@@ -161,7 +173,7 @@ class Screen:
 
     def print_logo(self, plain_text):
         """
-        Print Ascii art of logo
+        Print Ascii art logo
         or plain text for plain text mode
         """
         if plain_text:
@@ -174,7 +186,7 @@ class Screen:
     def take_menu_choice(self, options):
         """
         Take user input menu choice out of {options} options, validate it
-        and return it if valid
+        and return it once it is valid
         """
         while True:
             choice = self.user_input(
@@ -203,9 +215,10 @@ class Screen:
 
     def color_secret_code(self, code):
         """
-        Adds colorama colors for each digit in numeric secret code
-        For alphabetic secret code would need to set up depending on
+        Add colorama colors for each digit in numeric secret code
+        Important: For alphabetic secret code would need to set up depending on
         characters chosen
+        Return a string of secret code containing colorama color code
         """
         color_code = ""
         for char in code:
@@ -230,7 +243,7 @@ class Screen:
 
     def print_instructions(self):
         """
-        Show game instructions until user presses key
+        Show game instructions until user presses ENTER
         """
         self.clear_screen()
         self.print_logo(self.plain_text)
@@ -293,12 +306,12 @@ strategically.
 
 class GameMenu:
     """
-    Create instance of GameMenu
+    Create an instance of GameMenu
     """
     def __init__(self):
-        # create instance of Screen when GameMenu is initialised
+        # Create instance of Screen when GameMenu is initialised
         self.screen = Screen()
-        # show start screen each time and save viewing mode
+        # Show start screen and save viewing mode
         self.plain_text = self.screen.show_start_screen()
 
     def show_menu(self):
@@ -315,17 +328,18 @@ class GameMenu:
     def handle_menu_choice(self, menu_choice):
         """
         Check which option user chose and call functions accordingly
+        Return True if want menu to show again
         """
         if menu_choice == "1":
-            # pass Screen instance to ChooseLevel instance
+            # Create new ChooseLevel instance and pass Screen instance
             level = ChooseLevel(self.screen)
             level.run_choose_level()
-            # menu shows again
+            # Show menu again
             return True
 
         elif menu_choice == "2":
             self.screen.print_instructions()
-            # menu shows again
+            # Show menu again
             return True
 
         elif menu_choice == "3":
@@ -333,26 +347,26 @@ class GameMenu:
 
     def run_menu(self):
         """
-        Outer loop, displays menu, takes user choice and
-        controls what happens next: run game, show instructions
+        Outer loop: display menu, take user choice and
+        control what happens next: run game, show instructions
         or exit the game
         """
         while True:
-            # while loop broken from inside functions
+            # While loop broken from inside functions
             self.show_menu()
-            # pass number of menu options
+            # Pass number of menu options
             menu_choice = self.screen.take_menu_choice(3)
-            # handles menu choice, calls appropriate functions
+            # Handle menu choice, call appropriate functions
             # Show menu until user chooses exit
             self.handle_menu_choice(menu_choice)
 
 
 class ChooseLevel():
     """
-    Creates instance of ChooseLevel
+    Create an instance of ChooseLevel
     """
     def __init__(self, screen):
-        # pass screen instance
+        # Pass screen instance
         self.screen = screen
 
     def show_level_menu(self):
@@ -368,7 +382,8 @@ class ChooseLevel():
 
     def handle_level_choice(self, level_choice):
         """
-        Check which option user chose and call functions accordingly
+        Check which option user chose and call the functions that
+        start the game accordingly
         """
         if level_choice == "1":
             print(f"\n Level 1 - {Fore.GREEN}Easy{Fore.RESET} - selected\n")
@@ -397,23 +412,25 @@ class ChooseLevel():
         """
         while True:
             self.show_level_menu()
-            # pass number of menu options
+            # Pass number of menu options
             level_choice = self.screen.take_menu_choice(3)
             break
 
-        # handle level choice and start game
+        # Handle level choice and start game
         self.handle_level_choice(level_choice)
 
 
 class Game:
     """
-    Create instance of Game
+    Create an instance of Game
     """
     def __init__(self, level, screen):
         self.level = level
+        # Call set_level method when Game is initialised
         self.set_level()
+        # Create a secret code when Game is initialised
         self.secret_code = self.create_code()
-        # pass instance of screen
+        # Pass instance of screen
         self.screen = screen
 
     def set_level(self):
@@ -423,9 +440,9 @@ class Game:
         rounds and whether repetitions are allowed in the code
         """
         if self.level == "1":
-            # Can use numbers or letters as code elements
+            # This project works for numbers or letters as code elements
             # They represent the colors in the mastermind game
-            # Set up to use numeric code for better accessibility
+            # Here: set up to use numeric code for better accessibility
             self.colors = ["1", "2", "3", "4"]
             # Can change to color-letters, e.g.
             # B - blue, R - red, Y - yellow, P - purple
@@ -508,6 +525,7 @@ class Game:
         Randomly choose {self.code_length} items from the colors list
         Create secret code as a string
         Account for repetitions allowed or not
+        Return secret code string
         """
         if self.repetitions:
             # repetition allowed
@@ -518,12 +536,15 @@ class Game:
             # no repetition
             code_array = random.sample(self.colors, k=self.code_length)
             code = "".join(code_array)
+
         return code
 
     def game_won(self, score, attempts, board):
         """
-        Check if game is won
+        Check if game is won and call win_message if yes
+        Return True if all colors match the secret code and False otherwise
         """
+        # Check if as many hits as code is long
         if score[0] == self.code_length:
             self.win_message(score, attempts, board)
             return True
@@ -549,7 +570,8 @@ class Game:
 
     def check_max_rounds(self, attempts):
         """
-        Check if has reached maximum attempts
+        Check if has reached maximum attempts and call lose_message if yes
+        Return True if lost and False if not
         """
         if attempts == self.max_rounds:
             self.lose_message()
@@ -574,9 +596,9 @@ class Game:
         self.game_welcome_message()
         # Reset to first round (1st attempt)
         attempts = 1
-        # Create board
+        # Create board instance
         board = Board(self.screen)
-        # game loop
+        # Game loop
         while True:
             self.screen.clear_screen()
             self.screen.print_logo(self.screen.plain_text)
@@ -586,95 +608,44 @@ class Game:
             if attempts > 1:
                 board.show(attempts - 1)
             # Create new guess, pass secret code, colors list, screen and
-            # repetitions to check guess against secret and take user_input()
+            # repetitions, take user_input() and check guess against secret
             latest_guess = Guess(
                 self.secret_code,
                 self.colors,
                 self.screen,
                 self.repetitions
             )
-            # Check guess against secret and save score
+            # Save score
             latest_score = latest_guess.score
             # Add latest  guess to board
             board.append_guess(latest_guess)
 
-            # check break conditions
+            # Check break conditions
             if self.game_won(latest_score, attempts, board):
                 break
             if self.check_max_rounds(attempts):
                 break
             else:
-                # increment attempts
+                # Increment attempts
                 attempts += 1
-
-
-class Board:
-    """
-    Create instance of Board
-    """
-    def __init__(self, screen):
-        # Initialize list of guesses and include board headers
-        self.guess_list = [["Guess:", "Hits:", "Close:"]]
-        # pass instance of Screen
-        self.screen = screen
-
-    def append_guess(self, guess):
-        """
-        Append latest guess to the board
-        """
-        # Format guess for display on board and add color
-        format_code = self.screen.color_secret_code(
-            " ".join(list(guess.guessed_code))
-            )
-        # Append formatted guess to guess_list
-        self.guess_list.append([format_code, guess.score[0], guess.score[1]])
-
-    def show(self, rounds):
-        """
-        Print the board with nice formatting or for plain text mode
-        Code inspiration from:
-        https://learnpython.com/blog/print-table-in-python/
-        """
-        if self.screen.plain_text:
-            # printing for plain text mode
-            headings = self.guess_list[0]
-            for line in self.guess_list[1:]:
-                print(
-                    f" {headings[0]} {line[0]}, "
-                    f"{headings[1]} {Fore.GREEN}{line[1]}{Fore.RESET}, "
-                    f"{headings[2]} {Fore.YELLOW}{line[2]}"
-                )
-        else:
-            # nicely formatted table
-            rowIDs = [i for i in range(1, rounds + 1)]
-            # copy guess list to add color for score
-            color_guess_list = self.guess_list.copy()
-            # loop through rows and add color to hits and close
-            for row in color_guess_list[1:]:
-                # skip the headings
-                row[1] = f"{Fore.GREEN}{row[1]}{Fore.RESET}"
-                row[2] = f"{Fore.YELLOW}{row[2]}{Fore.RESET}"
-            print(tabulate(
-                color_guess_list, headers='firstrow',
-                tablefmt='rounded_outline', showindex=rowIDs
-                ))
 
 
 class Guess:
     """
-    Create instance of Guess
+    Create an instance of Guess
     """
     def __init__(self, secret, colors, screen, repetitions):
         self.secret = secret
         self.colors = colors
-        # self.repetitions = repetitions
+        # Call take_guess and check_guess each time a Guess is initialised
         self.guessed_code = self.take_guess(screen, repetitions)
         self.score = self.check_guess()
 
     def take_guess(self, screen, repetitions):
         """
-        Take a guess from the user and validate for correct length, only valid
+        Take a guess from the user and validate for correct length, valid
         characters and repetitions allowed or not
+        Return the guess once it is valid
         """
         while True:
             # Take user input, strip of empty spaces in beginning and end
@@ -708,8 +679,8 @@ class Guess:
 
     def validate_guess_empty(self, guess):
         """
-        Checks if guess is empty and prints error message
-        Returns false if empty and true otherwise
+        Check if guess is empty and print error message
+        Return False if empty and True otherwise
         """
         if len(guess) == 0:
             print(
@@ -728,8 +699,8 @@ class Guess:
 
     def validate_guess_length(self, guess):
         """
-        Checks if guess has correct length and prints error message if not
-        Returns true if correct length and false otherwise
+        Check if guess has correct length and print error message if not
+        Return True if correct length and False otherwise
         """
         if len(guess) != len(self.secret):
             short_long = "short" if len(guess) < len(self.secret) else "long"
@@ -743,9 +714,9 @@ class Guess:
 
     def validate_guess_char(self, guess):
         """
-        Checks if guess only contains valid characters according to colors list
-        Prints error message if it contains invalid characters
-        Returns true if all valid characters and false otherwise
+        Check if guess only contains valid characters according to colors list
+        Print error message if it contains invalid characters
+        Return True if all valid characters and False otherwise
         """
         characters_valid = True
         for char in guess:
@@ -760,6 +731,8 @@ class Guess:
                         else f'out of {", ".join(self.colors)}'
                     }."
                 )
+                # When one character is invalid break out of loop
+                # and return False
                 characters_valid = False
                 break
 
@@ -767,14 +740,16 @@ class Guess:
 
     def validate_guess_repeat(self, guess):
         """
-        Checks whether guess contains repeat colors for levels where
+        Check whether guess contains repeat colors for levels where
         repetitions are not allowed
-        Returns true if no repetitions and false otherwise
+        Return True if no repetitions and False otherwise
         """
-        # initialise variable repeat
+        # Initialise variable repeat
         repeat = False
         guess_check_repeat = guess
         for char in guess:
+            # Replace character to check by "." and check whether the
+            # character is still contained in the string
             guess_check_repeat = guess_check_repeat.replace(char, ".", 1)  # noqa
             if char in guess_check_repeat:
                 # If a character repeats itself, set repeat to True
@@ -793,30 +768,89 @@ class Guess:
 
     def check_guess(self):
         """
-        Check guess against the secret code and return number of hits and close
+        Check guess against the secret code, calculate number of hits and close
         Hit means correct character and position in the code
         Close means correct character but wrong position in the code
+        Return hits and close
         """
+        # Reset hits and close to 0 each time new guess is checked
         hits = 0
         close = 0
         secret_checked = self.secret
         guess_checked = self.guessed_code
-        # check for hits
+        # Check for hits
         for i, char in enumerate(self.guessed_code):
             # When character is at correct position increment hits
             if char == self.secret[i]:
                 hits += 1
-                # remove hits from guess so don't count twice
+                # Remove hits from guess so do not count twice
                 guess_checked = guess_checked.replace(char, "", 1)
-                # replace checked character in secret by . so don't count twice
+                # replace checked character in secret by . so do not count
+                # twice and positions of other characters stay the same
                 secret_checked = secret_checked[:i] + "." + secret_checked[i + 1:]  # noqa
-        # check for close
+        # Check for close
         for char in guess_checked:
             if char in secret_checked:
                 close += 1
-                # replace checked character in secret by . so don't count twice
+                # Replace checked character in secret by . so don't count twice
                 secret_checked = secret_checked.replace(char, ".", 1)
+
         return [hits, close]
+
+
+class Board:
+    """
+    Create an instance of Board
+    """
+    def __init__(self, screen):
+        # Initialize list of guesses and include board headings
+        self.guess_list = [["Guess:", "Hits:", "Close:"]]
+        # Pass instance of Screen
+        self.screen = screen
+
+    def append_guess(self, guess):
+        """
+        Append latest guess to the board
+        """
+        # Format guess for display on board and add color
+        format_code = self.screen.color_secret_code(
+            " ".join(list(guess.guessed_code))
+            )
+        # Append formatted guess and score to guess_list
+        self.guess_list.append([format_code, guess.score[0], guess.score[1]])
+
+    def show(self, rounds):
+        """
+        Print the board with nice formatting or for plain text mode
+        Code inspiration from:
+        https://learnpython.com/blog/print-table-in-python/
+        """
+        if self.screen.plain_text:
+            # Printing for plain text mode
+            headings = self.guess_list[0]
+            for line in self.guess_list[1:]:
+                print(
+                    f" {headings[0]} {line[0]}, "
+                    f"{headings[1]} {Fore.GREEN}{line[1]}{Fore.RESET}, "
+                    f"{headings[2]} {Fore.YELLOW}{line[2]}"
+                )
+        else:
+            # Print nicely formatted table
+            rowIDs = [i for i in range(1, rounds + 1)]
+            # Copy guess list to add color for score
+            color_guess_list = self.guess_list.copy()
+            # Loop through rows and add color to hits and close
+            for row in color_guess_list[1:]:
+                # Skip the headings
+                row[1] = f"{Fore.GREEN}{row[1]}{Fore.RESET}"
+                row[2] = f"{Fore.YELLOW}{row[2]}{Fore.RESET}"
+            # Format list with tabulate and print
+            print(tabulate(
+                color_guess_list,
+                headers='firstrow',
+                tablefmt='rounded_outline',
+                showindex=rowIDs
+                ))
 
 
 # Create and run game menu
