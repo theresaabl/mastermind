@@ -835,7 +835,7 @@ class Board:
             headings = self.guess_list[0]
             for i, line in enumerate(self.guess_list[1:]):
                 print(
-                    f" Round {i + 1}:"
+                    f" Round {i + 1}{': ' if i < 9 else ':'}"
                     f" {headings[0]} {line[0]}, "
                     f"{headings[1]} {Fore.GREEN}{line[1]}{Fore.RESET}, "
                     f"{headings[2]} {Fore.YELLOW}{line[2]}"
