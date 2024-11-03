@@ -54,35 +54,33 @@ I used the [colorama](https://pypi.org/project/colorama/) module to add font col
 
 | Feature | Description | Screenshot |
 | --- | --- | --- |
-| **Start Screen** | Upon page load a start screen with only plain text is displayed. The user has the option to select whether to start the application in plain text mode or not. Plain text mode means that all visual elements, like Ascii art or formatted tables are avoided. This is most important for screen readers.  | ![screenshot](documentation/features/feature-start-screen.png) |
+| **Start Screen** | Upon page load a start screen with only plain text is displayed. The user has the option to select whether to start the application in plain text mode or not. Plain text mode means that all visual elements, like ascii art or formatted tables are avoided. This is most important for screen readers.  | ![screenshot](documentation/features/feature-start-screen.png) |
 | **Plain Text Mode** | When plain text mode is selected, all visual elements will be avoided throughout the application. A confirmation that this mode was selected is displayed on the screen and the user can press ENTER to continue to the game. | ![screenshot](documentation/features/feature-plain-text-mode-selected.png) |
 | **Logo** | The logo appears on top of the terminal and uses an Ascii art font from the [pyfiglet](https://pypi.org/project/pyfiglet/) module. The goal is to prominently display the game name. It has a clean and futuristic look which fits with the game of this logic terminal game.  | ![screenshot](documentation/features/feature-logo.png) |
 | **Plain Text Logo** | In plain text mode the logo is just 'MASTERMIND' in bright blue font.  | ![screenshot](documentation/features/feature-logo-plain.png) |
 | **Game Menu** | After the viewing mode is selected a game menu is displayed, where the user can choose between three options, 'Play Game', 'Show Instructions' or 'Exit'.  | ![screenshot](documentation/features/feature-game-menu.png) |
 | **Instructions** | When the user selects option 2 in the game menu game instructions are displayed and can be closed again by pressing ENTER. If the user presses ENTER the game menu will be displayed again. The instructions describe the game and give details about the objective, rules, levels, feedback, winning, tips and how to exit the game.  | ![screenshot](documentation/features/feature-instructions-1.png)![screenshot](documentation/features/feature-instructions-2.png) |
-| **Exit** | When the user selects option 3 in the game menu an exit confirmation is displayed before the console is cleared and a good bye message is shown. The application is terminated. | ![screenshot](documentation/features/feature-menu-exit-message.png)![screenshot](documentation/features/feature-good-bye-message.png)  |
-| **Level Menu** | When the user selects option 1 in the game menu another menu, the level menu is displayed. There are three distinct difficulty level options to choose from. Level 1 or Easy, level 2 or Classic and level 3 or Hard. Once the user chooses a level, a confirmation is shown before the respective game starts.  | ![screenshot](documentation/features/feature-level-menu.png)![screenshot](documentation/features/feature-level-menu-choice-confirmation.png) |
+| **Exit from Menu** | When the user selects option 3 in the game menu an exit confirmation is displayed before the console is cleared and a good bye message is shown. The application is terminated. | ![screenshot](documentation/features/feature-menu-exit-message.png)![screenshot](documentation/features/feature-good-bye-message.png)  |
+| **Level Menu** | When the user selects option 1 in the game menu another menu, the level menu is displayed. There are three distinct difficulty level options to choose from. Level 1 or Easy, level 2 or Classic and level 3 or Hard. Once the user chooses a level, a confirmation is shown before the respective game starts. Note that the number and secret code specification of the difficulty levels can easily be changed in the program code. <br><br>In level 1 - Easy - the secret code consists of 3 digits between 1 and 4 and repetitions are allowed. In level 2 - Classic - the secret code consists of 4 digits between 1 and 6 and repetitions are also allowed. This is the same as many of the classic mastermind boardgames. Finally, in level 3 - Hard - the code consists of 5 digits between 1 and 8 and repetitions are not allowed. Each level has 12 rounds. | ![screenshot](documentation/features/feature-level-menu.png)![screenshot](documentation/features/feature-level-menu-choice-confirmation.png) |
 | **Level Introduction** | When the user selects a level in the level menu, a page with details about the selected level is displayed. The user can continue to the game by pressing ENTER. | ![screenshot](documentation/features/feature-level-intro-easy.png)![screenshot](documentation/features/feature-level-intro-classic.png)![screenshot](documentation/features/feature-level-intro-hard.png) |
-| **Main Game Page** | Add description | ![screenshot](documentation/features/feature-main-game-page.png) |
-| **Plain Text Main Game Page** | Add description  | ![screenshot](documentation/features/feature-main-game-page-plain.png) |
-| **Secret Code description** | Now the main game starts. On top of the page, just below the logo, a description of the secret code is provided. This is for the users convenience so they do not have to memorize the specifications of the code for their chosen level. The secret code consists of a number of colors, which are here represented by numbers. The description states how many digits are in the code and what the minimum and maximum values allowed are. It also states whether color repetitions are allowed or not and how many rounds one has to crack the code. | ![screenshot](documentation/features/feature-code-description-easy.png)![screenshot](documentation/features/feature-code-description-classic.png)![screenshot](documentation/features/feature-code-description-hard.png) |
+| **Main Game Page** | Now the main game starts. The main game page contains everything that is relevant to play the mastermind game. It displays the logo, a description of the secret code, the round that the user is currently in, the game board and the input field for the user's next guess. | ![screenshot](documentation/features/feature-main-game-page.png) |
+| **Plain Text Main Game Page** | The main game page in plain text mode features the plain text logo and plain text board.  | ![screenshot](documentation/features/feature-main-game-page-plain.png) |
+| **Secret Code description** | On top of the page, just below the logo, a description of the secret code is provided. This is for the users convenience so they do not have to memorize the specifications of the code for their chosen level. The secret code consists of a number of colors, which are here represented by numbers. The description states how many digits are in the code and what the minimum and maximum values allowed are. It also states whether color repetitions are allowed or not and how many rounds one has to crack the code. Note that the program code is generalised so that it is easy to use different characters (e.g. letters) representing the colors in the secret code. | ![screenshot](documentation/features/feature-code-description-easy.png)![screenshot](documentation/features/feature-code-description-classic.png)![screenshot](documentation/features/feature-code-description-hard.png) |
 | **Round Display** | Below the code description the current round is displayed. | ![screenshot](documentation/features/feature-round-display.png) |
-| **Guess Input** | add description | ![screenshot](documentation/features/feature-guess-input.png) |
-| **Board** | add description | ![screenshot](documentation/features/feature-board.png) |
-| **Plain Text Board** | add description | ![screenshot](documentation/features/feature-board-plain.png) |
-| **Guess Input** | add description | ![screenshot](documentation/features/feature-guess-input.png) |
-| **Last Round Warning** | add description | ![screenshot](documentation/features/feature-last-round-warning.png) |
-| **Game Won** | add description | ![screenshot](documentation/features/feature-win-message-easy.png) |
-| **Plain Text Game Won** | add description | ![screenshot](documentation/features/feature-win-message-hard-plain.png) |
-| **Game Lost** | add description | ![screenshot](documentation/features/feature-lose-page-1.png)![screenshot](documentation/features/feature-lose-page-2.png) |
-| **Plain Text Game Lost** | add description | ![screenshot](documentation/features/feature-lose-page-plain.png) |
-| **Exit Game** | add description | ![screenshot](documentation/features/feature-enter-exit.png) |
-| **Catch KeyboardInterrupt** | add description mention unsolved but with time.sleep | ![screenshot](documentation/features/feature-catch-keyboard-interrupt.png) |
-| **Exit Game Confirmation** | add description | ![screenshot](documentation/features/feature-exit-confirmation-request.png)![screenshot](documentation/features/feature-exit-continue.png)![screenshot](documentation/features/feature-exiting-confirmation.png)![screenshot](documentation/features/feature-good-bye-message.png) |
+| **Board** | The board is the main feature in the mastermind game, it represents a physical mastermind game. The user's guess from all previous rounds is displayed together with the feedback. The feedback consists of hits, the number of colors (represented by numbers) that are correct in color and position, and close, the number of colors that are correct in color but wrong in position.  This is the same as in the classical board game. The numbers in the guesses are printed in different colors which is reminiscent of the colors they represent. Note, that some of the colors repeat for two numbers, because colorama has a limited number of colors available. The hits and close are colored in green and yellow respectively.  The user can then use this feedback to improve their guess in the next round. | ![screenshot](documentation/features/feature-board.png) |
+| **Plain Text Board** | In plain text mode, the nicely formatted table is avoided and the board is printed in as rows of plain text. The colors are the same. | ![screenshot](documentation/features/feature-board-plain.png) |
+| **Guess Input** | Each round, the user can make a guess as to what the secret code is. The guess is in put in an input field, validated for the correct length, characters and repetitions or not. | ![screenshot](documentation/features/feature-guess-input.png) |
+| **Last Round Warning** | When the user has reached the last round of the game, a warning shows before the input is taken. So the user is aware that this is their last try to crack the code. | ![screenshot](documentation/features/feature-last-round-warning.png) |
+| **Game Won** | When the user has cracked the code (i.e. all numbers in the code are hits) they have won the game! A win message is displayed together with the board, so that the user can see what guesses they took along the way to crack the code. After pressing ENTER the game menu displays again. Sreenshots of examples of win messages in standard and plain text mode are available on the right. | ![screenshot](documentation/features/feature-win-message-easy.png)![screenshot](documentation/features/feature-win-message-hard-plain.png) |
+| **Game Lost** | When the user does not correctly guess the secret code in the last round, the game is lost. A lose message is shown together with the board and the secret code is displayed as well. After pressing ENTER the game menu displays again. Examples for lose messages in standard and plain text mode are available on the right. | ![screenshot](documentation/features/feature-lose-page-1.png)![screenshot](documentation/features/feature-lose-page-2.png)![screenshot](documentation/features/feature-lose-page-plain.png) ||
+| **Exit Game** | To exit the game the user can enter "exit" in an input field at any point in the application. This allows the user to exit the app even when not in the main game menu. When "exit" is entered the user is shown an exit confirmation request (see below). | ![screenshot](documentation/features/feature-enter-exit.png) |
+| **Catch KeyboardInterrupt** | Normally, when a user presses Crtl+C on the keyboard, a KeyboardInterrupt error is raised and the application terminates. This is not wanted in the live site, therefore these errors are caught in the code and the user is shown the exit confirmation request (see below). This is relevant as users who are familiar with terminal commands might try and press Crtl+C to exit the app and this gives them a controlled way to exit. Other users might press Crtl+C to copy something from the terminal and this avoids them crashing the app. | ![screenshot](documentation/features/feature-catch-keyboard-interrupt.png) |
+| **Exit Confirmation** | The exit confirmation request asks the user whether they really want to exit the app. If they choose yes, an exit confirmation followed by a good bye message is displayed and the app is terminated, otherwise a continuation message is shown and the program continues to run. | ![screenshot](documentation/features/feature-exit-confirmation-request.png)![screenshot](documentation/features/feature-exit-continue.png)![screenshot](documentation/features/feature-exiting-confirmation.png)![screenshot](documentation/features/feature-good-bye-message.png) |
 
 ### Future Features
 
-- A useful future feature would be for the user to be able to quit a game without having to quit the entire application. They could open the menu, choose another level for example and start another game.
+- A useful future feature would be for the user to be able to quit a game without having to quit the entire application. They could open the menu and for example start a game of different level.
+
 - It would also be interesting to add the option to show and hide instructions throughout playing without quitting the game.
 
 ## Tools & Technologies Used
@@ -118,22 +116,22 @@ I created the UML diagram using [Code to Flowchart](https://codetoflow.com/), wh
 
 The main purpose of the classes used in this program are:
 
-1. The Screen class handles many of the user interface and console interactions, such as clearing the screen, taking user input, requesting plain text mode or not, and printing different messages.
+1. The `Screen` class handles many of the user interface and console interactions, such as clearing the screen, taking user input, requesting plain text mode or not, and printing different messages.
 
-2. The GameMenu class is responsible for displaying the main game menu and handling the user's menu choices.
+2. The `GameMenu` class is responsible for displaying the main game menu and handling the user's menu choices.
 
-3. The ChooseLevel class  is responsible for displaying the level menu, handling the user's choice and initialise the corresponding game.
+3. The `ChooseLevel` class  is responsible for displaying the level menu, handling the user's choice and initialise the corresponding game.
 
-4. The Game class encapsulates the core game logic, including setting up the game level, creating the secret code, and managing the game loop.
+4. The `Game` class encapsulates the core game logic, including setting up the game level, creating the secret code, and managing the game loop.
 
-5. The Guess class handles the user's guesses, validating them, and calculating the score.
+5. The `Guess` class handles the user's guesses, validating them, and calculating the score.
 
-6. The Board class manages the display of the game board either in plain text mode or not, showing the user's guesses and the corresponding scores.
+6. The `Board` class manages the display of the game board either in plain text mode or not, showing the user's guesses and the corresponding scores.
 
 The relationships between the classes are as follows:
 
-- The Game class has dependencies on the Screen, Guess, and Board classes.
-- The GameMenu ChooseLevel, Guess and Board classes all have a dependency on the Screen class.
+- The `Game` class has dependencies on the `Screen`, `Guess`, and `Board` classes.
+- The `GameMenu`, `ChooseLevel`, `Guess` and `Board` classes all have a dependency on the `Screen` class.
 
 ### Imports
 
