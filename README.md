@@ -68,6 +68,17 @@ I used the [colorama](https://pypi.org/project/colorama/) module to add font col
 | **Secret Code description** | Now the main game starts. On top of the page, just below the logo, a description of the secret code is provided. This is for the users convenience so they do not have to memorize the specifications of the code for their chosen level. The secret code consists of a number of colors, which are here represented by numbers. The description states how many digits are in the code and what the minimum and maximum values allowed are. It also states whether color repetitions are allowed or not and how many rounds one has to crack the code. | ![screenshot](documentation/features/feature-code-description-easy.png)![screenshot](documentation/features/feature-code-description-classic.png)![screenshot](documentation/features/feature-code-description-hard.png) |
 | **Round Display** | Below the code description the current round is displayed. | ![screenshot](documentation/features/feature-round-display.png) |
 | **Guess Input** | add description | ![screenshot](documentation/features/feature-guess-input.png) |
+| **Board** | add description | ![screenshot](documentation/features/feature-board.png) |
+| **Plain Text Board** | add description | ![screenshot](documentation/features/feature-board-plain.png) |
+| **Guess Input** | add description | ![screenshot](documentation/features/feature-guess-input.png) |
+| **Last Round Warning** | add description | ![screenshot](documentation/features/feature-last-round-warning.png) |
+| **Game Won** | add description | ![screenshot](documentation/features/feature-win-message-easy.png) |
+| **Plain Text Game Won** | add description | ![screenshot](documentation/features/feature-win-message-hard-plain.png) |
+| **Game Lost** | add description | ![screenshot](documentation/features/feature-lose-page-1.png)![screenshot](documentation/features/feature-lose-page-2.png) |
+| **Plain Text Game Lost** | add description | ![screenshot](documentation/features/feature-lose-page-plain.png) |
+| **Exit Game** | add description | ![screenshot](documentation/features/feature-enter-exit.png) |
+| **Catch KeyboardInterrupt** | add description mention unsolved but with time.sleep | ![screenshot](documentation/features/feature-catch-keyboard-interrupt.png) |
+| **Exit Game Confirmation** | add description | ![screenshot](documentation/features/feature-exit-confirmation-request.png)![screenshot](documentation/features/feature-exit-continue.png)![screenshot](documentation/features/feature-exiting-confirmation.png)![screenshot](documentation/features/feature-good-bye-message.png) |
 
 ### Future Features
 
@@ -96,7 +107,7 @@ Below is the flowchart of the main process of this Python program. For better re
 
 ![screenshot](documentation/diagrams/flowchart.png)
 
-### Class Diagram
+### OOP - Class Diagram
 
 This project was developed using object oriented programming (OOP). The classes used in this program are mapped out in the below UML (Unified Modeling Language) class diagram. This diagram describes what each class does, which makes it easier to understand the code and extend or adapt it later. Each class is shown together with it's instance attributes (above the dashed line) and the class methods (below the dashed line). The + and - indicate public or private visibility. The arrows indicate associations between the classes, i.e. that one class makes reference to another. Finally, the number ones decorating the arrows indicate the multipicity of the association relationship, i.e. in this case, exactly one instance of one class is referenced in the one instance of the other.
 
