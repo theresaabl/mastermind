@@ -165,28 +165,19 @@ The aforementioned tests are just an example of a few different project scenario
 
 ## User Story Testing
 
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-START OF NOTES (to be deleted)
-
-Testing user stories is actually quite simple, once you've already got the stories defined on your README.
-
-Most of your project's **features** should already align with the **user stories**,
-so this should as simple as creating a table with the user story, matching with the re-used screenshot
-from the respective feature.
-
-🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑-END OF NOTES (to be deleted)
-
 | User Story | Screenshot |
 | --- | --- |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/features/feature01.png) |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/features/feature02.png) |
-| As a new site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/features/feature03.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/features/feature04.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/features/feature05.png) |
-| As a returning site user, I would like to ____________, so that I can ____________. | ![screenshot](documentation/features/feature06.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/features/feature07.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/features/feature08.png) |
-| As a site administrator, I should be able to ____________, so that I can ____________. | ![screenshot](documentation/features/feature09.png) |
-| repeat for all remaining user stories | x |
+| As a user, I would like to play a game of mastermind that is functional and easy to control. | ![screenshot](documentation/features/feature-main-game-page.png) |
+| As a user, I would like to choose a difficulty level. | ![screenshot](documentation/features/feature-level-menu.png) |
+| As a user, I would like to get clear information on the secret code specifications. | ![screenshot](documentation/features/feature-level-intro-classic.png)![screenshot](documentation/features/feature-code-description-classic.png) |
+| As a user, I would like to receive clear feedback in case a guess is not valid. | ![screenshot](documentation/defensive-programming/defensive-guess.png) |
+| As a user, I would like to receive clear feedback on how close my guess is to the secret code. | ![screenshot](documentation/features/feature-board.png) |
+| As a user, I would like to clearly see when I have lost a game. | ![screenshot](documentation/features/feature-lose-page-1.png)![screenshot](documentation/features/feature-lose-page-2.png) |
+| As a user, I would like to clearly see when I won a game. | ![screenshot](documentation/features/feature-win-message-easy.png) |
+| As a user, I would like to be able to exit the game when I want to. | ![screenshot](documentation/features/feature-menu-exit-message.png)![screenshot](documentation/features/feature-enter-exit.png)![screenshot](documentation/features/feature-catch-keyboard-interrupt.png) |
+| As a user, I would like to avoid to accidentally quit the game. | ![screenshot](documentation/features/feature-exit-confirmation-request.png) |
+| As a user, I would like to be able to access game instructions. | ![screenshot](documentation/features/feature-instructions-1.png)![screenshot](documentation/features/feature-instructions-2.png) |
+| As a user, I would like to be able to select a plain text mode to bypass any visual elements. | ![screenshot](documentation/features/feature-plain-text-mode-selected.png)![screenshot](documentation/features/feature-main-game-page-plain.png) |
 
 ## Bugs
 
