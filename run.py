@@ -65,7 +65,7 @@ class Screen:
             user_input = self.user_input(
                 f" Enter {Fore.GREEN}y{Fore.RESET} for yes or "
                 f"{Fore.RED}n{Fore.RESET} for no.\n"
-                )
+                ).strip()
 
             # Validate input for y and n
             # If valid: break
