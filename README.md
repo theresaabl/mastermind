@@ -26,7 +26,6 @@ This game is designed for anyone who wishes to play a single player game that re
 - As a user, I would like to play a game of mastermind that is functional and easy to control.
 - As a user, I would like to choose a difficulty level.
 - As a user, I would like to get clear information on the secret code specifications.
-- As a user, I would like to receive clear feedback in case a guess is not valid.
 - As a user, I would like to receive clear feedback on how close my guess is to the secret code.
 - As a user, I would like to clearly see when I have lost a game.
 - As a user, I would like to clearly see when I won a game.
