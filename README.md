@@ -73,7 +73,7 @@ I used the [colorama](https://pypi.org/project/colorama/) module to add font col
 | **Last Round Warning** | When the user has reached the last round of the game, a warning shows before the input is taken. So the user is aware that this is their last try to crack the code. | ![screenshot](documentation/features/feature-last-round-warning.png) |
 | **Game Won** | When the user has cracked the code (i.e. all numbers in the code are hits) they have won the game! A win message is displayed together with the board, so that the user can see what guesses they took along the way to crack the code. The number of rounds needed to solve the code is also given. After pressing ENTER the game menu displays again. Sreenshots of examples of win messages in standard and plain text mode are available on the right. | ![screenshot](documentation/features/feature-win-message-easy.png)![screenshot](documentation/features/feature-win-message-hard-plain.png) |
 | **Game Lost** | When the user does not correctly guess the secret code in the last round, the game is lost. A lose message is shown together with the board and the secret code is displayed as well. After pressing ENTER the game menu displays again. Examples for lose messages in standard and plain text mode are available on the right. | ![screenshot](documentation/features/feature-lose-page-1.png)![screenshot](documentation/features/feature-lose-page-2.png)![screenshot](documentation/features/feature-lose-page-plain.png) ||
-| **Exit Game** | To exit the game the user can enter "exit" in an input field at any point in the application. This allows the user to exit the app even when not in the main game menu. When "exit" is entered the user is shown an exit confirmation request (see below). | ![screenshot](documentation/features/feature-enter-exit.png) |
+| **Exit Game** | To exit the game the user can enter 'exit' in an input field at any point in the application. This allows the user to exit the app even when not in the main game menu. When 'exit' is entered the user is shown an exit confirmation request (see below). | ![screenshot](documentation/features/feature-enter-exit.png) |
 | **Catch KeyboardInterrupt** | Normally, when a user presses Crtl+C on the keyboard, a KeyboardInterrupt error is raised and the application terminates. This is not wanted in the live site, therefore these errors are caught in the code and the user is shown the exit confirmation request (see below). This is relevant as users who are familiar with terminal commands might try and press Crtl+C to exit the app and this gives them a controlled way to exit. Other users might press Crtl+C to copy something from the terminal and this avoids them crashing the app. | ![screenshot](documentation/features/feature-catch-keyboard-interrupt.png) |
 | **Exit Confirmation** | The exit confirmation request asks the user whether they really want to exit the app. If they choose yes, an exit confirmation followed by a good bye message is displayed and the app is terminated, otherwise a continuation message is shown and the program continues to run. | ![screenshot](documentation/features/feature-exit-confirmation-request.png)![screenshot](documentation/features/feature-exit-continue.png)![screenshot](documentation/features/feature-exiting-confirmation.png)![screenshot](documentation/features/feature-good-bye-message.png) |
 
@@ -242,13 +242,13 @@ By forking the GitHub Repository, we make a copy of the original repository on o
 You can fork this repository by using the following steps:
 
 1. Log in to GitHub and locate the [GitHub Repository](https://github.com/theresaabl/mastermind).
-2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
+2. At the top of the Repository (not top of page) just above the 'Settings' Button on the menu, locate the 'Fork' Button.
 3. Once clicked, you should now have a copy of the original repository in your own GitHub account!
 
 ### Local VS Deployment
 
 There are minor differences between the local and the deployed app.
-- Firstly, when running the app in a local terminal, one can restart the app again from the terminal after exiting it. In the deployed version this is not possible, instead one can restart the app at any time by pressing the "Run Program" button.
+- Firstly, when running the app in a local terminal, one can restart the app again from the terminal after exiting it. In the deployed version this is not possible, instead one can restart the app at any time by pressing the 'Run Program' button.
 - Secondly, the colors appear differently in color shade and brightness in the local vs deployed terminal, this does not influence the functionality of the app at all.
 
 ## Credits

@@ -29,7 +29,7 @@ I have tested my deployed project on the following browsers to check for compati
 
 Since the whole frontend of this project is provided by the [Code Institute template](https://github.com/Code-Institute-Org/python-essentials-template) to display the terminal view of the backend application in a modern web browser, it is not very useful to conduct extensive responsiveness testing. The relevant part of this project is the backend application which is displayed in the mock terminal and not the site that provides the mock terminal. 
 
-However, the game is functional across most devices. It can be played without problems on Android mobile devices (even though responsiveness is lacking) but there are known issues with Apple mobile devices. On those, the user cannot input anything in the terminal and therefore the game cannot be played at all.
+However, the game is functional across most devices. It can be played without problems on Android mobile devices (even though responsiveness is lacking) but there are known issues with Apple mobile devices. On those, the user cannot input anything in the terminal and therefore the game cannot be played at all. See also the [Open Issues](#open-issues) section.
 
 ## Lighthouse Audit
 
@@ -41,20 +41,31 @@ For completeness I have tested my deployed site with the Lighthouse audit tool t
 
 ## Defensive Programming
 
-## Defensive Programming
-
 Defensive programming was manually tested with the below user acceptance testing:
 
 | Feature | Expectation | Action | Outcome | Fix | Screenshot |
 | --- | --- | --- | --- | --- | --- |
-| **Start Screen** | When the page is loaded the start screen with a plain text mode request will open | Load the page | Start screen displayed when page loaded | Test concluded and passed | ![screenshot](documentation/features/feature-start-screen.png) |
-| **Plain Text Mode** | 
-| **Logo** | 
-| **Plain Text Logo** | 
-| **Game Menu** | 
-| **Instructions** | 
-| **Exit from Menu** | 
-| **Level Menu** | 
+| **Start Screen** | When the page is loaded the start screen with a plain text mode request will open asking the user to enter 'y' or 'n' for plain text mode or not | Load the page | Start screen displayed when page loaded | Test concluded and passed | ![screenshot](documentation/features/feature-start-screen.png) |
+| **Plain Text Mode** | When 'y'/'Y' is entered a plain text mode confirmation will be display and the user will be asked to press ENTER to continue the game | Enter 'y'/'Y' | Plain text confirmation displayed when 'y'/'Y' enterd | Test condluded and passed | ![screenshot](documentation/features/feature-plain-text-mode-selected.png) |
+|  | When ENTER is pressed the plain text logo will be displayed on top of the screen | Press ENTER | Plain text logo displayed when ENTER is pressed | Test condluded and passed | ![screenshot](documentation/features/feature-logo-plain.png) |
+|  | When 'n' or 'N' is entered below the plain text request ascii art logo will be displayed on top of the screen | Enter 'n'/'N' | Ascii art logo displayed when 'n'/'N' entered | Test concluded and passed | ![screenshot](documentation/features/feature-logo.png) |
+| **Invalid Input**<br> in Plain Text Mode Request | When empty string is entered an error message will print and the input will be taken again | Enter an empty string | Error message printed and input taken again when empty string entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-plain-text-empty-string.png) |
+|  | When letter different than 'y'/'n' is entered an error message will print and the input will be taken again | Enter 'a' | Error message printed and input taken again when different letter entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-plain-text-other-letter.png) |
+|  | When number is entered an error message will print and the input will be taken again | Enter '3' | Error message printed and input taken again when number entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-plain-text-number.png) |
+|  | When whole word and/or input including blank spaces is entered an error message will print and the input will be taken again | Enter '&nbsp; &nbsp; plain' | Error message printed and input taken again when whole word and/or input including blank spaces entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-plain-text-word.png) |
+|  | When special character is entered an error message will print and the input will be taken again | Enter '?' | Error message printed and input taken again when special character entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-plain-text-special-char.png) |
+| **Game Menu** | When viewing mode is selected the game menu will show and the user will be asked to choose between options 1 - 3 | Select viewing mode (see details above) | Game menu showed when viewing mode seleceted | Test concluded and passed | ![screenshot](documentation/features/feature-game-menu.png) |
+| **Play Game Choice** | When option 1 - Play Game - is chosen ('1' is entered) level menu will show (see below) | Enter '1' | Level menu showed when '1' entered | Text concluded and passed | ![screenshot](documentation/features/feature-level-menu.png) |
+| **Instructions choice** | When option 2 - Show Instructions - is chosen ('2' is entered) the game instructions will be displayed until ENTER is pressed | Enter '2' | Instructions displayed when '2' entered | Test concluded and passed | ![screenshot](documentation/features/feature-instructions-1.png)![screenshot](documentation/features/feature-instructions-2.png) |
+|  | When ENTER is pressed game menu will be displayed again | Press ENTER | Game menu displayed again when ENTER pressed | Test concluded and passed | ![screenshot](documentation/features/feature-game-menu.png) |
+| **Exit choice** | When option 3 - Exit - is chosen ('3' is entered) below the game menu a goodbye message will show and the app will terminate | Enter '3' | Goodbye message showed and app terminated when '3' entered | Test concluded and passed | ![screenshot](documentation/features/feature-menu-exit-message.png)![screenshot](documentation/features/feature-good-bye-message.png) | 
+| **Invalid Input**<br> in Game Menu Choice | When empty string is entered an error message will print and the input will be taken again | Enter an empty string | Error message printed and input taken again when empty string entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-game-menu-empty-string.png) |
+|  | When number outside range 1 - 3 is entered an error message will print and the input will be taken again | Enter '5' | Error message printed and input taken again when number outside of 1 - 3 entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-game-menu-other-number.png) |
+|  | When letter is entered an error message will print and the input will be taken again | Enter 'a' | Error message printed and input taken again when letter entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-game-menu-letter.png) |
+|  | When whole word and/or input including blank spaces is entered an error message will print and the input will be taken again | Enter '&nbsp; &nbsp; three' | Error message printed and input taken again when whole word and/or input including blank spaces entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-game-menu-word.png) |
+|  | When special character is entered an error message will print and the input will be taken again | Enter '?' | Error message printed and input taken again when special character entered | Test concluded and passed | ![screenshot](documentation/defensive-programming/defensive-game-menu-special-char.png) |
+| **Exit from Menu choice** | 
+| **Play Game choice** | 
 | **Level Introduction** |
 | **Main Game Page** | 
 | **Plain Text Main Game Page** | 
@@ -110,7 +121,7 @@ All previously closed/fixed bugs can be tracked [here](https://github.com/theres
 | [UnboundLocalError when calling color_secret_code method to guess_list](https://github.com/theresaabl/mastermind/issues/8) | Closed |
 | [User allowed to input repeat colors in level 3](https://github.com/theresaabl/mastermind/issues/9) | Closed |
 
-## Unfixed Bugs
+## Open Issues
 
 [![GitHub issues](https://img.shields.io/github/issues/theresaabl/mastermind)](https://github.com/theresaabl/mastermind/issues)
 
