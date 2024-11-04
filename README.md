@@ -91,16 +91,16 @@ I used the [colorama](https://pypi.org/project/colorama/) module to add font col
 - [![Python](https://img.shields.io/badge/Python-grey?logo=python&logoColor=3776AB)](https://www.python.org) used as the back-end programming language.
 - [![Heroku](https://img.shields.io/badge/Heroku-grey?logo=heroku&logoColor=430098)](https://www.heroku.com) used for hosting the deployed back-end site.
 - [![ChatGPT](https://img.shields.io/badge/ChatGPT-grey?logo=openai&logoColor=75A99C)](https://chat.openai.com) used to help write the game instructions.
-- [Mermaid](https://mermaid.live/) live editor used for creating the flowchart.
-- [Code to Flowchart](https://codetoflow.com/) used for creating the UML class diagram and to help describe it.
+- [![Mermaid](https://img.shields.io/badge/Mermaid-grey?logo=mermaid&logoColor=FF3670)](https://mermaid.js.org/) used for creating the flowchart.
+- [![Code to Flowchart](https://img.shields.io/badge/Code_to_Flowchart-grey?&logoColor=2563EB)](https://codetoflow.com/) used for creating the UML class diagram and to help describe it.
 
 ## Project Structure and Requirements
 
 ### Flowchart
 
-To follow best practice, a flowchart was created for the app's logic and mapped out before coding began using the [Mermaid](https://mermaid.live/) live editor.
+To follow best practice, a flowchart was created for the app's logic and mapped out before coding began.
 
-Below is the flowchart of the main process of this Python program. For better readability the entire cycle of the program is mapped out in three subgraphs. The first subgraph (Screen) describes the start screen and plain text mode request. The second one (RunMenu) describes the part of the program which handles the main game menu up to the point where the game starts. Finally, the third subgraph (RunGame) describes the logic of the main game loop.
+Below is the [Mermaid](https://mermaid.js.org/) flowchart of the main process of this Python program. For better readability the entire cycle of the program is mapped out in three subgraphs. The first subgraph (Screen) describes the start screen and plain text mode request. The second one (RunMenu) describes the part of the program which handles the main game menu up to the point where the game starts. Finally, the third subgraph (RunGame) describes the logic of the main game loop.
 
 ```mermaid
 flowchart LR
