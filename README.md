@@ -102,7 +102,50 @@ To follow best practice, a flowchart was created for the app's logic and mapped 
 
 Below is the flowchart of the main process of this Python program. For better readability the entire cycle of the program is mapped out in three subgraphs. The first subgraph (Screen) describes the start screen and plain text mode request. The second one (RunMenu) describes the part of the program which handles the main game menu up to the point where the game starts. Finally, the third subgraph (RunGame) describes the logic of the main game loop.
 
-![screenshot](documentation/diagrams/flowchart.png)
+```mermaid
+flowchart LR
+subgraph Screen
+    A1[Start] --> B1[Initialize Screen]
+    B1 --> C1[Show Start Screen]
+    C1 --> D1{User Input for Plain Text Mode}
+    D1 -->|Yes| E1[Set Plain Text Mode]
+    D1 -->|No| F1[Show Ascii Art Logo]
+    E1 --> G1[Show Game Menu]
+    F1 --> G1
+end
+subgraph RunMenu
+    A2[Show Game Menu] --> B2{Menu Choice}
+    B2 -->|Play Game| C2[Choose Level]
+    B2 -->|Show Instructions| D2[Print Instructions]
+    D2 --> A2
+    B2 -->|Exit| E2[Exit Application]
+    C2 --> F2{Level Choice}
+    F2 -->|Easy| G2[Set Easy Level]
+    F2 -->|Classic| H2[Set Classic Level]
+    F2 -->|Hard| I2[Set Hard Level]
+    G2 --> J2[Run Game]
+    H2 --> J2
+    I2 --> J2
+end
+subgraph RunGame
+ A3[Run Game] --> B3[Create Secret Code]
+    B3 --> C3[Welcome Message]
+    C3 --> D3{Game Loop}
+    D3 --> E3[Display Guessing Information]
+    E3 --> F3{User Makes Guess}
+    F3 --> G3[Score Guess]
+    G3 --> H3[Show Board]
+    H3 --> I3{Check Win Condition}
+    I3 -->|Win| J3[Win Message]
+    I3 -->|No Win| K3{Check Max Rounds}
+    K3 -->|Reached| L3[Lose Message]
+    K3 -->|Not Reached| D3
+    J3 --> M3[Return to Game Menu]
+    L3 --> M3
+end
+    Screen --> RunMenu
+    RunMenu --> RunGame
+```
 
 ### OOP: Class Diagram
 
@@ -110,7 +153,7 @@ This project was developed using object oriented programming (OOP). The classes 
 
 I created the UML diagram using [Code to Flowchart](https://codetoflow.com/), which also helped with the descriptions below the diagram:
 
-![screenshot](documentation/diagrams/class-diagram.png)
+![Class diagram](documentation/diagrams/class-diagram.png)
 
 
 The main purpose of the classes used in this program are:
@@ -163,7 +206,6 @@ Deployment steps are as follows, after account setup:
 - Select **New** in the top-right corner of your Heroku Dashboard, and select **Create new app** from the dropdown menu.
 - Your app name must be unique, and then choose a region closest to you (EU or USA), and finally, select **Create App**.
 - From the new app **Settings**, click **Reveal Config Vars**, and set the value of KEY to `PORT`, and the value to `8000` then select *add*.
-- If using any confidential credentials, such as CREDS.JSON, then these should be pasted in the Config Variables as well.
 - Further down, to support dependencies, select **Add Buildpack**.
 - The order of the buildpacks is important, select `Python` first, then `Node.js` second (if they are not in this order, you can drag them to rearrange them).
 
@@ -212,8 +254,6 @@ This project can be cloned or forked in order to make a local copy on your own s
 For either method, you will need to install any applicable packages found within the *requirements.txt* file.
 
 - `pip3 install -r requirements.txt`.
-
-If using any confidential credentials, such as `CREDS.json` or `env.py` data, these will need to be manually added to your own newly created project as well.
 
 #### Cloning
 
